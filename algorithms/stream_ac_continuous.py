@@ -15,7 +15,26 @@ from paths import ensure_run_dirs, train_csv_path, eval_csv_path, returns_pkl_pa
 from evaluation.fixed_evaluator import evaluate_policy
 from logging_utils.csv_logger import CSVLogger
 
+"""
+Stream AC(λ) implementation for continuous control tasks.
 
+How to run:
+python -m algorithms.stream_ac_continuous \
+  --backend mujoco \
+  --env_name Hopper-v4 \
+  --seed 1 \
+  --total_steps 1000000
+
+
+How to plot:
+python -m evaluation.fixed_plot_results \
+    --env_name Hopper-v4 \
+    --backend mujoco \
+    --algo ac  \
+    --results_root results
+
+
+"""
 def initialize_weights(m):
     if isinstance(m, nn.Linear):
         sparse_init(m.weight, sparsity=0.9)

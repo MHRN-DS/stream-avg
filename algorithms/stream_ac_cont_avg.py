@@ -28,6 +28,8 @@ To run the algorithm, pass this in terminal:
   --use_avg \
   --use_penult_norm
 
+  Plotting: same as other AC Algorithm, but exchange algo name.
+
 """
 
 def initialize_weights(m):

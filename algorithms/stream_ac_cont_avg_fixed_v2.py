@@ -15,6 +15,7 @@ from paths import ensure_run_dirs, train_csv_path, eval_csv_path, returns_pkl_pa
 from evaluation.fixed_evaluator import evaluate_policy
 from logging_utils.csv_logger import CSVLogger
 
+# Testing:
 
 def initialize_weights(m):
     if isinstance(m, nn.Linear):
