@@ -409,7 +409,7 @@ class AVGBaseline(nn.Module):
         self.reward_scaler.update(raw_reward=reward)
         
         # STEP 2: Compute entropy-adjusted reward (UNSCALED)
-        # FAITHFUL TO AVG PAPER: r_ent = r - α * log_prob
+        # FAITHFUL TO AVG PAPER: r_ent = r - alpha * log_prob
         r_ent = reward - self.alpha * lprob.detach().item()
         self.G += r_ent
         
@@ -498,7 +498,7 @@ def main(args):
         "actor_lr": args.actor_lr,
         "critic_lr": args.critic_lr,
         "beta1": args.beta1,
-        "beta2": 0.999,
+        "beta2": 0.999, # need to be changed if we want to tune hyperparamters
         "gamma": args.gamma,
         "alpha_lr": args.alpha_lr,
         "nhid_actor": args.nhid_actor,
@@ -633,9 +633,9 @@ if __name__ == "__main__":
     # AVG defaults from uploaded avg.py
     parser.add_argument("--actor_lr", type=float, default=0.0063)
     parser.add_argument("--critic_lr", type=float, default=0.0087)
-    parser.add_argument("--beta1", type=float, default=0.0)
-    parser.add_argument("--gamma", type=float, default=0.99)
-    parser.add_argument("--alpha_lr", type=float, default=0.07)
+    parser.add_argument("--beta1", type=float, default=0.0) # change
+    parser.add_argument("--gamma", type=float, default=0.99) # change
+    parser.add_argument("--alpha_lr", type=float, default=0.07) # at first stick to it 
     parser.add_argument("--nhid_actor", type=int, default=256)
     parser.add_argument("--nhid_critic", type=int, default=256)
 
