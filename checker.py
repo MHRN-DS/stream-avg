@@ -1,3 +1,5 @@
+# NOTE; this is just a quick check to see if the environment works and returns reasonable rewards. IGNORE this file.
+
 import numpy as np
 from env_factory import make_train_env
 

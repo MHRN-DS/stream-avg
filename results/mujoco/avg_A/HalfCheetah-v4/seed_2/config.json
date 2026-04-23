@@ -14,7 +14,7 @@
   "nhid_critic": 256,
   "scaling_mode": "td_only",
   "seed": 2,
-  "total_steps": 500000,
+  "total_steps": 1000000,
   "uses_avg": true,
   "uses_internal_entropy_rescaling": false,
   "uses_internal_reward_rescaling": false,

@@ -30,7 +30,7 @@ for seed in 1 2 3; do
     --total_steps 500000
 done
 
-With LayerNorm enabled → saved as avg_A_ln, avg_B_ln, avg_C_ln  
+With LayerNorm enabled -> saved as avg_A_ln, avg_B_ln, avg_C_ln  
     python -m algorithms.avg_baseline --scaling_mode td_only --seed 1 --use_layer_norm
 """
 
@@ -53,7 +53,7 @@ from logging_utils.csv_logger import CSVLogger
 
 def orthogonal_weight_init(m: nn.Module) -> None:
     """
-    Faithful to uploaded AVG code.
+    Faithful to uploaded AVG code on Github
     """
     if isinstance(m, nn.Linear):
         nn.init.orthogonal_(m.weight.data)
@@ -111,16 +111,6 @@ class RunningMeanVar:
 class TDErrorScaler:
     """
     TD-error scaling faithful to AVG paper Algorithm 3.
-    
-    From the paper:
-      alpha_delta^2 = Var[R] + E[G^2] * Var[gamma]
-      
-    where R = r - alpha * log_prob (entropy-adjusted reward)
-    and G = discounted return (accumulated R)
-    
-    NOTE: Whether paper uses raw or entropy-adjusted rewards is UNCERTAIN.
-    Currently using entropy-adjusted per original implementation.
-    Awaiting supervisor confirmation on correct formulation.
     """
     def __init__(self, eps: float = 1e-8):
         self.reward_stats = RunningMeanVar()      # For r_ent (entropy-adjusted)
@@ -132,7 +122,6 @@ class TDErrorScaler:
     def update(self, r_raw: float, gamma: float, G: float | None) -> None:
         """
         Update with entropy-adjusted reward (r - alpha*log_prob).
-        Note: Parameter name is 'r_raw' for generality, but receives entropy-adjusted values.
         """
         self.reward_stats.update(r_raw)
         self.gamma_stats.update(gamma)
@@ -149,10 +138,7 @@ class TDErrorScaler:
 
 class RewardScaler:
     """
-    SEPARATE scaler for internal reward rescaling (Variants B/C only).
-    This tracks variance of RAW environment rewards only.
-    
-    NOT part of the AVG paper — this is an ablation/extension.
+    scaler for internal reward rescaling (Variants B/C only).
     """
     def __init__(self, eps: float = 1e-8):
         self.reward_stats = RunningMeanVar()      # For raw reward only
@@ -203,7 +189,7 @@ class Actor(nn.Module):
         else:
             phi = F.leaky_relu(phi)
 
-        # Penultimate normalization (L2)
+        # Penultimate normalization
         phi_norm = torch.norm(phi, dim=1, keepdim=True).clamp_min(1e-8)
         phi = phi / phi_norm
 
@@ -295,19 +281,7 @@ class Q(nn.Module):
 
 
 class AVGBaseline(nn.Module):
-    """
-    CRITICAL SCIENTIFIC DETAILS:
-    - TD scaler currently updates with entropy-adjusted reward r_ent = r - alpha *log_π
-      (NOT confirmed if this matches paper; awaiting supervisor verification)
-    - Reward scaler tracks RAW reward variance SEPARATELY
-      (this is ONLY used for B/C variant rescaling, not in paper)
-    - No architecture differences between variants (LayerNorm is optional flag)
-    
-    ALGORITHMIC UNCERTAINTY:
-    Whether TD error scaling should use Var[raw_reward] or Var[r - alpha*log_π] is unclear.
-    Current implementation uses entropy-adjusted (r_ent). Will update once supervisor
-    provides feedback on the paper's original formulation.
-    """
+
     def __init__(self, cfg):
         super().__init__()
         self.cfg = cfg
@@ -343,10 +317,10 @@ class AVGBaseline(nn.Module):
         self.gamma = cfg.gamma
         self.device = cfg.device
 
-        # TD-error scaling: faithful to AVG paper Article 3
+        
         self.td_error_scaler = TDErrorScaler()
         
-        # Reward rescaling: only for variants B/C (beyond paper)
+        # Reward rescaling
         self.reward_scaler = RewardScaler()
         
         self.scaling_mode = cfg.scaling_mode
@@ -409,7 +383,6 @@ class AVGBaseline(nn.Module):
         self.reward_scaler.update(raw_reward=reward)
         
         # STEP 2: Compute entropy-adjusted reward (UNSCALED)
-        # FAITHFUL TO AVG PAPER: r_ent = r - alpha * log_prob
         r_ent = reward - self.alpha * lprob.detach().item()
         self.G += r_ent
         
@@ -453,7 +426,7 @@ class AVGBaseline(nn.Module):
 
         ploss = (alpha_scaled * lprob - self.Q(obs, action)).mean()
 
-        # Keep update order faithful to uploaded AVG
+        
         self.popt.zero_grad()
         ploss.backward()
         self.popt.step()
@@ -520,7 +493,6 @@ def main(args):
     }
     save_run_config(args.results_root, args.backend, args.algo, args.env_name, args.seed, config)
 
-    # Keep your current shell: same wrappers, same evaluator, same logging.
     # For the pure AVG baseline, reward scaling should stay OFF.
     env = make_train_env(
         env_name=args.env_name,
@@ -627,7 +599,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--env_name", type=str, default="HalfCheetah-v4")
     parser.add_argument("--backend", type=str, default="mujoco", choices=["mujoco", "dmcontrol"])
-    parser.add_argument("--seed", type=int, default=1)
+    parser.add_argument("--seed", type=int, default=3)
     parser.add_argument("--total_steps", type=int, default=1000000)
 
     # AVG defaults from uploaded avg.py

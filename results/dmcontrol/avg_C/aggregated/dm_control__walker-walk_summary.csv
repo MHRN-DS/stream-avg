@@ -1,0 +1,2 @@
+environment,final_step,final_mean_eval_return,final_std_eval_return,final_ci95_low,final_ci95_high
+dm_control/walker-walk,1000000,193.24046409341986,93.64704872365235,87.26885246616708,299.21207572067266

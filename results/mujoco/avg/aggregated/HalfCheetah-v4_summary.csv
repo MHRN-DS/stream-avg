@@ -1,2 +1,0 @@
-environment,final_step,final_mean_eval_return,final_std_eval_return,final_ci95_low,final_ci95_high
-HalfCheetah-v4,1000000,1419.9963600421804,2679.286886132675,-1611.9021696498905,4451.894889734252

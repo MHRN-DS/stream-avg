@@ -166,14 +166,14 @@ def main():
     plot_curve(
         eval_agg,
         ylabel="Evaluation Return",
-        title=f"Evaluation: Stream AC(lambda) on {args.env_name}",
+        title=f"Evaluation: AVG with TD-Error Scaling + LN + RS + Eta Scaling on {args.env_name}",
         outfile=os.path.join(fig_dir, f"{safe_env_name}_eval_plot.png"),
         smooth_window=1,
     )
     plot_curve(
         train_agg,
         ylabel="Training Episode Return",
-        title=f"Training: Stream AC(lambda) on {args.env_name}",
+        title=f"Training: AVG with TD-Error Scaling + LN + RS + Eta Scaling on {args.env_name}",
         outfile=os.path.join(fig_dir, f"{safe_env_name}_train_plot.png"),
         smooth_window=3,
     )
