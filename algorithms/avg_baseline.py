@@ -39,17 +39,43 @@ import json
 import os
 import pickle
 from pathlib import Path
-
+#from env_factory import make_train_env, make_eval_env
+from evaluation.avg_evaluator import evaluate_policy_avg
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.distributions import MultivariateNormal
-
-from env_factory import make_train_env
+import gymnasium as gym
+from gymnasium.wrappers import NormalizeObservation, ClipAction
 from paths import ensure_run_dirs, train_csv_path, eval_csv_path, returns_pkl_path
 from evaluation.fixed_evaluator import evaluate_policy
 from logging_utils.csv_logger import CSVLogger
+
+
+# helper functions for environment creation and wrapping, which are used both in training and evaluation to ensure consistent normalization and time info handling.
+def _canonical_dmcontrol_name(env_name: str) -> str:
+    if env_name.startswith("dm_control/"):
+        return env_name
+    return f"dm_control/{env_name}"
+
+
+def make_avg_env(env_name: str, backend: str, render: bool = False):
+    if backend == "dmcontrol":
+        env_name = _canonical_dmcontrol_name(env_name)
+
+    kwargs = {}
+    if render:
+        kwargs["render_mode"] = "human"
+
+    env = gym.make(env_name, **kwargs)
+    env = gym.wrappers.FlattenObservation(env)
+    env = gym.wrappers.NormalizeObservation(env)
+    env = gym.wrappers.ClipAction(env)
+    return env
+
+#---------
+
 
 def orthogonal_weight_init(m: nn.Module) -> None:
     """
@@ -163,6 +189,7 @@ class Actor(nn.Module):
 
         self.fc1 = nn.Linear(obs_dim, n_hid)
         self.fc2 = nn.Linear(n_hid, n_hid)
+
         if use_layer_norm:
             self.ln1 = nn.LayerNorm(n_hid)
             self.ln2 = nn.LayerNorm(n_hid)
@@ -178,6 +205,7 @@ class Actor(nn.Module):
 
         x = obs.to(self.device)
         phi = self.fc1(x)
+
         if self.use_layer_norm:
             phi = F.leaky_relu(self.ln1(phi))
         else:
@@ -493,13 +521,14 @@ def main(args):
     }
     save_run_config(args.results_root, args.backend, args.algo, args.env_name, args.seed, config)
 
-    # For the pure AVG baseline, reward scaling should stay OFF.
-    env = make_train_env(
+    # Create environment with consistent normalization and time info handling for both training and evaluation
+    env = make_avg_env(
         env_name=args.env_name,
         backend=args.backend,
-        gamma=args.gamma,
+        #gamma=args.gamma,
         render=args.render,
-        use_reward_scaling=False,
+        #use_reward_scaling =False, 
+        #use_time_info =False, 
     )
 
     # Reproducibility
@@ -507,6 +536,7 @@ def main(args):
     env.action_space.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
+
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(args.seed)
 
@@ -549,8 +579,8 @@ def main(args):
         ret += reward
         obs = next_obs
 
-        if t % args.eval_interval == 0:
-            eval_mean, eval_std = evaluate_policy(
+        if args.eval_interval > 0 and t % args.eval_interval == 0:
+            eval_mean, eval_std = evaluate_policy_avg(
                 agent=agent,
                 env_name=args.env_name,
                 backend=args.backend,
@@ -569,7 +599,7 @@ def main(args):
 
         if done:
             # Keep project's logging convention
-            episode_return = float(np.asarray(info["episode"]["r"]).item())
+            episode_return = float(ret)
             returns.append(episode_return)
             term_steps.append(t)
 

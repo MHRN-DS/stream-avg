@@ -6,3 +6,5 @@ mujoco==2.3.7
 matplotlib==3.8.4
 pandas==2.2.2
 seaborn==0.13.2
+tyro==0.8.14
+shimmy[dm-control]==1.3.0

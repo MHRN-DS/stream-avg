@@ -20,10 +20,10 @@ Stream AC(λ) implementation for continuous control tasks.
 
 How to run:
 python -m algorithms.stream_ac_continuous \
-  --backend mujoco \
-  --env_name Hopper-v4 \
+  --backend dmcontrol \
+  --env_name finger-spin-v0 \
   --seed 1 \
-  --total_steps 1000000
+  --total_steps 500000
 
 
 How to plot:
@@ -267,6 +267,7 @@ def main(
                 train_env=env,
                 episodes=eval_episodes,
                 seed=seed,
+                eval_action_mode="mean",
             )
 
             eval_logger.log({

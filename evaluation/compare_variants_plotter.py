@@ -7,6 +7,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+"""
+How to run: 
+python compare_variants_plotter.py \
+  --env_name <ENV_NAME> \
+  --backend <mujoco_or_dmcontrol> \
+  --variants \
+    <baseline folder name >= "AVG (TD-scaling)" \
+    <folder name >= "A + LayerNorm" \
+    <other folder name >= "B + LayerNorm" \
+    <other folder name >= "C + LayerNorm" \
+  --results_root results \
+  --output_tag avg_consolidated
+"""
 
 try:
     from paths import figures_dir, aggregated_dir, sanitize_name  # type: ignore
