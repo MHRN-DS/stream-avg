@@ -3,6 +3,7 @@ import torch
 import numpy as np
 
 from dm_control import suite
+from gymnasium.envs.registration import EnvSpec
 from gymnasium.spaces import Box
 from gymnasium.core import Env
 
@@ -12,6 +13,9 @@ class DMControl(Env):
         self.env = suite.load(domain_name=domain, task_name=task)
         self.domain = domain
         self.task = task
+        self.num_envs = 1
+        self.is_vector_env = False
+        self.spec = EnvSpec(id=f"dm_control/{domain}-{task}-v0", max_episode_steps=1000)
         
         self.rgb_array = kwargs.get('render_mode', '') == "rgb_array"
             

@@ -1,20 +1,14 @@
-import gymnasium as gym
-
 from fixed_normalization_wrappers import NormalizeObservation, ScaleReward
 from time_wrapper import AddTimeInfo
 
 import gymnasium as gym
 
-try:
-    import shimmy  # needed to register DM Control envs
-except ImportError:
-    shimmy = None
-
-def _canonical_dmcontrol_name(env_name: str) -> str:
-    # allow both: finger-spin-v0 and dm_control/finger-spin-v0
-    if env_name.startswith("dm_control/"):
-        return env_name
-    return f"dm_control/{env_name}"
+def _parse_dmcontrol_name(env_name: str) -> tuple[str, str]:
+    # allow: finger-spin-v0, dm_control/finger-spin-v0, dm_control__finger-spin-v0
+    task_name = env_name.replace("dm_control/", "").replace("dm_control__", "")
+    task_name = task_name.removesuffix("-v0")
+    domain, task = task_name.split("-", 1)
+    return domain, task
 
 def make_base_env(env_name: str, backend: str, render: bool = False):
     render_mode = "human" if render else None
@@ -23,10 +17,10 @@ def make_base_env(env_name: str, backend: str, render: bool = False):
         raise ValueError(f"Unsupported backend: {backend}")
 
     if backend == "dmcontrol":
-        if shimmy is None:
-            raise ValueError("DM Control backend requires shimmy. Install with: pip install 'shimmy[dm-control]'")
-        
-        env_name = _canonical_dmcontrol_name(env_name)
+        from incremental_rl.envs.dm_control_wrapper import DMControl
+
+        domain, task = _parse_dmcontrol_name(env_name)
+        return DMControl(domain=domain, task=task, render_mode=render_mode)
 
     kwargs = {}
     if render_mode is not None:
@@ -79,8 +73,6 @@ def make_train_env(
 def make_eval_env(env_name: str, backend: str, use_time_info: bool = True):
     env = make_base_env(env_name, backend, render=False)
     return wrap_eval_env(env, use_time_info=use_time_info)
-
-
 
 
 

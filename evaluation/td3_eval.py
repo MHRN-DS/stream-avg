@@ -5,18 +5,6 @@ import torch
 import torch.nn as nn
 
 
-def _hf_hub_download(*args, **kwargs):
-    try:
-        from huggingface_hub import hf_hub_download
-    except ImportError as exc:
-        raise ImportError(
-            "td3_eval.py needs the optional 'huggingface_hub' package to download "
-            "models from Hugging Face. Install it with: pip install huggingface-hub"
-        ) from exc
-
-    return hf_hub_download(*args, **kwargs)
-
-
 def evaluate(
     model_path: str,
     make_env: Callable,
@@ -62,9 +50,11 @@ def evaluate(
 
 
 if __name__ == "__main__":
-    from cleanrl.td3_continuous_action import Actor, QNetwork, make_env
+    from huggingface_hub import hf_hub_download
 
-    model_path = _hf_hub_download(
+    from algorithms.td3_baseline import Actor, QNetwork, make_env
+
+    model_path = hf_hub_download(
         repo_id="cleanrl/HalfCheetah-v4-td3_continuous_action-seed1", filename="td3_continuous_action.cleanrl_model"
     )
     evaluate(

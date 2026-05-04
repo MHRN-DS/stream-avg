@@ -224,6 +224,19 @@ def scalar(value) -> float:
     return float(np.asarray(value).item())
 
 
+def find_finite_box_action_space(env: gym.Env) -> gym.spaces.Box:
+    current = env
+    while current is not None:
+        action_space = getattr(current, "action_space", None)
+        if isinstance(action_space, gym.spaces.Box):
+            low = np.asarray(action_space.low)
+            high = np.asarray(action_space.high)
+            if np.all(np.isfinite(low)) and np.all(np.isfinite(high)):
+                return action_space
+        current = getattr(current, "env", None)
+    raise ValueError("TD3 requires a finite Box action space inside the environment wrappers.")
+
+
 def save_run_config(args: Args, device: torch.device) -> None:
     run_path = ensure_run_dirs(args.results_root, args.backend, args.algo, args.env_name, args.seed)
     config = asdict(args)
@@ -293,11 +306,12 @@ def train(args: Args) -> None:
         use_reward_scaling=args.use_reward_scaling,
         use_time_info=args.use_time_info,
     )
-    env.action_space.seed(args.seed)
+    finite_action_space = find_finite_box_action_space(env)
+    finite_action_space.seed(args.seed)
 
     obs_dim = int(np.prod(env.observation_space.shape))
-    action_dim = int(np.prod(env.action_space.shape))
-    agent = TD3Agent(obs_dim, env.action_space, args.hidden_size, device)
+    action_dim = int(np.prod(finite_action_space.shape))
+    agent = TD3Agent(obs_dim, finite_action_space, args.hidden_size, device)
     actor_optimizer = optim.Adam(agent.actor.parameters(), lr=args.learning_rate)
     q_optimizer = optim.Adam(list(agent.qf1.parameters()) + list(agent.qf2.parameters()), lr=args.learning_rate)
     replay = ReplayBuffer(obs_dim, action_dim, args.buffer_size, device)
@@ -311,7 +325,7 @@ def train(args: Args) -> None:
     try:
         for global_step in range(1, args.total_timesteps + 1):
             if global_step <= args.learning_starts:
-                action = env.action_space.sample()
+                action = finite_action_space.sample()
             else:
                 action = agent.select_action(obs)
                 noise = np.random.normal(
@@ -319,7 +333,7 @@ def train(args: Args) -> None:
                     scale=agent.actor.action_scale.detach().cpu().numpy() * args.exploration_noise,
                     size=action_dim,
                 )
-                action = np.clip(action + noise, env.action_space.low, env.action_space.high)
+                action = np.clip(action + noise, finite_action_space.low, finite_action_space.high)
 
             next_obs, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated

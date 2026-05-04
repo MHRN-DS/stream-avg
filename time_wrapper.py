@@ -7,10 +7,12 @@ class AddTimeInfo(gym.core.Wrapper):
         if self.env.num_envs > 1:
             raise ValueError("AddTimeInfo only supports single environments")
         self.epi_time = -0.5
-        if 'dm_control' in env.spec.id:
+        spec = getattr(env, "spec", None)
+        spec_id = "" if spec is None else getattr(spec, "id", "")
+        if 'dm_control' in spec_id or spec is None:
             self.time_limit = 1000
         else:
-            self.time_limit = env.spec.max_episode_steps
+            self.time_limit = spec.max_episode_steps
         self.obs_space_size = self.observation_space.shape[0] + self.env.num_envs
         self.observation_space = gym.spaces.Box(low=-np.inf, high=np.inf, shape=(self.obs_space_size,), dtype=np.float32)
         if not (isinstance(self.action_space, gym.spaces.Box) or isinstance(self.action_space, gym.spaces.Discrete)):
