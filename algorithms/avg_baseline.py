@@ -48,6 +48,7 @@ import torch.nn.functional as F
 from torch.distributions import MultivariateNormal
 import gymnasium as gym
 from gymnasium.wrappers import NormalizeObservation, ClipAction
+from incremental_rl.envs.dm_control_wrapper import DMControl
 from paths import ensure_run_dirs, train_csv_path, eval_csv_path, returns_pkl_path
 from evaluation.fixed_evaluator import evaluate_policy
 from logging_utils.csv_logger import CSVLogger
@@ -60,15 +61,27 @@ def _canonical_dmcontrol_name(env_name: str) -> str:
     return f"dm_control/{env_name}"
 
 
+def _parse_dmcontrol_name(env_name: str) -> tuple[str, str]:
+    task_name = env_name.replace("dm_control/", "").replace("dm_control__", "")
+    task_name = task_name.removesuffix("-v0")
+    domain, task = task_name.split("-", 1)
+    return domain, task
+
+
 def make_avg_env(env_name: str, backend: str, render: bool = False):
     if backend == "dmcontrol":
-        env_name = _canonical_dmcontrol_name(env_name)
+        domain, task = _parse_dmcontrol_name(env_name)
+        env = DMControl(
+            domain=domain,
+            task=task,
+            render_mode="human" if render else None,
+        )
+    else:
+        kwargs = {}
+        if render:
+            kwargs["render_mode"] = "human"
+        env = gym.make(env_name, **kwargs)
 
-    kwargs = {}
-    if render:
-        kwargs["render_mode"] = "human"
-
-    env = gym.make(env_name, **kwargs)
     env = gym.wrappers.FlattenObservation(env)
     env = gym.wrappers.NormalizeObservation(env)
     env = gym.wrappers.ClipAction(env)
@@ -180,10 +193,19 @@ class RewardScaler:
 
 
 class Actor(nn.Module):
-    def __init__(self, obs_dim: int, action_dim: int, device: torch.device, n_hid: int, use_layer_norm: bool = False):
+    def __init__(
+        self,
+        obs_dim: int,
+        action_dim: int,
+        device: torch.device,
+        n_hid: int,
+        use_layer_norm: bool = False,
+        action_distribution: str = "tanh_normal",
+    ):
         super().__init__()
         self.device = device
         self.use_layer_norm = use_layer_norm
+        self.action_distribution = action_distribution
         self.LOG_STD_MAX = 2.0
         self.LOG_STD_MIN = -20.0
 
@@ -225,14 +247,18 @@ class Actor(nn.Module):
         log_std = self.log_std(phi)
         log_std = torch.clamp(log_std, self.LOG_STD_MIN, self.LOG_STD_MAX)
 
-        dist = MultivariateNormal(mu, torch.diag_embed(log_std.exp()))
+        dist = MultivariateNormal(mu, scale_tril=torch.diag_embed(log_std.exp()))
 
         action_pre = dist.rsample()
         lprob = dist.log_prob(action_pre)
 
-        lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
-
-        action = torch.tanh(action_pre)
+        if self.action_distribution == "tanh_normal":
+            lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
+            action = torch.tanh(action_pre)
+        elif self.action_distribution == "clipped_normal":
+            action = torch.clamp(action_pre, -1.0, 1.0)
+        else:
+            raise ValueError(f"Unknown action_distribution: {self.action_distribution}")
 
         action_info = {
             "mu": mu,
@@ -263,7 +289,11 @@ class Actor(nn.Module):
         phi_norm = torch.norm(phi, dim=1, keepdim=True).clamp_min(1e-8)
         phi = phi / phi_norm
         mu = self.mu(phi)
-        return torch.tanh(mu)
+        if self.action_distribution == "tanh_normal":
+            return torch.tanh(mu)
+        if self.action_distribution == "clipped_normal":
+            return torch.clamp(mu, -1.0, 1.0)
+        raise ValueError(f"Unknown action_distribution: {self.action_distribution}")
 
 
 class Q(nn.Module):
@@ -321,6 +351,7 @@ class AVGBaseline(nn.Module):
             device=cfg.device,
             n_hid=cfg.nhid_actor,
             use_layer_norm=cfg.use_layer_norm,
+            action_distribution=getattr(cfg, "action_distribution", "tanh_normal"),
         )
         self.Q = Q(
             obs_dim=cfg.obs_dim,
@@ -391,8 +422,12 @@ class AVGBaseline(nn.Module):
         log_std = torch.clamp(log_std, self.actor.LOG_STD_MIN, self.actor.LOG_STD_MAX)
         std = log_std.exp()
 
-        # Return deterministic action (tanh of mean) and std
-        mu_squashed = torch.tanh(mu)
+        if self.actor.action_distribution == "tanh_normal":
+            mu_squashed = torch.tanh(mu)
+        elif self.actor.action_distribution == "clipped_normal":
+            mu_squashed = torch.clamp(mu, -1.0, 1.0)
+        else:
+            raise ValueError(f"Unknown action_distribution: {self.actor.action_distribution}")
 
         if mu_squashed.shape[0] == 1:
             return mu_squashed.squeeze(0), std.squeeze(0)
@@ -506,9 +541,11 @@ def main(args):
         "nhid_critic": args.nhid_critic,
         "eval_interval": args.eval_interval,
         "eval_episodes": args.eval_episodes,
+        "eval_action_mode": getattr(args, "eval_action_mode", "sample"),
         "uses_avg": True,
         "uses_q_critic": True,
         "uses_reparam_actor": True,
+        "action_distribution": getattr(args, "action_distribution", "tanh_normal"),
         "uses_penult_norm": True,
         "uses_td_scaling": True,
         "uses_layer_norm": args.use_layer_norm,
@@ -587,6 +624,7 @@ def main(args):
                 train_env=env,
                 episodes=args.eval_episodes,
                 seed=args.seed,
+                eval_action_mode=getattr(args, "eval_action_mode", "sample"),
             )
             eval_logger.log(
                 {
@@ -654,10 +692,18 @@ if __name__ == "__main__":
         action="store_true",
         help="Enable LayerNorm in hidden layers (not in vanilla AVG)"
     )
+    parser.add_argument(
+        "--action_distribution",
+        type=str,
+        default="tanh_normal",
+        choices=["tanh_normal", "clipped_normal"],
+        help="AVG policy action transform. tanh_normal is the original path; clipped_normal improves sparse DMControl finger-spin exploration.",
+    )
 
     # Thesis shell settings
     parser.add_argument("--eval_interval", type=int, default=10000)
     parser.add_argument("--eval_episodes", type=int, default=10)
+    parser.add_argument("--eval_action_mode", type=str, default="sample", choices=["sample", "mean"])
     parser.add_argument("--results_root", type=str, default="results")
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--device", type=str, default="cpu")
@@ -676,5 +722,7 @@ if __name__ == "__main__":
     mode_names = {"td_only": "A", "td_reward": "B", "td_reward_entropy": "C"}
     base_algo = f"avg_{mode_names[args.scaling_mode]}"
     args.algo = f"{base_algo}_ln" if args.use_layer_norm else base_algo
+    if args.action_distribution == "clipped_normal":
+        args.algo = f"{args.algo}_clip"
 
     main(args)

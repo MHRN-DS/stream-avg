@@ -7,10 +7,16 @@ from incremental_rl.envs.dm_control_wrapper import DMControl
 from incremental_rl.envs.gymnasium_wrapper import GymnasiumWrapper
 
 
+def _parse_dmcontrol_name(env_name: str) -> tuple[str, str]:
+    task_name = env_name.replace("dm_control/", "").replace("dm_control__", "")
+    task_name = task_name.removesuffix("-v0")
+    domain, task = task_name.split("-", 1)
+    return domain, task
+
+
 def make_avg_eval_env(env_name: str, backend: str, seed: int = 0, render: bool = False):
     if backend == "dmcontrol":
-        task_name = env_name.replace("-v0", "")
-        domain, task = task_name.split("-", 1)
+        domain, task = _parse_dmcontrol_name(env_name)
         base_env = DMControl(
             domain=domain,
             task=task,
@@ -35,7 +41,15 @@ def find_gym_norm_wrapper(env):
 
 
 @torch.no_grad()
-def evaluate_policy_avg(agent, env_name, backend, train_env, episodes=10, seed=0):
+def evaluate_policy_avg(
+    agent,
+    env_name,
+    backend,
+    train_env,
+    episodes=10,
+    seed=0,
+    eval_action_mode="sample",
+):
     returns = []
     eval_env = make_avg_eval_env(env_name=env_name, backend=backend, seed=seed, render=False)
 
@@ -51,6 +65,9 @@ def evaluate_policy_avg(agent, env_name, backend, train_env, episodes=10, seed=0
     eval_norm.update_running_mean = False
 
     was_training = agent.training
+    np_rng_state = np.random.get_state()
+    torch_rng_state = torch.random.get_rng_state()
+    cuda_rng_state = torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None
     agent.eval()
 
     try:
@@ -60,8 +77,14 @@ def evaluate_policy_avg(agent, env_name, backend, train_env, episodes=10, seed=0
             ep_return = 0.0
 
             while not done:
-                x = torch.tensor(obs.astype(np.float32)).unsqueeze(0).to(agent.device)
-                action = agent.actor.mean_action(x).detach().cpu().view(-1).numpy()
+                if eval_action_mode == "mean":
+                    x = torch.tensor(obs.astype(np.float32)).unsqueeze(0).to(agent.device)
+                    action = agent.actor.mean_action(x).detach().cpu().view(-1).numpy()
+                elif eval_action_mode == "sample":
+                    action_t, _ = agent.compute_action(obs)
+                    action = action_t.detach().cpu().view(-1).numpy()
+                else:
+                    raise ValueError(f"Unknown eval_action_mode: {eval_action_mode}")
 
                 low = eval_env.action_space.low
                 high = eval_env.action_space.high
@@ -74,6 +97,10 @@ def evaluate_policy_avg(agent, env_name, backend, train_env, episodes=10, seed=0
 
             returns.append(ep_return)
     finally:
+        np.random.set_state(np_rng_state)
+        torch.random.set_rng_state(torch_rng_state)
+        if cuda_rng_state is not None:
+            torch.cuda.set_rng_state_all(cuda_rng_state)
         if was_training:
             agent.train()
         eval_env.close()

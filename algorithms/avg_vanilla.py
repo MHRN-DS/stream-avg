@@ -39,10 +39,16 @@ def save_run_config(results_root, backend, algo, env_name, seed, config):
         json.dump(config, f, indent=2, sort_keys=True)
 
 
+def _parse_dmcontrol_name(env_name: str) -> tuple[str, str]:
+    task_name = env_name.replace("dm_control/", "").replace("dm_control__", "")
+    task_name = task_name.removesuffix("-v0")
+    domain, task = task_name.split("-", 1)
+    return domain, task
+
+
 def make_avg_env(env_name: str, backend: str, seed: int = 0, render: bool = False):
     if backend == "dmcontrol":
-        task_name = env_name.replace("-v0", "")
-        domain, task = task_name.split("-", 1)
+        domain, task = _parse_dmcontrol_name(env_name)
         base_env = DMControl(
             domain=domain,
             task=task,
@@ -58,9 +64,10 @@ def make_avg_env(env_name: str, backend: str, seed: int = 0, render: bool = Fals
 
 
 class Actor(nn.Module):
-    def __init__(self, obs_dim, action_dim, device, n_hid):
+    def __init__(self, obs_dim, action_dim, device, n_hid, action_distribution="tanh_normal"):
         super().__init__()
         self.device = device
+        self.action_distribution = action_distribution
         self.LOG_STD_MAX = 2
         self.LOG_STD_MIN = -20
 
@@ -84,12 +91,18 @@ class Actor(nn.Module):
         log_std = self.log_std(phi)
         log_std = torch.clamp(log_std, self.LOG_STD_MIN, self.LOG_STD_MAX)
 
-        dist = MultivariateNormal(mu, torch.diag_embed(log_std.exp()))
+        dist = MultivariateNormal(mu, scale_tril=torch.diag_embed(log_std.exp()))
         action_pre = dist.rsample()
         lprob = dist.log_prob(action_pre)
-        lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
 
-        action = torch.tanh(action_pre)
+        if self.action_distribution == "tanh_normal":
+            lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
+            action = torch.tanh(action_pre)
+        elif self.action_distribution == "clipped_normal":
+            action = torch.clamp(action_pre, -1.0, 1.0)
+        else:
+            raise ValueError(f"Unknown action_distribution: {self.action_distribution}")
+
         action_info = {
             "mu": mu,
             "log_std": log_std,
@@ -103,7 +116,11 @@ class Actor(nn.Module):
         phi = self.phi(obs.to(self.device))
         phi = phi / torch.norm(phi, dim=1, keepdim=True).clamp_min(1e-8)
         mu = self.mu(phi)
-        return torch.tanh(mu)
+        if self.action_distribution == "tanh_normal":
+            return torch.tanh(mu)
+        if self.action_distribution == "clipped_normal":
+            return torch.clamp(mu, -1.0, 1.0)
+        raise ValueError(f"Unknown action_distribution: {self.action_distribution}")
 
 
 class Q(nn.Module):
@@ -135,7 +152,13 @@ class AVG(nn.Module):
         self.cfg = cfg
         self.steps = 0
 
-        self.actor = Actor(cfg.obs_dim, cfg.action_dim, cfg.device, cfg.nhid_actor)
+        self.actor = Actor(
+            cfg.obs_dim,
+            cfg.action_dim,
+            cfg.device,
+            cfg.nhid_actor,
+            action_distribution=getattr(cfg, "action_distribution", "tanh_normal"),
+        )
         self.Q = Q(cfg.obs_dim, cfg.action_dim, cfg.device, cfg.nhid_critic)
 
         self.popt = torch.optim.Adam(self.actor.parameters(), lr=cfg.actor_lr, betas=cfg.betas)
@@ -219,9 +242,11 @@ def main(args):
         "nhid_critic": args.nhid_critic,
         "eval_interval": args.eval_interval,
         "eval_episodes": args.eval_episodes,
+        "eval_action_mode": getattr(args, "eval_action_mode", "sample"),
         "uses_avg": True,
         "uses_q_critic": True,
         "uses_reparam_actor": True,
+        "action_distribution": getattr(args, "action_distribution", "tanh_normal"),
         "uses_penult_norm": True,
         "uses_td_scaling": True,
         "uses_obs_norm": True,
@@ -284,6 +309,7 @@ def main(args):
                 train_env=env,
                 episodes=args.eval_episodes,
                 seed=args.seed,
+                eval_action_mode=getattr(args, "eval_action_mode", "sample"),
             )
             eval_logger.log(
                 {
@@ -334,9 +360,16 @@ if __name__ == "__main__":
     parser.add_argument("--alpha_lr", type=float, default=0.07)
     parser.add_argument("--nhid_actor", type=int, default=256)
     parser.add_argument("--nhid_critic", type=int, default=256)
+    parser.add_argument(
+        "--action_distribution",
+        type=str,
+        default="tanh_normal",
+        choices=["tanh_normal", "clipped_normal"],
+    )
 
     parser.add_argument("--eval_interval", type=int, default=10000)
     parser.add_argument("--eval_episodes", type=int, default=10)
+    parser.add_argument("--eval_action_mode", type=str, default="sample", choices=["sample", "mean"])
     parser.add_argument("--results_root", type=str, default="results")
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--device", type=str, default="cpu")
@@ -349,5 +382,5 @@ if __name__ == "__main__":
     else:
         args.device = torch.device("cpu")
 
-    args.algo = "avg_vanilla"
+    args.algo = "avg_vanilla_clip" if args.action_distribution == "clipped_normal" else "avg_vanilla"
     main(args)

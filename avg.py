@@ -9,8 +9,12 @@ import torch.nn.functional as F
 from torch.distributions import MultivariateNormal
 from gymnasium.wrappers import NormalizeObservation, ClipAction
 from datetime import datetime
-from incremental_rl.experiment_tracker import record_video
 from incremental_rl.td_error_scaler import TDErrorScaler
+
+try:
+    from incremental_rl.experiment_tracker import record_video
+except ImportError:
+    record_video = None
 
 
 def orthogonal_weight_init(m):
@@ -42,9 +46,10 @@ def set_one_thread():
 
 class Actor(nn.Module):
     """ Continous MLP Actor for Soft Actor-Critic """
-    def __init__(self, obs_dim, action_dim, device, n_hid):
+    def __init__(self, obs_dim, action_dim, device, n_hid, action_distribution="tanh_normal"):
         super(Actor, self).__init__()
         self.device = device
+        self.action_distribution = action_distribution
         self.LOG_STD_MAX = 2
         self.LOG_STD_MIN = -20
 
@@ -69,14 +74,19 @@ class Actor(nn.Module):
         log_std = self.log_std(phi)
         log_std = torch.clamp(log_std, self.LOG_STD_MIN, self.LOG_STD_MAX)
 
-        dist = MultivariateNormal(mu, torch.diag_embed(log_std.exp()))        
+        dist = MultivariateNormal(mu, scale_tril=torch.diag_embed(log_std.exp()))        
         action_pre = dist.rsample()
         lprob = dist.log_prob(action_pre)
-        lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
-        
-        # N.B: Tanh must be applied _only_ after lprob estimation of dist sampled action!! 
-        #   A mistake here can break learning :/ 
-        action = torch.tanh(action_pre)
+
+        if self.action_distribution == "tanh_normal":
+            lprob -= (2 * (np.log(2) - action_pre - F.softplus(-2 * action_pre))).sum(axis=1)
+            # N.B: Tanh must be applied _only_ after lprob estimation of dist sampled action!!
+            action = torch.tanh(action_pre)
+        elif self.action_distribution == "clipped_normal":
+            action = torch.clamp(action_pre, -1.0, 1.0)
+        else:
+            raise ValueError(f"Unknown action_distribution: {self.action_distribution}")
+
         action_info = {'mu': mu, 'log_std': log_std, 'dist': dist, 'lprob': lprob, 'action_pre': action_pre}
 
         return action, action_info
@@ -110,7 +120,13 @@ class AVG:
         self.cfg = cfg
         self.steps = 0  
         
-        self.actor = Actor(obs_dim=cfg.obs_dim, action_dim=cfg.action_dim, device=cfg.device, n_hid=cfg.nhid_actor)
+        self.actor = Actor(
+            obs_dim=cfg.obs_dim,
+            action_dim=cfg.action_dim,
+            device=cfg.device,
+            n_hid=cfg.nhid_actor,
+            action_distribution=getattr(cfg, "action_distribution", "tanh_normal"),
+        )
         self.Q = Q(obs_dim=cfg.obs_dim, action_dim=cfg.action_dim, device=cfg.device, n_hid=cfg.nhid_critic)
         
         self.popt = torch.optim.Adam(self.actor.parameters(), lr=cfg.actor_lr, betas=cfg.betas)
@@ -251,6 +267,8 @@ def main(args):
     
     # Eval
     if args.n_eval:
+        if record_video is None:
+            raise RuntimeError("Video evaluation requested, but incremental_rl.experiment_tracker is unavailable.")
         record_video(env, agent, num_episodes=args.n_eval, video_filename=f"{args.results_dir}/{run_id}.avi")
 
     return ep_steps, rets
@@ -271,6 +289,7 @@ if __name__ == "__main__":
     parser.add_argument('--l2_critic', default=0, type=float, help="L2 Regularization")    
     parser.add_argument('--nhid_actor', default=256, type=int)
     parser.add_argument('--nhid_critic', default=256, type=int)
+    parser.add_argument('--action_distribution', default="tanh_normal", choices=["tanh_normal", "clipped_normal"], type=str)
     # Miscellaneous
     parser.add_argument('--checkpoint', default=50000, type=int, help="Save plots and rets every checkpoint")
     parser.add_argument('--results_dir', default="./results", type=str, help="Location to store results")
