@@ -422,8 +422,12 @@ class AVGBaseline(nn.Module):
         log_std = torch.clamp(log_std, self.actor.LOG_STD_MIN, self.actor.LOG_STD_MAX)
         std = log_std.exp()
 
+
+
+        # decision if we use tanh or clipped normal for evaluation mean action, to match the distribution used during training
         if self.actor.action_distribution == "tanh_normal":
             mu_squashed = torch.tanh(mu)
+            
         elif self.actor.action_distribution == "clipped_normal":
             mu_squashed = torch.clamp(mu, -1.0, 1.0)
         else:

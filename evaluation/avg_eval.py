@@ -4,7 +4,6 @@ import gymnasium as gym
 from gymnasium.wrappers import NormalizeObservation, ClipAction
 
 from incremental_rl.envs.dm_control_wrapper import DMControl
-from incremental_rl.envs.gymnasium_wrapper import GymnasiumWrapper
 
 
 def _parse_dmcontrol_name(env_name: str) -> tuple[str, str]:
@@ -23,7 +22,10 @@ def make_avg_eval_env(env_name: str, backend: str, seed: int = 0, render: bool =
             render_mode="human" if render else None,
         )
     else:
-        base_env = GymnasiumWrapper(env=env_name, seed=seed, time_limit=0)
+        kwargs = {}
+        if render:
+            kwargs["render_mode"] = "human"
+        base_env = gym.make(env_name, **kwargs)
 
     env = gym.wrappers.FlattenObservation(base_env)
     env = NormalizeObservation(env)

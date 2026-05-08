@@ -72,11 +72,42 @@ def seed_glob(results_root: str, backend: str, algo: str, env_name: str, filenam
     return os.path.join(results_root, backend, algo, safe_env_name, "seed_*", filename)
 
 
-def aggregate_eval(results_root: str, backend: str, algo: str, env_name: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def filter_seed_files(files: List[str], seeds: set[int] | None) -> List[str]:
+    if seeds is None:
+        return files
+
+    selected = []
+    for f in files:
+        seed = int(os.path.basename(os.path.dirname(f)).split("_")[-1])
+        if seed in seeds:
+            selected.append(f)
+    return selected
+
+
+def seeds_in_files(files: List[str]) -> set[int]:
+    return {int(os.path.basename(os.path.dirname(f)).split("_")[-1]) for f in files}
+
+
+def seed_label(seeds: set[int] | None) -> str:
+    if seeds is None:
+        return "all available seeds"
+    return "seeds " + ", ".join(str(seed) for seed in sorted(seeds))
+
+
+def aggregate_eval(
+    results_root: str,
+    backend: str,
+    algo: str,
+    env_name: str,
+    seeds: set[int] | None = None,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
     safe_env_name = sanitize_name(env_name)
-    files = sorted(glob.glob(seed_glob(results_root, backend, algo, env_name, "eval.csv")))
+    files = filter_seed_files(sorted(glob.glob(seed_glob(results_root, backend, algo, env_name, "eval.csv"))), seeds)
     if not files:
-        raise FileNotFoundError(f"No eval files found for {backend}/{algo}/{safe_env_name}")
+        raise FileNotFoundError(f"No eval files found for {backend}/{algo}/{safe_env_name} ({seed_label(seeds)})")
+    if seeds is not None and seeds_in_files(files) != seeds:
+        missing = ", ".join(str(seed) for seed in sorted(seeds - seeds_in_files(files)))
+        raise FileNotFoundError(f"Missing eval files for {backend}/{algo}/{safe_env_name}: seeds {missing}")
 
     dfs = []
     for f in files:
@@ -93,11 +124,21 @@ def aggregate_eval(results_root: str, backend: str, algo: str, env_name: str) ->
     return full, agg
 
 
-def aggregate_train(results_root: str, backend: str, algo: str, env_name: str, bin_size: int = 10000) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def aggregate_train(
+    results_root: str,
+    backend: str,
+    algo: str,
+    env_name: str,
+    bin_size: int = 10000,
+    seeds: set[int] | None = None,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
     safe_env_name = sanitize_name(env_name)
-    files = sorted(glob.glob(seed_glob(results_root, backend, algo, env_name, "train.csv")))
+    files = filter_seed_files(sorted(glob.glob(seed_glob(results_root, backend, algo, env_name, "train.csv"))), seeds)
     if not files:
-        raise FileNotFoundError(f"No train files found for {backend}/{algo}/{safe_env_name}")
+        raise FileNotFoundError(f"No train files found for {backend}/{algo}/{safe_env_name} ({seed_label(seeds)})")
+    if seeds is not None and seeds_in_files(files) != seeds:
+        missing = ", ".join(str(seed) for seed in sorted(seeds - seeds_in_files(files)))
+        raise FileNotFoundError(f"Missing train files for {backend}/{algo}/{safe_env_name}: seeds {missing}")
 
     per_seed = []
     max_step = 0
@@ -211,21 +252,31 @@ def main() -> None:
     parser.add_argument("--train_smooth", type=int, default=3)
     parser.add_argument("--skip_train", action="store_true")
     parser.add_argument("--output_tag", type=str, default="comparison")
+    parser.add_argument("--seeds", type=int, nargs="+", default=None,
+                        help="Optional seed ids to include, e.g. --seeds 1 2 3.")
     args = parser.parse_args()
 
     safe_env_name = sanitize_name(args.env_name)
     variants = parse_variant_specs(args.variants)
+    selected_seeds = set(args.seeds) if args.seeds is not None else None
 
     eval_aggs: Dict[str, pd.DataFrame] = {}
     train_aggs: Dict[str, pd.DataFrame] = {}
     missing_train: List[str] = []
 
     for algo, label in variants:
-        _, eval_agg = aggregate_eval(args.results_root, args.backend, algo, args.env_name)
+        _, eval_agg = aggregate_eval(args.results_root, args.backend, algo, args.env_name, selected_seeds)
         eval_aggs[label] = eval_agg
         if not args.skip_train:
             try:
-                _, train_agg = aggregate_train(args.results_root, args.backend, algo, args.env_name, args.train_bin_size)
+                _, train_agg = aggregate_train(
+                    args.results_root,
+                    args.backend,
+                    algo,
+                    args.env_name,
+                    args.train_bin_size,
+                    selected_seeds,
+                )
                 train_aggs[label] = train_agg
             except FileNotFoundError:
                 missing_train.append(label)

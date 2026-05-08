@@ -247,10 +247,12 @@ def main(
 
     returns, term_time_steps = [], []
     s, _ = env.reset(seed=seed)
+    
 #================================================================================
     eval_interval = 10000
     eval_episodes = 10
 #================================================================================ 
+
     for t in range(1, total_steps + 1):
         a = agent.sample_action(s)
         s_prime, r, terminated, truncated, info = env.step(a)

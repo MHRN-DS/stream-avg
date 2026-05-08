@@ -1,0 +1,131 @@
+=== AVG A clipped HalfCheetah seeds 1,2,3 started Wed May  6 19:39:39 CEST 2026 ===
+=== seed 1 started Wed May  6 19:39:39 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 728, in <module>
+    main(args)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 620, in main
+    eval_mean, eval_std = evaluate_policy_avg(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 54, in evaluate_policy_avg
+    eval_env = make_avg_eval_env(env_name=env_name, backend=backend, seed=seed, render=False)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 28, in make_avg_eval_env
+    env = gym.wrappers.FlattenObservation(base_env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 252, in __init__
+    TransformObservation.__init__(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 89, in __init__
+    gym.ObservationWrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 547, in __init__
+    Wrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 313, in __init__
+    assert isinstance(
+AssertionError: Expected env to be a `gymnasium.Env` but got <class 'incremental_rl.envs.gymnasium_wrapper.GymnasiumWrapper'>
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_A_clip
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+=== seed 1 finished Wed May  6 19:39:52 CEST 2026 ===
+=== seed 2 started Wed May  6 19:39:52 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 728, in <module>
+    main(args)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 620, in main
+    eval_mean, eval_std = evaluate_policy_avg(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 54, in evaluate_policy_avg
+    eval_env = make_avg_eval_env(env_name=env_name, backend=backend, seed=seed, render=False)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 28, in make_avg_eval_env
+    env = gym.wrappers.FlattenObservation(base_env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 252, in __init__
+    TransformObservation.__init__(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 89, in __init__
+    gym.ObservationWrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 547, in __init__
+    Wrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 313, in __init__
+    assert isinstance(
+AssertionError: Expected env to be a `gymnasium.Env` but got <class 'incremental_rl.envs.gymnasium_wrapper.GymnasiumWrapper'>
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_A_clip
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+=== seed 2 finished Wed May  6 19:40:04 CEST 2026 ===
+=== seed 3 started Wed May  6 19:40:04 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 728, in <module>
+    main(args)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 620, in main
+    eval_mean, eval_std = evaluate_policy_avg(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 54, in evaluate_policy_avg
+    eval_env = make_avg_eval_env(env_name=env_name, backend=backend, seed=seed, render=False)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_eval.py", line 28, in make_avg_eval_env
+    env = gym.wrappers.FlattenObservation(base_env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 252, in __init__
+    TransformObservation.__init__(
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/wrappers/transform_observation.py", line 89, in __init__
+    gym.ObservationWrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 547, in __init__
+    Wrapper.__init__(self, env)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/core.py", line 313, in __init__
+    assert isinstance(
+AssertionError: Expected env to be a `gymnasium.Env` but got <class 'incremental_rl.envs.gymnasium_wrapper.GymnasiumWrapper'>
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_A_clip
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+=== seed 3 finished Wed May  6 19:40:17 CEST 2026 ===
+=== AVG A clipped HalfCheetah seeds 1,2,3 finished Wed May  6 19:40:17 CEST 2026 ===
