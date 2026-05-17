@@ -1,0 +1,22 @@
+=== AVG-A paper batch started Sat May  9 11:04:20 CEST 2026 ===
+Log: logs/avg_A_paper_mujoco_dmcontrol_20260509_110415.log
+Results root: results
+Seeds: 1 2 3
+Total steps: 1000000
+Eval interval: 10000
+Eval episodes: 10
+Force rerun: 1
+
+=== task mujoco/Hopper-v4 started Sat May  9 11:04:20 CEST 2026 ===
+Hyperparameters: actor_lr=1.1e-05 critic_lr=7.7e-05 beta1=0.0 beta2=0.999 alpha_lr=0.3 gamma=0.99
+=== seed 1 started Sat May  9 11:04:20 CEST 2026 ===
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 43, in <module>
+    from evaluation.avg_evaluator import evaluate_policy_avg
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/avg_evaluator.py", line 1, in <module>
+    from evaluation.avg_eval import evaluate_policy_avg
+ModuleNotFoundError: No module named 'evaluation.avg_eval'

@@ -161,8 +161,14 @@ class AVG(nn.Module):
         )
         self.Q = Q(cfg.obs_dim, cfg.action_dim, cfg.device, cfg.nhid_critic)
 
-        self.popt = torch.optim.Adam(self.actor.parameters(), lr=cfg.actor_lr, betas=cfg.betas)
-        self.qopt = torch.optim.Adam(self.Q.parameters(), lr=cfg.critic_lr, betas=cfg.betas)
+        actor_adam_kwargs = {"lr": cfg.actor_lr}
+        critic_adam_kwargs = {"lr": cfg.critic_lr}
+        if cfg.betas is not None:
+            actor_adam_kwargs["betas"] = tuple(cfg.betas)
+            critic_adam_kwargs["betas"] = tuple(cfg.betas)
+
+        self.popt = torch.optim.Adam(self.actor.parameters(), **actor_adam_kwargs)
+        self.qopt = torch.optim.Adam(self.Q.parameters(), **critic_adam_kwargs)
 
         self.alpha = cfg.alpha_lr
         self.gamma = cfg.gamma
@@ -235,7 +241,9 @@ def main(args):
         "actor_lr": args.actor_lr,
         "critic_lr": args.critic_lr,
         "beta1": args.beta1,
-        "beta2": 0.999,
+        "beta2": args.beta2,
+        "betas": [args.beta1, args.beta2],
+        "uses_adam_default_betas": getattr(args, "use_adam_default_betas", False),
         "gamma": args.gamma,
         "alpha_lr": args.alpha_lr,
         "nhid_actor": args.nhid_actor,
@@ -356,6 +364,12 @@ if __name__ == "__main__":
     parser.add_argument("--actor_lr", type=float, default=0.0063)
     parser.add_argument("--critic_lr", type=float, default=0.0087)
     parser.add_argument("--beta1", type=float, default=0.0)
+    parser.add_argument("--beta2", type=float, default=0.999)
+    parser.add_argument(
+        "--use_adam_default_betas",
+        action="store_true",
+        help="Use PyTorch Adam default betas (0.9, 0.999) instead of passing beta1/beta2.",
+    )
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--alpha_lr", type=float, default=0.07)
     parser.add_argument("--nhid_actor", type=int, default=256)
@@ -371,16 +385,28 @@ if __name__ == "__main__":
     parser.add_argument("--eval_episodes", type=int, default=10)
     parser.add_argument("--eval_action_mode", type=str, default="sample", choices=["sample", "mean"])
     parser.add_argument("--results_root", type=str, default="results")
+    parser.add_argument(
+        "--algo",
+        type=str,
+        default=None,
+        help="Override the result-folder name. Use avg_default for Phase 2 Adam-default runs.",
+    )
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--device", type=str, default="cpu")
 
     args = parser.parse_args()
 
-    args.betas = [args.beta1, 0.999]
+    if args.use_adam_default_betas:
+        args.beta1 = 0.9
+        args.beta2 = 0.999
+        args.betas = None
+    else:
+        args.betas = [args.beta1, args.beta2]
     if torch.cuda.is_available() and "cuda" in args.device:
         args.device = torch.device(args.device)
     else:
         args.device = torch.device("cpu")
 
-    args.algo = "avg_vanilla_clip" if args.action_distribution == "clipped_normal" else "avg_vanilla"
+    if args.algo is None:
+        args.algo = "avg_vanilla_clip" if args.action_distribution == "clipped_normal" else "avg_vanilla"
     main(args)

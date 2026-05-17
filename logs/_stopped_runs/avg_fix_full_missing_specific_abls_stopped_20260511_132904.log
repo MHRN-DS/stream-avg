@@ -1,0 +1,760 @@
+=== AVG fixed full rerun started Mon May 11 13:12:56 CEST 2026 ===
+Log: logs/avg_fix_full_20260511_131256.log
+Results path: results/<backend>/avg_fix*/<env>/seed_<seed>
+Implementation flags: original AVG TD scaler, loss-unit scaler rewards, bootstrap through truncation, diagnostics enabled
+Naming: avg_fix_specific_* uses tuned/paper hyperparameters; avg_fix_adam_* uses Adam-default hyperparameters.
+Seeds: 1 2 3
+Total steps: 1000000
+Eval interval: 10000
+Eval episodes: 10
+Force rerun: 0
+
+HalfCheetah variants:
+avg_fix_specific_vanilla|td_only|0|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams vanilla
+avg_fix_adam_vanilla|td_only|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default hparams vanilla
+avg_fix_adam_reward|td_reward|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default + reward scaling
+avg_fix_adam_reward_eta|td_reward_entropy|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default + reward + eta scaling
+avg_fix_adam_ln|td_only|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default + LayerNorm
+avg_fix_adam_reward_ln|td_reward|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default + reward scaling + LayerNorm
+avg_fix_adam_reward_eta_ln|td_reward_entropy|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|tanh_normal|AVG fixed Adam-default + reward + eta scaling + LayerNorm
+
+Finger-spin variants:
+avg_fix_specific_clip_vanilla|td_only|0|0.00038|8.7e-05|0.9|0.999|0|0.006|0.95|clipped_normal|AVG fixed specific hparams clipped-action vanilla
+
+=== task mujoco/HalfCheetah-v4 started Mon May 11 13:12:56 CEST 2026 ===
+
+=== variant avg_fix_specific_vanilla started Mon May 11 13:12:56 CEST 2026 ===
+Label: AVG fixed specific hparams vanilla
+Settings: scaling_mode=td_only use_layer_norm=0 action_distribution=tanh_normal
+Hyperparameters: actor_lr=0.0063 critic_lr=0.0087 betas=(0.0,0.999) alpha_lr=0.07 gamma=0.99
+=== avg_fix_specific_vanilla seed 1 started Mon May 11 13:12:56 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_specific_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = -136.98 std = 16.60
+[EVAL] step = 20000 mean = -173.70 std = 9.21
+[EVAL] step = 30000 mean = 139.99 std = 28.77
+[EVAL] step = 40000 mean = 307.94 std = 68.29
+[EVAL] step = 50000 mean = 699.62 std = 29.54
+[EVAL] step = 60000 mean = 636.19 std = 223.17
+[EVAL] step = 70000 mean = -207.61 std = 179.18
+[EVAL] step = 80000 mean = 876.23 std = 44.07
+[EVAL] step = 90000 mean = 884.10 std = 25.58
+[EVAL] step = 100000 mean = 992.61 std = 24.92
+[EVAL] step = 110000 mean = 986.93 std = 42.20
+[EVAL] step = 120000 mean = 818.38 std = 121.10
+[EVAL] step = 130000 mean = 823.47 std = 371.01
+[EVAL] step = 140000 mean = 916.61 std = 31.39
+[EVAL] step = 150000 mean = 658.62 std = 269.28
+[EVAL] step = 160000 mean = 737.04 std = 82.66
+[EVAL] step = 170000 mean = 982.46 std = 44.72
+[EVAL] step = 180000 mean = 1039.05 std = 37.11
+[EVAL] step = 190000 mean = 1119.13 std = 41.96
+[EVAL] step = 200000 mean = 1052.22 std = 31.98
+[EVAL] step = 210000 mean = 1079.62 std = 27.71
+[EVAL] step = 220000 mean = 1109.18 std = 43.48
+[EVAL] step = 230000 mean = 985.53 std = 228.60
+[EVAL] step = 240000 mean = 1073.39 std = 56.28
+[EVAL] step = 250000 mean = 1234.61 std = 18.05
+[EVAL] step = 260000 mean = 1216.55 std = 24.03
+[EVAL] step = 270000 mean = 1207.77 std = 46.00
+[EVAL] step = 280000 mean = 1246.96 std = 17.16
+[EVAL] step = 290000 mean = 1338.25 std = 19.47
+[EVAL] step = 300000 mean = 1292.85 std = 27.34
+[EVAL] step = 310000 mean = 1290.50 std = 33.28
+[EVAL] step = 320000 mean = 1249.25 std = 35.64
+[EVAL] step = 330000 mean = 1379.20 std = 27.64
+[EVAL] step = 340000 mean = 396.08 std = 978.20
+[EVAL] step = 350000 mean = 1374.54 std = 22.04
+[EVAL] step = 360000 mean = 1407.58 std = 26.41
+[EVAL] step = 370000 mean = 1309.26 std = 42.18
+[EVAL] step = 380000 mean = 1418.94 std = 23.26
+[EVAL] step = 390000 mean = 523.99 std = 840.80
+[EVAL] step = 400000 mean = 1412.73 std = 19.87
+[EVAL] step = 410000 mean = 1414.53 std = 31.47
+[EVAL] step = 420000 mean = -177.39 std = 26.37
+[EVAL] step = 430000 mean = 1393.10 std = 66.28
+[EVAL] step = 440000 mean = 1476.49 std = 43.78
+[EVAL] step = 450000 mean = 1434.26 std = 475.07
+[EVAL] step = 460000 mean = 2119.12 std = 16.47
+[EVAL] step = 470000 mean = 2293.15 std = 50.11
+[EVAL] step = 480000 mean = 2242.94 std = 48.43
+[EVAL] step = 490000 mean = 2490.90 std = 38.24
+[EVAL] step = 500000 mean = 2630.73 std = 57.06
+[EVAL] step = 510000 mean = 2736.16 std = 69.31
+[EVAL] step = 520000 mean = 2796.49 std = 43.85
+[EVAL] step = 530000 mean = 2864.92 std = 62.12
+[EVAL] step = 540000 mean = 3088.70 std = 77.63
+[EVAL] step = 550000 mean = 3379.73 std = 47.05
+[EVAL] step = 560000 mean = 2932.00 std = 1129.03
+[EVAL] step = 570000 mean = 3539.67 std = 68.25
+[EVAL] step = 580000 mean = 2738.95 std = 771.05
+[EVAL] step = 590000 mean = 3555.67 std = 67.47
+[EVAL] step = 600000 mean = 3397.97 std = 48.75
+[EVAL] step = 610000 mean = 3417.13 std = 35.62
+[EVAL] step = 620000 mean = 3267.17 std = 405.54
+[EVAL] step = 630000 mean = 3481.08 std = 53.43
+[EVAL] step = 640000 mean = 3631.86 std = 1065.19
+[EVAL] step = 650000 mean = 3965.47 std = 74.83
+[EVAL] step = 660000 mean = 3703.08 std = 109.85
+[EVAL] step = 670000 mean = 3693.76 std = 1188.52
+[EVAL] step = 680000 mean = 3700.33 std = 87.11
+[EVAL] step = 690000 mean = 4038.57 std = 135.97
+[EVAL] step = 700000 mean = 3979.25 std = 90.54
+[EVAL] step = 710000 mean = 4505.67 std = 63.38
+[EVAL] step = 720000 mean = 4366.17 std = 40.42
+[EVAL] step = 730000 mean = 4377.58 std = 111.08
+[EVAL] step = 740000 mean = 4191.72 std = 101.07
+[EVAL] step = 750000 mean = 3348.56 std = 477.09
+[EVAL] step = 760000 mean = 3871.24 std = 50.24
+[EVAL] step = 770000 mean = 4222.09 std = 75.90
+[EVAL] step = 780000 mean = 3780.68 std = 1154.65
+[EVAL] step = 790000 mean = 1152.35 std = 96.96
+[EVAL] step = 800000 mean = 2191.16 std = 117.18
+[EVAL] step = 810000 mean = 3089.43 std = 237.48
+[EVAL] step = 820000 mean = 3228.97 std = 38.72
+[EVAL] step = 830000 mean = 3391.20 std = 65.16
+[EVAL] step = 840000 mean = 3711.68 std = 44.75
+[EVAL] step = 850000 mean = 3437.38 std = 42.34
+[EVAL] step = 860000 mean = 3510.43 std = 31.06
+[EVAL] step = 870000 mean = 3460.02 std = 23.04
+[EVAL] step = 880000 mean = 3764.66 std = 29.31
+[EVAL] step = 890000 mean = 3555.57 std = 34.68
+[EVAL] step = 900000 mean = 3966.95 std = 57.97
+[EVAL] step = 910000 mean = 3944.14 std = 40.30
+[EVAL] step = 920000 mean = 4002.81 std = 24.21
+[EVAL] step = 930000 mean = 4143.91 std = 44.02
+[EVAL] step = 940000 mean = 4127.39 std = 26.98
+[EVAL] step = 950000 mean = 4292.46 std = 26.19
+[EVAL] step = 960000 mean = 4234.17 std = 52.58
+[EVAL] step = 970000 mean = 4101.60 std = 53.72
+[EVAL] step = 980000 mean = 4467.50 std = 50.65
+[EVAL] step = 990000 mean = 4410.56 std = 77.52
+[EVAL] step = 1000000 mean = 4547.87 std = 42.30
+=== avg_fix_specific_vanilla seed 1 finished Mon May 11 13:32:44 CEST 2026 ===
+=== avg_fix_specific_vanilla seed 2 started Mon May 11 13:32:54 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_specific_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = -106.98 std = 58.60
+[EVAL] step = 20000 mean = -58.42 std = 171.96
+[EVAL] step = 30000 mean = 527.57 std = 279.43
+[EVAL] step = 40000 mean = 838.32 std = 15.93
+[EVAL] step = 50000 mean = 611.48 std = 51.84
+[EVAL] step = 60000 mean = 1108.82 std = 26.99
+[EVAL] step = 70000 mean = -43.62 std = 308.23
+[EVAL] step = 80000 mean = 895.56 std = 260.87
+[EVAL] step = 90000 mean = -123.62 std = 113.55
+[EVAL] step = 100000 mean = 1249.37 std = 33.18
+[EVAL] step = 110000 mean = 1246.11 std = 25.35
+[EVAL] step = 120000 mean = 1536.66 std = 36.04
+[EVAL] step = 130000 mean = 1224.42 std = 722.36
+[EVAL] step = 140000 mean = -210.51 std = 29.61
+[EVAL] step = 150000 mean = 1166.47 std = 455.31
+[EVAL] step = 160000 mean = 1482.80 std = 27.54
+[EVAL] step = 170000 mean = -319.52 std = 321.10
+[EVAL] step = 180000 mean = 1464.14 std = 54.84
+[EVAL] step = 190000 mean = 1483.53 std = 53.28
+[EVAL] step = 200000 mean = 1689.98 std = 16.20
+[EVAL] step = 210000 mean = -276.87 std = 58.47
+[EVAL] step = 220000 mean = 1060.49 std = 315.83
+[EVAL] step = 230000 mean = -265.43 std = 99.78
+[EVAL] step = 240000 mean = 1249.70 std = 687.61
+[EVAL] step = 250000 mean = 1452.86 std = 76.43
+[EVAL] step = 260000 mean = 1746.72 std = 44.28
+[EVAL] step = 270000 mean = 1811.97 std = 33.04
+[EVAL] step = 280000 mean = 2009.29 std = 20.35
+[EVAL] step = 290000 mean = 1484.90 std = 942.05
+[EVAL] step = 300000 mean = -139.99 std = 155.47
+[EVAL] step = 310000 mean = 425.77 std = 493.47
+[EVAL] step = 320000 mean = 1243.03 std = 527.78
+[EVAL] step = 330000 mean = 499.23 std = 741.04
+[EVAL] step = 340000 mean = 2152.21 std = 61.14
+[EVAL] step = 350000 mean = 1912.24 std = 801.18
+[EVAL] step = 360000 mean = 1702.32 std = 1012.25
+[EVAL] step = 370000 mean = 1688.46 std = 903.62
+[EVAL] step = 380000 mean = -130.09 std = 779.83
+[EVAL] step = 390000 mean = 1499.91 std = 980.16
+[EVAL] step = 400000 mean = 2339.98 std = 48.02
+[EVAL] step = 410000 mean = 2254.53 std = 52.11
+[EVAL] step = 420000 mean = 2375.30 std = 33.16
+[EVAL] step = 430000 mean = 2436.46 std = 28.88
+[EVAL] step = 440000 mean = 2100.45 std = 860.51
+[EVAL] step = 450000 mean = 2286.19 std = 48.89
+[EVAL] step = 460000 mean = 2340.85 std = 45.79
+[EVAL] step = 470000 mean = -356.32 std = 60.10
+[EVAL] step = 480000 mean = 2535.96 std = 24.30
+[EVAL] step = 490000 mean = 2422.40 std = 56.59
+[EVAL] step = 500000 mean = 2680.96 std = 60.19
+[EVAL] step = 510000 mean = 2536.93 std = 76.38
+[EVAL] step = 520000 mean = 2605.11 std = 31.51
+[EVAL] step = 530000 mean = 2487.69 std = 86.96
+[EVAL] step = 540000 mean = 2764.94 std = 85.51
+[EVAL] step = 550000 mean = 2911.37 std = 50.68
+[EVAL] step = 560000 mean = 1227.55 std = 1397.45
+[EVAL] step = 570000 mean = 2938.62 std = 47.20
+[EVAL] step = 580000 mean = 472.66 std = 1335.48
+[EVAL] step = 590000 mean = 2954.41 std = 75.38
+[EVAL] step = 600000 mean = 2842.27 std = 46.52
+[EVAL] step = 610000 mean = 377.41 std = 1194.92
+[EVAL] step = 620000 mean = 2536.19 std = 977.12
+[EVAL] step = 630000 mean = 2771.91 std = 36.97
+[EVAL] step = 640000 mean = 2865.91 std = 76.26
+[EVAL] step = 650000 mean = 2509.68 std = 858.15
+[EVAL] step = 660000 mean = 2906.01 std = 59.68
+[EVAL] step = 670000 mean = 2952.07 std = 68.15
+[EVAL] step = 680000 mean = 2683.12 std = 1044.37
+[EVAL] step = 690000 mean = 3264.75 std = 99.84
+[EVAL] step = 700000 mean = 3138.59 std = 57.48
+[EVAL] step = 710000 mean = 3195.82 std = 61.06
+[EVAL] step = 720000 mean = 1647.17 std = 1618.54
+[EVAL] step = 730000 mean = 1901.44 std = 1460.41
+[EVAL] step = 740000 mean = 3068.00 std = 70.58
+[EVAL] step = 750000 mean = 3140.89 std = 89.08
+[EVAL] step = 760000 mean = 2717.06 std = 111.36
+[EVAL] step = 770000 mean = 2731.16 std = 1047.09
+[EVAL] step = 780000 mean = 3458.99 std = 138.73
+[EVAL] step = 790000 mean = 3106.08 std = 109.70
+[EVAL] step = 800000 mean = 3252.76 std = 62.34
+[EVAL] step = 810000 mean = 3469.99 std = 812.74
+[EVAL] step = 820000 mean = 3537.30 std = 70.97
+[EVAL] step = 830000 mean = 3357.90 std = 68.77
+[EVAL] step = 840000 mean = 3401.21 std = 46.05
+[EVAL] step = 850000 mean = 3511.30 std = 71.99
+[EVAL] step = 860000 mean = 3683.99 std = 69.34
+[EVAL] step = 870000 mean = 3669.83 std = 65.17
+[EVAL] step = 880000 mean = 3727.56 std = 83.61
+[EVAL] step = 890000 mean = -453.92 std = 7.27
+[EVAL] step = 900000 mean = 3652.02 std = 65.66
+[EVAL] step = 910000 mean = 3835.16 std = 79.28
+[EVAL] step = 920000 mean = 4055.77 std = 89.75
+[EVAL] step = 930000 mean = 4194.40 std = 116.85
+[EVAL] step = 940000 mean = 3820.91 std = 32.83
+[EVAL] step = 950000 mean = 3859.49 std = 654.31
+[EVAL] step = 960000 mean = 3945.44 std = 77.80
+[EVAL] step = 970000 mean = 4104.20 std = 88.98
+[EVAL] step = 980000 mean = 3979.19 std = 93.42
+[EVAL] step = 990000 mean = 2086.93 std = 2061.93
+[EVAL] step = 1000000 mean = -340.25 std = 10.41
+=== avg_fix_specific_vanilla seed 2 finished Mon May 11 13:53:06 CEST 2026 ===
+=== avg_fix_specific_vanilla seed 3 started Mon May 11 13:53:16 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_specific_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = -322.95 std = 64.25
+[EVAL] step = 20000 mean = -167.30 std = 51.38
+[EVAL] step = 30000 mean = 166.80 std = 93.42
+[EVAL] step = 40000 mean = 402.77 std = 59.61
+[EVAL] step = 50000 mean = -82.81 std = 232.55
+[EVAL] step = 60000 mean = 552.84 std = 36.02
+[EVAL] step = 70000 mean = 612.49 std = 99.43
+[EVAL] step = 80000 mean = 921.81 std = 48.99
+[EVAL] step = 90000 mean = 571.10 std = 167.84
+[EVAL] step = 100000 mean = 702.83 std = 41.35
+[EVAL] step = 110000 mean = 767.26 std = 429.67
+[EVAL] step = 120000 mean = 697.47 std = 108.78
+[EVAL] step = 130000 mean = 384.22 std = 305.21
+[EVAL] step = 140000 mean = 682.23 std = 31.88
+[EVAL] step = 150000 mean = 920.03 std = 43.74
+[EVAL] step = 160000 mean = 977.33 std = 25.35
+[EVAL] step = 170000 mean = 265.72 std = 521.10
+[EVAL] step = 180000 mean = 950.70 std = 29.66
+[EVAL] step = 190000 mean = 846.08 std = 410.18
+[EVAL] step = 200000 mean = 987.42 std = 30.14
+[EVAL] step = 210000 mean = 1060.35 std = 45.08
+[EVAL] step = 220000 mean = 1082.63 std = 33.31
+[EVAL] step = 230000 mean = 1083.38 std = 29.60
+[EVAL] step = 240000 mean = 938.32 std = 244.67
+[EVAL] step = 250000 mean = 1155.39 std = 40.94
+[EVAL] step = 260000 mean = 1124.02 std = 23.07
+[EVAL] step = 270000 mean = 1135.45 std = 25.87
+[EVAL] step = 280000 mean = 1132.01 std = 42.96
+[EVAL] step = 290000 mean = 821.26 std = 472.42
+[EVAL] step = 300000 mean = 1223.43 std = 28.64
+[EVAL] step = 310000 mean = 1305.02 std = 37.48
+[EVAL] step = 320000 mean = 1352.57 std = 44.86
+[EVAL] step = 330000 mean = 1291.59 std = 42.60
+[EVAL] step = 340000 mean = -163.29 std = 19.19
+[EVAL] step = 350000 mean = 1849.00 std = 42.61
+[EVAL] step = 360000 mean = 1054.34 std = 574.53
+[EVAL] step = 370000 mean = 212.79 std = 108.36
+[EVAL] step = 380000 mean = 1622.69 std = 26.56
+[EVAL] step = 390000 mean = 1936.41 std = 37.31
+[EVAL] step = 400000 mean = 2367.62 std = 44.75
+[EVAL] step = 410000 mean = 2222.06 std = 61.20
+[EVAL] step = 420000 mean = 2234.30 std = 29.16
+[EVAL] step = 430000 mean = 2373.51 std = 34.29
+[EVAL] step = 440000 mean = 2376.97 std = 494.41
+[EVAL] step = 450000 mean = 2538.11 std = 17.22
+[EVAL] step = 460000 mean = 2623.88 std = 21.79
+[EVAL] step = 470000 mean = 2641.94 std = 298.62
+[EVAL] step = 480000 mean = 2660.96 std = 30.40
+[EVAL] step = 490000 mean = 2833.76 std = 35.20
+[EVAL] step = 500000 mean = 2815.58 std = 42.40
+[EVAL] step = 510000 mean = 2892.99 std = 40.33
+[EVAL] step = 520000 mean = 3012.00 std = 34.40
+[EVAL] step = 530000 mean = 2974.28 std = 44.08
+[EVAL] step = 540000 mean = 3046.65 std = 41.73
+[EVAL] step = 550000 mean = 2985.15 std = 31.69
+[EVAL] step = 560000 mean = 2936.94 std = 651.61
+[EVAL] step = 570000 mean = 3399.28 std = 100.54
+[EVAL] step = 580000 mean = 3431.09 std = 55.70
+[EVAL] step = 590000 mean = 3134.47 std = 31.44
+[EVAL] step = 600000 mean = 3444.95 std = 88.10
+[EVAL] step = 610000 mean = 3584.73 std = 43.38
+[EVAL] step = 620000 mean = 2007.77 std = 52.85
+[EVAL] step = 630000 mean = 10.56 std = 224.37
+[EVAL] step = 640000 mean = 2442.75 std = 95.90
+[EVAL] step = 650000 mean = 2556.60 std = 839.38
+[EVAL] step = 660000 mean = 2649.11 std = 189.58
+[EVAL] step = 670000 mean = 2807.70 std = 1009.69
+[EVAL] step = 680000 mean = 3063.64 std = 69.98
+[EVAL] step = 690000 mean = 3036.01 std = 156.77
+[EVAL] step = 700000 mean = 3187.28 std = 127.93
+[EVAL] step = 710000 mean = 3145.12 std = 187.23
+[EVAL] step = 720000 mean = 3074.38 std = 86.09
+[EVAL] step = 730000 mean = 2863.15 std = 471.34
+[EVAL] step = 740000 mean = 3047.01 std = 61.97
+[EVAL] step = 750000 mean = 3336.87 std = 92.46
+[EVAL] step = 760000 mean = 3271.02 std = 55.33
+[EVAL] step = 770000 mean = 2762.23 std = 684.22
+[EVAL] step = 780000 mean = 3503.54 std = 38.44
+[EVAL] step = 790000 mean = 70.70 std = 331.23
+[EVAL] step = 800000 mean = 2786.63 std = 314.50
+[EVAL] step = 810000 mean = 3352.77 std = 68.14
+[EVAL] step = 820000 mean = 3420.22 std = 155.07
+[EVAL] step = 830000 mean = 3416.23 std = 163.18
+[EVAL] step = 840000 mean = 3751.03 std = 50.53
+[EVAL] step = 850000 mean = 3692.34 std = 132.43
+[EVAL] step = 860000 mean = 3038.04 std = 794.81
+[EVAL] step = 870000 mean = 3274.04 std = 1265.74
+[EVAL] step = 880000 mean = 3666.92 std = 173.64
+[EVAL] step = 890000 mean = 3767.13 std = 68.84
+[EVAL] step = 900000 mean = 3954.36 std = 110.63
+[EVAL] step = 910000 mean = 4018.58 std = 357.02
+[EVAL] step = 920000 mean = 4127.95 std = 154.06
+[EVAL] step = 930000 mean = 2020.17 std = 61.16
+[EVAL] step = 940000 mean = 3316.87 std = 327.69
+[EVAL] step = 950000 mean = 3705.81 std = 157.62
+[EVAL] step = 960000 mean = 3277.48 std = 200.39
+[EVAL] step = 970000 mean = 4088.76 std = 334.56
+[EVAL] step = 980000 mean = 4053.46 std = 74.80
+[EVAL] step = 990000 mean = 3990.22 std = 53.17
+[EVAL] step = 1000000 mean = 3779.65 std = 132.20
+=== avg_fix_specific_vanilla seed 3 finished Mon May 11 14:13:25 CEST 2026 ===
+=== plotting avg_fix_specific_vanilla on mujoco/HalfCheetah-v4 Mon May 11 14:13:35 CEST 2026 ===
+Plots saved in results/mujoco/avg_fix_specific_vanilla/figures
+=== variant avg_fix_specific_vanilla finished Mon May 11 14:13:36 CEST 2026 ===
+
+=== variant avg_fix_adam_vanilla started Mon May 11 14:13:36 CEST 2026 ===
+Label: AVG fixed Adam-default hparams vanilla
+Settings: scaling_mode=td_only use_layer_norm=0 action_distribution=tanh_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_adam_vanilla seed 1 started Mon May 11 14:13:36 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_adam_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = -173.82 std = 8.14
+[EVAL] step = 20000 mean = -110.65 std = 21.53
+[EVAL] step = 30000 mean = -146.23 std = 17.98
+[EVAL] step = 40000 mean = -139.48 std = 107.27
+[EVAL] step = 50000 mean = 91.40 std = 44.58
+[EVAL] step = 60000 mean = 191.87 std = 46.53
+[EVAL] step = 70000 mean = 161.78 std = 171.30
+[EVAL] step = 80000 mean = 395.62 std = 11.60
+[EVAL] step = 90000 mean = 154.99 std = 25.27
+[EVAL] step = 100000 mean = 563.53 std = 22.49
+[EVAL] step = 110000 mean = 548.27 std = 23.49
+[EVAL] step = 120000 mean = 445.71 std = 59.56
+[EVAL] step = 130000 mean = 647.12 std = 25.54
+[EVAL] step = 140000 mean = 636.11 std = 28.11
+[EVAL] step = 150000 mean = 748.29 std = 27.84
+[EVAL] step = 160000 mean = 741.79 std = 41.41
+[EVAL] step = 170000 mean = 732.25 std = 26.14
+[EVAL] step = 180000 mean = 786.19 std = 20.44
+[EVAL] step = 190000 mean = 833.05 std = 27.22
+[EVAL] step = 200000 mean = 795.83 std = 24.54
+[EVAL] step = 210000 mean = 800.72 std = 26.33
+[EVAL] step = 220000 mean = 941.64 std = 22.83
+[EVAL] step = 230000 mean = 902.16 std = 28.39
+[EVAL] step = 240000 mean = 952.90 std = 32.36
+[EVAL] step = 250000 mean = 1009.15 std = 44.12
+[EVAL] step = 260000 mean = 975.89 std = 167.49
+[EVAL] step = 270000 mean = 1009.59 std = 16.23
+[EVAL] step = 280000 mean = 1102.86 std = 19.10
+[EVAL] step = 290000 mean = 1062.90 std = 21.20
+[EVAL] step = 300000 mean = 1141.47 std = 37.63
+[EVAL] step = 310000 mean = 1173.76 std = 21.19
+[EVAL] step = 320000 mean = 1098.73 std = 13.75
+[EVAL] step = 330000 mean = 1148.65 std = 33.55
+[EVAL] step = 340000 mean = 1219.66 std = 35.34
+[EVAL] step = 350000 mean = 1231.00 std = 70.05
+[EVAL] step = 360000 mean = 1251.53 std = 43.70
+[EVAL] step = 370000 mean = 1260.40 std = 23.45
+[EVAL] step = 380000 mean = 1229.79 std = 21.40
+[EVAL] step = 390000 mean = 1228.95 std = 19.95
+[EVAL] step = 400000 mean = 1227.73 std = 31.50
+[EVAL] step = 410000 mean = 874.40 std = 497.77
+[EVAL] step = 420000 mean = 1257.43 std = 24.61
+[EVAL] step = 430000 mean = 1266.47 std = 17.98
+[EVAL] step = 440000 mean = 1274.75 std = 25.82
+[EVAL] step = 450000 mean = 1223.99 std = 19.73
+[EVAL] step = 460000 mean = 1355.63 std = 20.29
+[EVAL] step = 470000 mean = 1393.41 std = 29.71
+[EVAL] step = 480000 mean = 1258.42 std = 36.76
+[EVAL] step = 490000 mean = 1281.25 std = 42.58
+[EVAL] step = 500000 mean = 1284.90 std = 45.35
+[EVAL] step = 510000 mean = 1355.30 std = 17.54
+[EVAL] step = 520000 mean = 1329.17 std = 41.50
+[EVAL] step = 530000 mean = 1374.68 std = 13.83
+[EVAL] step = 540000 mean = 1301.77 std = 55.37
+[EVAL] step = 550000 mean = 1304.81 std = 33.18
+[EVAL] step = 560000 mean = 1286.20 std = 43.77
+[EVAL] step = 570000 mean = 1357.13 std = 18.27
+[EVAL] step = 580000 mean = 1260.13 std = 30.57
+[EVAL] step = 590000 mean = 1340.21 std = 27.43
+[EVAL] step = 600000 mean = 1441.88 std = 16.24
+[EVAL] step = 610000 mean = 1350.17 std = 14.06
+[EVAL] step = 620000 mean = 1355.71 std = 12.33
+[EVAL] step = 630000 mean = 1274.48 std = 262.07
+[EVAL] step = 640000 mean = 1381.15 std = 32.44
+[EVAL] step = 650000 mean = 1382.90 std = 30.82
+[EVAL] step = 660000 mean = -508.73 std = 42.58
+[EVAL] step = 670000 mean = 1149.64 std = 57.33
+[EVAL] step = 680000 mean = 1378.50 std = 38.87
+[EVAL] step = 690000 mean = 1303.89 std = 36.39
+[EVAL] step = 700000 mean = 1403.08 std = 25.43
+[EVAL] step = 710000 mean = 1384.22 std = 26.30
+[EVAL] step = 720000 mean = 1454.79 std = 34.01
+[EVAL] step = 730000 mean = 1391.95 std = 12.45
+[EVAL] step = 740000 mean = 1253.21 std = 579.84
+[EVAL] step = 750000 mean = 1273.45 std = 41.48
+[EVAL] step = 760000 mean = 1184.77 std = 485.61
+[EVAL] step = 770000 mean = 846.60 std = 46.03
+[EVAL] step = 780000 mean = 949.92 std = 18.43
+[EVAL] step = 790000 mean = 1337.72 std = 35.90
+[EVAL] step = 800000 mean = 1326.90 std = 91.85
+[EVAL] step = 810000 mean = 1373.22 std = 49.82
+[EVAL] step = 820000 mean = 1307.16 std = 42.41
+[EVAL] step = 830000 mean = 1397.04 std = 43.47
+[EVAL] step = 840000 mean = 1406.84 std = 22.63
+[EVAL] step = 850000 mean = 1384.33 std = 27.05
+[EVAL] step = 860000 mean = -0.25 std = 85.36
+[EVAL] step = 870000 mean = 1356.83 std = 73.26
+[EVAL] step = 880000 mean = 1370.46 std = 65.37
+[EVAL] step = 890000 mean = 1446.60 std = 11.91
+[EVAL] step = 900000 mean = 1409.75 std = 12.33
+[EVAL] step = 910000 mean = 1363.08 std = 28.52
+[EVAL] step = 920000 mean = 1417.83 std = 28.62
+[EVAL] step = 930000 mean = 1025.65 std = 767.46
+[EVAL] step = 940000 mean = 1374.28 std = 49.63
+[EVAL] step = 950000 mean = 1358.14 std = 65.75
+[EVAL] step = 960000 mean = 1146.09 std = 579.08
+[EVAL] step = 970000 mean = 1335.26 std = 48.86
+[EVAL] step = 980000 mean = 1393.70 std = 28.05
+[EVAL] step = 990000 mean = 1408.65 std = 53.37
+[EVAL] step = 1000000 mean = 1401.13 std = 16.76
+=== avg_fix_adam_vanilla seed 1 finished Mon May 11 14:34:47 CEST 2026 ===
+=== avg_fix_adam_vanilla seed 2 started Mon May 11 14:34:57 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_adam_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = -191.69 std = 45.61
+[EVAL] step = 20000 mean = -176.36 std = 24.62
+[EVAL] step = 30000 mean = -111.64 std = 81.32
+[EVAL] step = 40000 mean = -2.52 std = 24.33
+[EVAL] step = 50000 mean = 29.39 std = 10.95
+[EVAL] step = 60000 mean = 242.60 std = 13.66
+[EVAL] step = 70000 mean = 247.92 std = 15.64
+[EVAL] step = 80000 mean = 336.36 std = 15.37
+[EVAL] step = 90000 mean = 488.81 std = 31.65
+[EVAL] step = 100000 mean = 566.50 std = 20.88
+[EVAL] step = 110000 mean = 540.19 std = 25.01
+[EVAL] step = 120000 mean = 690.14 std = 22.78
+[EVAL] step = 130000 mean = 740.18 std = 24.67
+[EVAL] step = 140000 mean = 750.44 std = 19.09
+[EVAL] step = 150000 mean = 7.58 std = 26.94
+[EVAL] step = 160000 mean = 795.36 std = 98.96
+[EVAL] step = 170000 mean = 850.26 std = 23.17
+[EVAL] step = 180000 mean = 768.65 std = 59.74
+[EVAL] step = 190000 mean = 920.18 std = 28.34
+[EVAL] step = 200000 mean = 786.42 std = 53.57
+[EVAL] step = 210000 mean = 861.88 std = 35.87
+[EVAL] step = 220000 mean = 882.70 std = 28.28
+[EVAL] step = 230000 mean = 799.00 std = 70.70
+[EVAL] step = 240000 mean = 971.62 std = 113.36
+[EVAL] step = 250000 mean = 911.21 std = 88.46
+[EVAL] step = 260000 mean = 616.36 std = 38.27
+[EVAL] step = 270000 mean = 925.92 std = 57.19
+[EVAL] step = 280000 mean = -64.50 std = 304.23
+[EVAL] step = 290000 mean = 884.71 std = 109.56
+[EVAL] step = 300000 mean = 1048.59 std = 49.31
+[EVAL] step = 310000 mean = 1027.22 std = 58.14
+[EVAL] step = 320000 mean = 1047.17 std = 18.95
+[EVAL] step = 330000 mean = 1142.28 std = 30.29
+[EVAL] step = 340000 mean = 1047.90 std = 23.40
+[EVAL] step = 350000 mean = 1115.55 std = 31.86
+[EVAL] step = 360000 mean = 1058.00 std = 43.26
+[EVAL] step = 370000 mean = 1141.77 std = 19.95
+[EVAL] step = 380000 mean = 849.22 std = 637.64
+[EVAL] step = 390000 mean = 919.33 std = 214.14
+[EVAL] step = 400000 mean = 1110.28 std = 46.20
+[EVAL] step = 410000 mean = 1129.43 std = 44.69
+[EVAL] step = 420000 mean = 1146.02 std = 19.65
+[EVAL] step = 430000 mean = 1216.17 std = 27.40
+[EVAL] step = 440000 mean = 1281.04 std = 33.87
+[EVAL] step = 450000 mean = 1272.47 std = 27.34
+[EVAL] step = 460000 mean = -210.55 std = 43.11
+[EVAL] step = 470000 mean = 783.80 std = 98.48
+[EVAL] step = 480000 mean = 1311.75 std = 51.27
+[EVAL] step = 490000 mean = 1337.18 std = 62.50
+[EVAL] step = 500000 mean = 1836.10 std = 267.39
+[EVAL] step = 510000 mean = 1342.27 std = 199.95
+[EVAL] step = 520000 mean = 1581.75 std = 26.64
+[EVAL] step = 530000 mean = 1582.38 std = 29.85
+[EVAL] step = 540000 mean = 1667.33 std = 22.19
+[EVAL] step = 550000 mean = 1338.84 std = 346.55
+[EVAL] step = 560000 mean = 1125.94 std = 297.83
+[EVAL] step = 570000 mean = 386.93 std = 112.99
+[EVAL] step = 580000 mean = 1529.90 std = 19.02
+[EVAL] step = 590000 mean = 1568.35 std = 28.27
+[EVAL] step = 600000 mean = 1741.64 std = 330.15
+[EVAL] step = 610000 mean = 728.32 std = 75.18
+[EVAL] step = 620000 mean = 1605.66 std = 35.33
+[EVAL] step = 630000 mean = 1697.18 std = 19.64
+[EVAL] step = 640000 mean = 1551.94 std = 367.72
+[EVAL] step = 650000 mean = 1420.07 std = 465.36
+[EVAL] step = 660000 mean = 1787.73 std = 93.32
+[EVAL] step = 670000 mean = 1768.56 std = 379.25
+[EVAL] step = 680000 mean = 316.91 std = 49.63
+[EVAL] step = 690000 mean = 709.24 std = 45.42
+[EVAL] step = 700000 mean = 1995.46 std = 328.73
+[EVAL] step = 710000 mean = 1241.97 std = 35.40
+[EVAL] step = 720000 mean = 1857.77 std = 59.69
+[EVAL] step = 730000 mean = 1577.97 std = 185.87
+[EVAL] step = 740000 mean = 1481.40 std = 437.26
+[EVAL] step = 750000 mean = 998.63 std = 176.42
+[EVAL] step = 760000 mean = 1452.26 std = 202.52
+[EVAL] step = 770000 mean = 1206.60 std = 346.01
+[EVAL] step = 780000 mean = 1326.18 std = 262.38
+[EVAL] step = 790000 mean = 766.92 std = 119.21
+[EVAL] step = 800000 mean = 1910.37 std = 32.28
+[EVAL] step = 810000 mean = 1210.06 std = 277.04
+[EVAL] step = 820000 mean = 1886.74 std = 38.59
+[EVAL] step = 830000 mean = 1493.41 std = 271.30
+[EVAL] step = 840000 mean = 1508.13 std = 182.21
+[EVAL] step = 850000 mean = 1096.99 std = 139.45
+[EVAL] step = 860000 mean = 836.21 std = 190.10
+[EVAL] step = 870000 mean = 1181.38 std = 274.56
+[EVAL] step = 880000 mean = 1635.87 std = 216.09
+[EVAL] step = 890000 mean = 1488.62 std = 556.19
+[EVAL] step = 900000 mean = 2189.46 std = 50.28
+[EVAL] step = 910000 mean = 902.05 std = 134.89
+[EVAL] step = 920000 mean = 2136.14 std = 12.51
+[EVAL] step = 930000 mean = 1035.57 std = 239.79
+[EVAL] step = 940000 mean = 1751.33 std = 302.46
+[EVAL] step = 950000 mean = 2375.99 std = 49.87
+[EVAL] step = 960000 mean = 1014.34 std = 193.70
+[EVAL] step = 970000 mean = 1487.62 std = 617.83
+[EVAL] step = 980000 mean = 1989.15 std = 42.97
+[EVAL] step = 990000 mean = 1972.01 std = 18.36
+[EVAL] step = 1000000 mean = 1629.59 std = 253.01
+=== avg_fix_adam_vanilla seed 2 finished Mon May 11 14:56:17 CEST 2026 ===
+=== avg_fix_adam_vanilla seed 3 started Mon May 11 14:56:27 CEST 2026 ===
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/gymnasium/envs/registration.py:512: DeprecationWarning: [33mWARN: The environment HalfCheetah-v4 is out of date. You should consider upgrading to version `v5`.[0m
+  logger.deprecation(
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 828, in <module>
+    main(args)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/algorithms/avg_baseline.py", line 716, in main
+    with open(
+FileNotFoundError: [Errno 2] No such file or directory: 'results/mujoco/avg_fix_adam_vanilla/HalfCheetah-v4/seed_3/artifacts/returns.pkl'
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_adam_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: HalfCheetah-v4 (mujoco)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = -270.19 std = 91.84
+[EVAL] step = 20000 mean = -48.27 std = 62.04
+[EVAL] step = 30000 mean = -175.40 std = 36.60
+[EVAL] step = 40000 mean = -213.93 std = 56.48
+[EVAL] step = 50000 mean = -51.10 std = 13.63
+[EVAL] step = 60000 mean = 3.56 std = 48.37
+[EVAL] step = 70000 mean = -50.78 std = 104.06
+[EVAL] step = 80000 mean = 167.58 std = 20.27
+[EVAL] step = 90000 mean = 267.22 std = 25.66
+[EVAL] step = 100000 mean = 298.33 std = 103.90
+[EVAL] step = 110000 mean = 422.36 std = 15.45
+[EVAL] step = 120000 mean = 539.82 std = 20.55
+[EVAL] step = 130000 mean = 545.04 std = 22.22
+[EVAL] step = 140000 mean = 620.64 std = 14.05
+[EVAL] step = 150000 mean = 692.91 std = 17.78
+[EVAL] step = 160000 mean = 760.23 std = 24.63
+[EVAL] step = 170000 mean = 705.50 std = 17.68
+[EVAL] step = 180000 mean = 852.12 std = 23.82
+[EVAL] step = 190000 mean = 814.82 std = 32.95
+[EVAL] step = 200000 mean = 891.56 std = 30.97
+[EVAL] step = 210000 mean = 982.66 std = 18.71
+[EVAL] step = 220000 mean = 202.79 std = 611.90
+[EVAL] step = 230000 mean = 852.02 std = 477.32
+[EVAL] step = 240000 mean = 648.72 std = 560.31
+[EVAL] step = 250000 mean = 898.95 std = 30.99
+[EVAL] step = 260000 mean = 983.61 std = 67.91
+[EVAL] step = 270000 mean = 995.31 std = 45.85
+[EVAL] step = 280000 mean = 1002.71 std = 34.10
+[EVAL] step = 290000 mean = 1071.55 std = 26.57
+[EVAL] step = 300000 mean = -259.85 std = 24.33
+[EVAL] step = 310000 mean = 948.48 std = 56.58
+[EVAL] step = 320000 mean = 869.93 std = 238.36
+[EVAL] step = 330000 mean = 923.50 std = 125.95
+[EVAL] step = 340000 mean = 1275.42 std = 61.89
+[EVAL] step = 350000 mean = 1157.12 std = 40.44
+[EVAL] step = 360000 mean = 1119.24 std = 38.25
+[EVAL] step = 370000 mean = 1241.23 std = 31.54
+[EVAL] step = 380000 mean = 1356.85 std = 36.10
+[EVAL] step = 390000 mean = 1433.45 std = 25.39
+[EVAL] step = 400000 mean = 1375.58 std = 28.86
+[EVAL] step = 410000 mean = 1440.98 std = 17.42
+[EVAL] step = 420000 mean = 1374.98 std = 18.03
+[EVAL] step = 430000 mean = 1314.80 std = 309.28
+[EVAL] step = 440000 mean = 765.68 std = 27.82
+[EVAL] step = 450000 mean = 1461.19 std = 23.98
+[EVAL] step = 460000 mean = 1325.14 std = 439.20
+[EVAL] step = 470000 mean = 1445.83 std = 273.11
+[EVAL] step = 480000 mean = 1823.37 std = 173.85
+[EVAL] step = 490000 mean = 1463.91 std = 431.60
+[EVAL] step = 500000 mean = 1112.50 std = 286.81
+[EVAL] step = 510000 mean = 1759.15 std = 33.39
+[EVAL] step = 520000 mean = 1532.20 std = 305.47
+[EVAL] step = 530000 mean = 2015.14 std = 84.98
+[EVAL] step = 540000 mean = 2179.82 std = 139.19
+[EVAL] step = 550000 mean = 1961.79 std = 74.16
+[EVAL] step = 560000 mean = 1924.62 std = 13.06
+[EVAL] step = 570000 mean = 1525.41 std = 96.91
+[EVAL] step = 580000 mean = 1683.65 std = 239.40
+[EVAL] step = 590000 mean = 1987.20 std = 149.69
+[EVAL] step = 600000 mean = 1984.57 std = 33.32
+[EVAL] step = 610000 mean = 2092.38 std = 76.84
+[EVAL] step = 620000 mean = 2147.12 std = 53.69
+[EVAL] step = 630000 mean = 1685.44 std = 79.94
+[EVAL] step = 640000 mean = 2019.76 std = 23.74
+[EVAL] step = 650000 mean = 2123.09 std = 67.39
+[EVAL] step = 660000 mean = 1940.27 std = 17.29
+[EVAL] step = 670000 mean = 1757.84 std = 138.41
+[EVAL] step = 680000 mean = 1997.33 std = 46.12
+[EVAL] step = 690000 mean = 1964.83 std = 26.93
+[EVAL] step = 700000 mean = 1979.44 std = 14.28
+[EVAL] step = 710000 mean = 2068.38 std = 19.84
+[EVAL] step = 720000 mean = 2117.03 std = 17.65
+[EVAL] step = 730000 mean = 2162.90 std = 62.19
+[EVAL] step = 740000 mean = 2052.04 std = 127.08
+[EVAL] step = 750000 mean = 1915.65 std = 108.86
+[EVAL] step = 760000 mean = 2197.02 std = 14.80
+[EVAL] step = 770000 mean = 2120.05 std = 19.66
+[EVAL] step = 780000 mean = 2097.00 std = 21.72
+[EVAL] step = 790000 mean = 2083.64 std = 36.05
+[EVAL] step = 800000 mean = 2135.72 std = 133.73
+[EVAL] step = 810000 mean = 2340.79 std = 25.83
+[EVAL] step = 820000 mean = 2164.93 std = 21.84
+[EVAL] step = 830000 mean = 2257.54 std = 18.09
+[EVAL] step = 840000 mean = 2283.92 std = 17.58
+[EVAL] step = 850000 mean = 2232.39 std = 26.10
+[EVAL] step = 860000 mean = 2241.43 std = 19.83
+[EVAL] step = 870000 mean = 1694.78 std = 35.86
+[EVAL] step = 880000 mean = 2250.36 std = 32.37
+[EVAL] step = 890000 mean = 2445.36 std = 59.77
+[EVAL] step = 900000 mean = 2355.51 std = 20.51
+[EVAL] step = 910000 mean = 2470.98 std = 24.66
+[EVAL] step = 920000 mean = 2252.37 std = 84.49
+[EVAL] step = 930000 mean = 2440.31 std = 28.03
+[EVAL] step = 940000 mean = 2549.10 std = 64.49
+[EVAL] step = 950000 mean = 2496.51 std = 32.40
+[EVAL] step = 960000 mean = 2447.01 std = 108.70
+[EVAL] step = 970000 mean = 2563.15 std = 37.48
+[EVAL] step = 980000 mean = 2604.50 std = 19.61
+[EVAL] step = 990000 mean = 2470.49 std = 22.68
+[EVAL] step = 1000000 mean = 2524.36 std = 34.12

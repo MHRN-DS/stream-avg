@@ -168,14 +168,14 @@ def main():
         ylabel="Evaluation Return",
         title=f"Evaluation: {args.algo} on {args.env_name}",
         outfile=os.path.join(fig_dir, f"{safe_env_name}_eval_plot.png"),
-        smooth_window=1,
+        smooth_window=5,
     )
     plot_curve(
         train_agg,
         ylabel="Training Episode Return",
         title=f"Training: {args.algo} on {args.env_name}",
         outfile=os.path.join(fig_dir, f"{safe_env_name}_train_plot.png"),
-        smooth_window=3,
+        smooth_window=5,
     )
     save_summary(args.results_root, args.backend, args.algo, args.env_name, eval_agg)
 

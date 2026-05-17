@@ -1,0 +1,403 @@
+=== AVG Phase 2 default-vs-specific ablation suite started Fri May 15 08:41:31 CEST 2026 ===
+Log: logs/avg_phase2_dog_walk_parallel_20260515_084131.log
+Results path: results/<backend>/avg_fix_{default,specific}_*/<env>/seed_<seed>
+Implementation flags: original AVG TD scaler, loss-unit scaler rewards, bootstrap through truncation, diagnostics enabled
+Action distribution: tanh_normal
+Seeds: 1 2 3
+Total steps: 1000000
+Eval interval: 10000
+Eval episodes: 10
+Force rerun: 0
+
+Tasks:
+dmcontrol|dog-walk
+
+Variants:
+vanilla|td_only|0|vanilla
+reward|td_reward|0|reward scaling
+reward_eta|td_reward_entropy|0|reward + eta scaling
+ln|td_only|1|LayerNorm
+reward_ln|td_reward|1|reward scaling + LayerNorm
+reward_eta_ln|td_reward_entropy|1|reward + eta scaling + LayerNorm
+
+=== task dmcontrol/dog-walk started Fri May 15 08:41:31 CEST 2026 ===
+Default hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+Paper-specific hyperparameters: actor_lr= critic_lr= betas=(,) alpha_lr= gamma=
+
+=== family default on dmcontrol/dog-walk started Fri May 15 08:41:31 CEST 2026 ===
+
+=== variant avg_fix_default_vanilla started Fri May 15 08:41:31 CEST 2026 ===
+Label: default vanilla
+Settings: scaling_mode=td_only use_layer_norm=0
+=== avg_fix_default_vanilla seed 1 started Fri May 15 08:41:31 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: dog-walk (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 9.21 std = 4.70
+[EVAL] step = 20000 mean = 8.73 std = 3.75
+[EVAL] step = 30000 mean = 8.66 std = 3.65
+[EVAL] step = 40000 mean = 9.69 std = 3.94
+[EVAL] step = 50000 mean = 8.84 std = 3.89
+[EVAL] step = 60000 mean = 8.48 std = 4.02
+[EVAL] step = 70000 mean = 8.47 std = 3.84
+[EVAL] step = 80000 mean = 8.61 std = 3.69
+[EVAL] step = 90000 mean = 10.87 std = 6.39
+[EVAL] step = 100000 mean = 8.26 std = 2.94
+[EVAL] step = 110000 mean = 8.58 std = 3.81
+[EVAL] step = 120000 mean = 8.62 std = 4.52
+[EVAL] step = 130000 mean = 7.61 std = 3.08
+[EVAL] step = 140000 mean = 8.65 std = 3.97
+[EVAL] step = 150000 mean = 9.60 std = 4.52
+[EVAL] step = 160000 mean = 9.65 std = 4.03
+[EVAL] step = 170000 mean = 8.66 std = 3.75
+[EVAL] step = 180000 mean = 9.04 std = 4.40
+[EVAL] step = 190000 mean = 8.97 std = 3.29
+[EVAL] step = 200000 mean = 10.01 std = 5.96
+[EVAL] step = 210000 mean = 10.42 std = 4.87
+[EVAL] step = 220000 mean = 9.81 std = 4.87
+[EVAL] step = 230000 mean = 9.97 std = 5.41
+[EVAL] step = 240000 mean = 8.65 std = 3.32
+[EVAL] step = 250000 mean = 9.06 std = 3.29
+[EVAL] step = 260000 mean = 9.17 std = 4.23
+[EVAL] step = 270000 mean = 10.34 std = 3.37
+[EVAL] step = 280000 mean = 9.20 std = 3.17
+[EVAL] step = 290000 mean = 9.18 std = 4.44
+[EVAL] step = 300000 mean = 9.19 std = 5.05
+[EVAL] step = 310000 mean = 9.34 std = 4.02
+[EVAL] step = 320000 mean = 11.09 std = 5.96
+[EVAL] step = 330000 mean = 7.60 std = 3.67
+[EVAL] step = 340000 mean = 9.06 std = 3.20
+[EVAL] step = 350000 mean = 9.40 std = 4.54
+[EVAL] step = 360000 mean = 8.98 std = 4.26
+[EVAL] step = 370000 mean = 8.43 std = 4.12
+[EVAL] step = 380000 mean = 8.41 std = 3.87
+[EVAL] step = 390000 mean = 9.89 std = 3.73
+[EVAL] step = 400000 mean = 10.00 std = 5.39
+[EVAL] step = 410000 mean = 8.48 std = 3.95
+[EVAL] step = 420000 mean = 9.28 std = 3.99
+[EVAL] step = 430000 mean = 10.27 std = 4.25
+[EVAL] step = 440000 mean = 8.99 std = 4.92
+[EVAL] step = 450000 mean = 8.83 std = 5.19
+[EVAL] step = 460000 mean = 8.26 std = 3.16
+[EVAL] step = 470000 mean = 9.31 std = 4.81
+[EVAL] step = 480000 mean = 8.84 std = 3.14
+[EVAL] step = 490000 mean = 8.69 std = 3.48
+[EVAL] step = 500000 mean = 8.72 std = 3.99
+[EVAL] step = 510000 mean = 8.43 std = 3.92
+[EVAL] step = 520000 mean = 10.10 std = 5.52
+[EVAL] step = 530000 mean = 9.50 std = 4.68
+[EVAL] step = 540000 mean = 9.41 std = 4.02
+[EVAL] step = 550000 mean = 8.86 std = 3.79
+[EVAL] step = 560000 mean = 9.08 std = 4.23
+[EVAL] step = 570000 mean = 9.91 std = 5.41
+[EVAL] step = 580000 mean = 9.51 std = 4.09
+[EVAL] step = 590000 mean = 9.41 std = 4.33
+[EVAL] step = 600000 mean = 9.15 std = 4.92
+[EVAL] step = 610000 mean = 8.78 std = 3.62
+[EVAL] step = 620000 mean = 9.02 std = 4.46
+[EVAL] step = 630000 mean = 8.07 std = 3.68
+[EVAL] step = 640000 mean = 9.38 std = 4.51
+[EVAL] step = 650000 mean = 9.98 std = 4.79
+[EVAL] step = 660000 mean = 10.31 std = 4.72
+[EVAL] step = 670000 mean = 8.49 std = 4.01
+[EVAL] step = 680000 mean = 8.46 std = 4.20
+[EVAL] step = 690000 mean = 11.23 std = 5.42
+[EVAL] step = 700000 mean = 9.02 std = 3.25
+[EVAL] step = 710000 mean = 7.70 std = 3.58
+[EVAL] step = 720000 mean = 9.68 std = 4.11
+[EVAL] step = 730000 mean = 10.89 std = 5.00
+[EVAL] step = 740000 mean = 8.20 std = 3.76
+[EVAL] step = 750000 mean = 8.46 std = 3.86
+[EVAL] step = 760000 mean = 8.26 std = 3.49
+[EVAL] step = 770000 mean = 9.37 std = 3.88
+[EVAL] step = 780000 mean = 10.62 std = 5.47
+[EVAL] step = 790000 mean = 10.25 std = 5.39
+[EVAL] step = 800000 mean = 8.64 std = 3.27
+[EVAL] step = 810000 mean = 8.89 std = 3.23
+[EVAL] step = 820000 mean = 10.60 std = 5.73
+[EVAL] step = 830000 mean = 9.29 std = 4.15
+[EVAL] step = 840000 mean = 9.50 std = 3.53
+[EVAL] step = 850000 mean = 9.22 std = 5.08
+[EVAL] step = 860000 mean = 9.71 std = 5.23
+[EVAL] step = 870000 mean = 9.73 std = 6.04
+[EVAL] step = 880000 mean = 8.92 std = 4.33
+[EVAL] step = 890000 mean = 9.38 std = 3.62
+[EVAL] step = 900000 mean = 9.27 std = 3.21
+[EVAL] step = 910000 mean = 8.49 std = 3.74
+[EVAL] step = 920000 mean = 10.13 std = 4.14
+[EVAL] step = 930000 mean = 8.33 std = 3.79
+[EVAL] step = 940000 mean = 7.45 std = 3.58
+[EVAL] step = 950000 mean = 9.71 std = 4.66
+[EVAL] step = 960000 mean = 8.14 std = 2.99
+[EVAL] step = 970000 mean = 8.65 std = 4.12
+[EVAL] step = 980000 mean = 9.31 std = 4.36
+[EVAL] step = 990000 mean = 9.73 std = 3.76
+[EVAL] step = 1000000 mean = 9.79 std = 4.22
+=== avg_fix_default_vanilla seed 1 finished Fri May 15 09:28:43 CEST 2026 ===
+=== avg_fix_default_vanilla seed 2 started Fri May 15 09:28:53 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: dog-walk (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 8.81 std = 4.30
+[EVAL] step = 20000 mean = 8.54 std = 3.94
+[EVAL] step = 30000 mean = 8.93 std = 4.92
+[EVAL] step = 40000 mean = 9.42 std = 5.02
+[EVAL] step = 50000 mean = 8.59 std = 4.81
+[EVAL] step = 60000 mean = 6.86 std = 2.87
+[EVAL] step = 70000 mean = 8.28 std = 4.42
+[EVAL] step = 80000 mean = 9.26 std = 4.02
+[EVAL] step = 90000 mean = 9.26 std = 4.87
+[EVAL] step = 100000 mean = 8.26 std = 3.71
+[EVAL] step = 110000 mean = 8.42 std = 4.40
+[EVAL] step = 120000 mean = 8.22 std = 4.63
+[EVAL] step = 130000 mean = 8.00 std = 2.93
+[EVAL] step = 140000 mean = 8.75 std = 4.10
+[EVAL] step = 150000 mean = 8.33 std = 3.20
+[EVAL] step = 160000 mean = 8.52 std = 4.19
+[EVAL] step = 170000 mean = 7.33 std = 4.06
+[EVAL] step = 180000 mean = 9.52 std = 5.87
+[EVAL] step = 190000 mean = 8.46 std = 3.08
+[EVAL] step = 200000 mean = 9.72 std = 4.52
+[EVAL] step = 210000 mean = 8.54 std = 3.46
+[EVAL] step = 220000 mean = 8.67 std = 4.30
+[EVAL] step = 230000 mean = 9.16 std = 4.84
+[EVAL] step = 240000 mean = 8.48 std = 3.88
+[EVAL] step = 250000 mean = 11.06 std = 6.97
+[EVAL] step = 260000 mean = 7.43 std = 3.36
+[EVAL] step = 270000 mean = 9.52 std = 5.18
+[EVAL] step = 280000 mean = 8.70 std = 4.25
+[EVAL] step = 290000 mean = 8.63 std = 5.24
+[EVAL] step = 300000 mean = 9.09 std = 4.69
+[EVAL] step = 310000 mean = 10.43 std = 8.06
+[EVAL] step = 320000 mean = 9.51 std = 3.91
+[EVAL] step = 330000 mean = 8.85 std = 3.52
+[EVAL] step = 340000 mean = 9.63 std = 5.58
+[EVAL] step = 350000 mean = 8.85 std = 3.73
+[EVAL] step = 360000 mean = 10.47 std = 5.00
+[EVAL] step = 370000 mean = 8.87 std = 4.45
+[EVAL] step = 380000 mean = 9.65 std = 5.34
+[EVAL] step = 390000 mean = 8.94 std = 3.53
+[EVAL] step = 400000 mean = 8.20 std = 3.44
+[EVAL] step = 410000 mean = 8.91 std = 5.43
+[EVAL] step = 420000 mean = 8.80 std = 4.42
+[EVAL] step = 430000 mean = 8.30 std = 3.63
+[EVAL] step = 440000 mean = 7.90 std = 3.73
+[EVAL] step = 450000 mean = 9.07 std = 4.74
+[EVAL] step = 460000 mean = 9.22 std = 3.60
+[EVAL] step = 470000 mean = 8.81 std = 4.79
+[EVAL] step = 480000 mean = 6.98 std = 3.24
+[EVAL] step = 490000 mean = 7.80 std = 2.95
+[EVAL] step = 500000 mean = 7.88 std = 4.22
+[EVAL] step = 510000 mean = 8.76 std = 3.43
+[EVAL] step = 520000 mean = 8.89 std = 4.00
+[EVAL] step = 530000 mean = 9.06 std = 5.48
+[EVAL] step = 540000 mean = 9.76 std = 4.58
+[EVAL] step = 550000 mean = 8.78 std = 3.97
+[EVAL] step = 560000 mean = 9.04 std = 4.32
+[EVAL] step = 570000 mean = 6.92 std = 3.23
+[EVAL] step = 580000 mean = 8.56 std = 4.46
+[EVAL] step = 590000 mean = 8.16 std = 3.26
+[EVAL] step = 600000 mean = 8.26 std = 3.51
+[EVAL] step = 610000 mean = 8.52 std = 4.02
+[EVAL] step = 620000 mean = 9.25 std = 4.35
+[EVAL] step = 630000 mean = 9.06 std = 3.35
+[EVAL] step = 640000 mean = 7.57 std = 4.45
+[EVAL] step = 650000 mean = 10.15 std = 6.24
+[EVAL] step = 660000 mean = 8.35 std = 3.14
+[EVAL] step = 670000 mean = 9.10 std = 3.73
+[EVAL] step = 680000 mean = 8.91 std = 4.59
+[EVAL] step = 690000 mean = 8.15 std = 5.12
+[EVAL] step = 700000 mean = 8.12 std = 3.75
+[EVAL] step = 710000 mean = 8.35 std = 3.86
+[EVAL] step = 720000 mean = 8.62 std = 5.59
+[EVAL] step = 730000 mean = 8.78 std = 3.27
+[EVAL] step = 740000 mean = 8.67 std = 4.16
+[EVAL] step = 750000 mean = 8.67 std = 5.20
+[EVAL] step = 760000 mean = 8.94 std = 5.19
+[EVAL] step = 770000 mean = 9.67 std = 5.64
+[EVAL] step = 780000 mean = 8.69 std = 3.65
+[EVAL] step = 790000 mean = 8.84 std = 4.20
+[EVAL] step = 800000 mean = 7.44 std = 3.90
+[EVAL] step = 810000 mean = 8.93 std = 4.69
+[EVAL] step = 820000 mean = 8.21 std = 4.21
+[EVAL] step = 830000 mean = 8.08 std = 3.45
+[EVAL] step = 840000 mean = 9.07 std = 5.05
+[EVAL] step = 850000 mean = 7.21 std = 2.68
+[EVAL] step = 860000 mean = 9.29 std = 4.68
+[EVAL] step = 870000 mean = 8.57 std = 4.18
+[EVAL] step = 880000 mean = 8.25 std = 4.13
+[EVAL] step = 890000 mean = 8.51 std = 4.86
+[EVAL] step = 900000 mean = 9.29 std = 5.56
+[EVAL] step = 910000 mean = 7.71 std = 3.57
+[EVAL] step = 920000 mean = 8.19 std = 4.23
+[EVAL] step = 930000 mean = 8.31 std = 3.86
+[EVAL] step = 940000 mean = 7.46 std = 2.91
+[EVAL] step = 950000 mean = 9.38 std = 4.06
+[EVAL] step = 960000 mean = 8.95 std = 4.67
+[EVAL] step = 970000 mean = 7.55 std = 3.61
+[EVAL] step = 980000 mean = 8.44 std = 4.28
+[EVAL] step = 990000 mean = 8.46 std = 3.89
+[EVAL] step = 1000000 mean = 9.53 std = 3.81
+=== avg_fix_default_vanilla seed 2 finished Fri May 15 11:06:51 CEST 2026 ===
+=== avg_fix_default_vanilla seed 3 started Fri May 15 11:07:01 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: dog-walk (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 8.21 std = 3.62
+[EVAL] step = 20000 mean = 9.83 std = 5.14
+[EVAL] step = 30000 mean = 9.61 std = 4.03
+[EVAL] step = 40000 mean = 7.06 std = 2.59
+[EVAL] step = 50000 mean = 8.27 std = 4.09
+[EVAL] step = 60000 mean = 9.21 std = 5.78
+[EVAL] step = 70000 mean = 8.58 std = 3.30
+[EVAL] step = 80000 mean = 9.79 std = 3.98
+[EVAL] step = 90000 mean = 7.92 std = 3.97
+[EVAL] step = 100000 mean = 9.53 std = 5.29
+[EVAL] step = 110000 mean = 7.47 std = 2.87
+[EVAL] step = 120000 mean = 9.22 std = 4.74
+[EVAL] step = 130000 mean = 7.93 std = 3.93
+[EVAL] step = 140000 mean = 8.75 std = 4.06
+[EVAL] step = 150000 mean = 8.16 std = 4.49
+[EVAL] step = 160000 mean = 9.24 std = 3.84
+[EVAL] step = 170000 mean = 8.30 std = 3.47
+[EVAL] step = 180000 mean = 8.29 std = 4.63
+[EVAL] step = 190000 mean = 8.72 std = 3.82
+[EVAL] step = 200000 mean = 8.58 std = 4.74
+[EVAL] step = 210000 mean = 8.38 std = 3.89
+[EVAL] step = 220000 mean = 9.17 std = 3.72
+[EVAL] step = 230000 mean = 9.15 std = 3.97
+[EVAL] step = 240000 mean = 8.50 std = 3.98
+[EVAL] step = 250000 mean = 9.76 std = 5.22
+[EVAL] step = 260000 mean = 8.55 std = 4.55
+[EVAL] step = 270000 mean = 7.85 std = 3.84
+[EVAL] step = 280000 mean = 9.23 std = 5.62
+[EVAL] step = 290000 mean = 8.81 std = 3.46
+[EVAL] step = 300000 mean = 8.32 std = 3.91
+[EVAL] step = 310000 mean = 7.96 std = 3.75
+[EVAL] step = 320000 mean = 8.80 std = 4.39
+[EVAL] step = 330000 mean = 7.72 std = 3.53
+[EVAL] step = 340000 mean = 8.85 std = 4.73
+[EVAL] step = 350000 mean = 8.20 std = 3.36
+[EVAL] step = 360000 mean = 8.83 std = 4.86
+[EVAL] step = 370000 mean = 8.64 std = 4.64
+[EVAL] step = 380000 mean = 7.15 std = 2.59
+[EVAL] step = 390000 mean = 8.75 std = 3.63
+[EVAL] step = 400000 mean = 8.93 std = 5.58
+[EVAL] step = 410000 mean = 8.31 std = 4.15
+[EVAL] step = 420000 mean = 7.89 std = 3.56
+[EVAL] step = 430000 mean = 7.62 std = 3.80
+[EVAL] step = 440000 mean = 9.07 std = 4.53
+[EVAL] step = 450000 mean = 9.00 std = 4.98
+[EVAL] step = 460000 mean = 8.24 std = 4.12
+[EVAL] step = 470000 mean = 9.30 std = 4.99
+[EVAL] step = 480000 mean = 8.98 std = 5.11
+[EVAL] step = 490000 mean = 8.26 std = 3.58
+[EVAL] step = 500000 mean = 8.18 std = 4.12
+[EVAL] step = 510000 mean = 7.71 std = 3.20
+[EVAL] step = 520000 mean = 7.48 std = 4.00
+[EVAL] step = 530000 mean = 7.58 std = 3.95
+[EVAL] step = 540000 mean = 7.88 std = 4.03
+[EVAL] step = 550000 mean = 9.23 std = 3.93
+[EVAL] step = 560000 mean = 8.04 std = 3.29
+[EVAL] step = 570000 mean = 9.16 std = 4.03
+[EVAL] step = 580000 mean = 8.77 std = 5.02
+[EVAL] step = 590000 mean = 8.73 std = 4.16
+[EVAL] step = 600000 mean = 8.47 std = 3.73
+[EVAL] step = 610000 mean = 8.20 std = 3.96
+[EVAL] step = 620000 mean = 7.93 std = 4.11
+[EVAL] step = 630000 mean = 8.76 std = 4.14
+[EVAL] step = 640000 mean = 8.10 std = 4.26
+[EVAL] step = 650000 mean = 7.87 std = 3.89
+[EVAL] step = 660000 mean = 8.30 std = 4.33
+[EVAL] step = 670000 mean = 8.28 std = 4.11
+[EVAL] step = 680000 mean = 9.91 std = 6.51
+[EVAL] step = 690000 mean = 9.29 std = 4.66
+[EVAL] step = 700000 mean = 7.52 std = 4.17
+[EVAL] step = 710000 mean = 10.31 std = 5.49
+[EVAL] step = 720000 mean = 9.18 std = 4.03
+[EVAL] step = 730000 mean = 8.68 std = 4.86
+[EVAL] step = 740000 mean = 7.75 std = 3.41
+[EVAL] step = 750000 mean = 8.67 std = 4.86
+[EVAL] step = 760000 mean = 7.73 std = 3.28
+[EVAL] step = 770000 mean = 8.13 std = 3.73
+[EVAL] step = 780000 mean = 7.75 std = 3.92
+[EVAL] step = 790000 mean = 8.36 std = 4.66
+[EVAL] step = 800000 mean = 7.98 std = 3.88
+[EVAL] step = 810000 mean = 8.09 std = 3.31
+[EVAL] step = 820000 mean = 9.15 std = 5.45
+[EVAL] step = 830000 mean = 8.66 std = 4.86
+[EVAL] step = 840000 mean = 8.29 std = 3.97
+[EVAL] step = 850000 mean = 8.50 std = 3.68
+[EVAL] step = 860000 mean = 9.07 std = 4.50
+[EVAL] step = 870000 mean = 8.30 std = 4.30
+[EVAL] step = 880000 mean = 8.46 std = 4.29
+[EVAL] step = 890000 mean = 8.98 std = 4.18
+[EVAL] step = 900000 mean = 9.48 std = 4.57
+[EVAL] step = 910000 mean = 8.48 std = 3.59
+[EVAL] step = 920000 mean = 8.39 std = 4.21
+[EVAL] step = 930000 mean = 8.98 std = 4.51
+[EVAL] step = 940000 mean = 8.29 std = 4.04
+[EVAL] step = 950000 mean = 9.09 std = 4.53
+[EVAL] step = 960000 mean = 8.32 std = 4.18
+[EVAL] step = 970000 mean = 9.60 std = 5.95
+[EVAL] step = 980000 mean = 7.77 std = 3.26
+[EVAL] step = 990000 mean = 7.35 std = 3.65
+[EVAL] step = 1000000 mean = 7.46 std = 3.31
+=== avg_fix_default_vanilla seed 3 finished Fri May 15 11:54:25 CEST 2026 ===
+=== plotting avg_fix_default_vanilla on dmcontrol/dog-walk Fri May 15 11:54:35 CEST 2026 ===
+Traceback (most recent call last):
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/fixed_plot_results.py", line 186, in <module>
+    main()
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/fixed_plot_results.py", line 155, in main
+    _, eval_agg = aggregate_eval(args.results_root, args.backend, args.algo, args.env_name)
+  File "/Users/Max/Documents/UniPd/4_Semester/RL_Thesis/thesis_streaming-drl/evaluation/fixed_plot_results.py", line 51, in aggregate_eval
+    df = pd.read_csv(f)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 626, in _read
+    return parser.read(nrows)
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1923, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+  File "/Users/Max/miniforge3/envs/streamrl_arm/lib/python3.10/site-packages/pandas/io/parsers/c_parser_wrapper.py", line 234, in read
+    chunks = self._reader.read_low_memory(nrows)
+  File "pandas/_libs/parsers.pyx", line 838, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 905, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 874, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 891, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2061, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 3 fields in line 3, saw 9
+

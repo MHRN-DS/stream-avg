@@ -58,12 +58,12 @@ def evaluate_policy_avg(
     train_norm = find_gym_norm_wrapper(train_env)
     eval_norm = find_gym_norm_wrapper(eval_env)
 
-    # copy train obs normalization stats into eval env
+    # Copy train observation normalization stats into eval env.
     eval_norm.obs_rms.mean = train_norm.obs_rms.mean.copy()
     eval_norm.obs_rms.var = train_norm.obs_rms.var.copy()
     eval_norm.obs_rms.count = train_norm.obs_rms.count
 
-    # freeze eval normalization
+    # Freeze eval normalization.
     eval_norm.update_running_mean = False
 
     was_training = agent.training

@@ -49,6 +49,7 @@ from torch.distributions import MultivariateNormal
 import gymnasium as gym
 from gymnasium.wrappers import NormalizeObservation, ClipAction
 from incremental_rl.envs.dm_control_wrapper import DMControl
+from incremental_rl.td_error_scaler import TDErrorScaler as OriginalTDErrorScaler
 from paths import ensure_run_dirs, train_csv_path, eval_csv_path, returns_pkl_path
 from evaluation.fixed_evaluator import evaluate_policy
 from logging_utils.csv_logger import CSVLogger
@@ -147,7 +148,7 @@ class RunningMeanVar:
         return float(np.sqrt(max(self.var, 1e-8)))
 
 
-class TDErrorScaler:
+class CustomTDErrorScaler:
     """
     TD-error scaling faithful to AVG paper Algorithm 3.
     """
@@ -361,29 +362,45 @@ class AVGBaseline(nn.Module):
             use_layer_norm=cfg.use_layer_norm,
         )
 
-        self.popt = torch.optim.Adam(
-            self.actor.parameters(),
-            lr=cfg.actor_lr,
-            betas=cfg.betas,
-        )
-        self.qopt = torch.optim.Adam(
-            self.Q.parameters(),
-            lr=cfg.critic_lr,
-            betas=cfg.betas,
-        )
+        actor_adam_kwargs = {"lr": cfg.actor_lr}
+        critic_adam_kwargs = {"lr": cfg.critic_lr}
+        if cfg.betas is not None:
+            actor_adam_kwargs["betas"] = tuple(cfg.betas)
+            critic_adam_kwargs["betas"] = tuple(cfg.betas)
+
+        self.popt = torch.optim.Adam(self.actor.parameters(), **actor_adam_kwargs)
+        self.qopt = torch.optim.Adam(self.Q.parameters(), **critic_adam_kwargs)
 
         self.alpha = cfg.alpha_lr
         self.gamma = cfg.gamma
         self.device = cfg.device
 
         
-        self.td_error_scaler = TDErrorScaler()
+        self.td_scaler_impl = getattr(cfg, "td_scaler_impl", "custom")
+        if self.td_scaler_impl == "original":
+            self.td_error_scaler = OriginalTDErrorScaler()
+        elif self.td_scaler_impl == "custom":
+            self.td_error_scaler = CustomTDErrorScaler()
+        else:
+            raise ValueError(f"Unknown td_scaler_impl: {self.td_scaler_impl}")
+        self.td_scaler_reward_units = getattr(cfg, "td_scaler_reward_units", "unscaled")
         
         # Reward rescaling
         self.reward_scaler = RewardScaler()
         
         self.scaling_mode = cfg.scaling_mode
         self.G = 0.0
+        self.last_update_stats = {}
+
+    def _update_td_error_scaler(self, reward_for_scaler: float, gamma: float, G: float | None) -> None:
+        if self.td_scaler_impl == "original":
+            self.td_error_scaler.update(reward=reward_for_scaler, gamma=gamma, G=G)
+        else:
+            self.td_error_scaler.update(r_raw=reward_for_scaler, gamma=gamma, G=G)
+
+    @property
+    def td_sigma(self) -> float:
+        return float(self.td_error_scaler.sigma)
 
     def compute_action(self, obs_np: np.ndarray):
         obs = torch.tensor(obs_np.astype(np.float32), device=self.device).unsqueeze(0)
@@ -449,19 +466,7 @@ class AVGBaseline(nn.Module):
         # Track raw environment reward variance SEPARATE from TD scaling
         self.reward_scaler.update(raw_reward=reward)
         
-        # STEP 2: Compute entropy-adjusted reward (UNSCALED)
-        r_ent = reward - self.alpha * lprob.detach().item()
-        self.G += r_ent
-        
-        # STEP 3: Update TD-error scaler with unscaled entropy-adjusted reward
-        # NOTE: Assumes paper uses r_ent for variance (awaiting supervisor verification)
-        if done:
-            self.td_error_scaler.update(r_raw=r_ent, gamma=0.0, G=self.G)
-            self.G = 0.0
-        else:
-            self.td_error_scaler.update(r_raw=r_ent, gamma=self.gamma, G=None)
-        
-        # STEP 4: Compute scaling factors (identity for variant A)
+        # STEP 2: Compute scaling factors (identity for variant A)
         if self.scaling_mode == "td_only":
             reward_scale = 1.0
             alpha_scale = 1.0
@@ -474,11 +479,28 @@ class AVGBaseline(nn.Module):
             reward_scale = self.reward_scaler.get_scale()
             alpha_scale = reward_scale  # Maintain balance: scale reward and alpha together
         
-        # STEP 5: Scale reward and entropy coefficient for loss computation
+        # STEP 3: Scale reward and entropy coefficient for loss computation
         reward_scaled = reward / reward_scale if reward_scale > 1e-8 else reward
         alpha_scaled = self.alpha / alpha_scale if alpha_scale > 1e-8 else self.alpha
 
-        # STEP 6: Critic and Actor losses (using scaled reward/entropy)
+        # STEP 4: Update TD-error scaler before the learning update.
+        # For fixed ablations, the scaler sees the same reward/eta units used in the TD target.
+        if self.td_scaler_reward_units == "loss":
+            r_ent_for_scaler = reward_scaled - alpha_scaled * lprob.detach().item()
+        elif self.td_scaler_reward_units == "unscaled":
+            r_ent_for_scaler = reward - self.alpha * lprob.detach().item()
+        else:
+            raise ValueError(f"Unknown td_scaler_reward_units: {self.td_scaler_reward_units}")
+
+        self.G += r_ent_for_scaler
+        if done:
+            self._update_td_error_scaler(reward_for_scaler=r_ent_for_scaler, gamma=0.0, G=self.G)
+            self.G = 0.0
+        else:
+            self._update_td_error_scaler(reward_for_scaler=r_ent_for_scaler, gamma=self.gamma, G=None)
+        td_sigma = max(self.td_sigma, 1e-8)
+
+        # STEP 5: Critic and Actor losses (using scaled reward/entropy)
         q = self.Q(obs, action.detach())
 
         with torch.no_grad():
@@ -488,10 +510,20 @@ class AVGBaseline(nn.Module):
             target_v = q2 - alpha_scaled * next_lprob
 
         delta = reward_scaled + (1 - float(done)) * self.gamma * target_v - q
-        delta = delta / max(self.td_error_scaler.sigma, 1e-8)
+        delta = delta / td_sigma
         qloss = (delta ** 2).mean()
 
         ploss = (alpha_scaled * lprob - self.Q(obs, action)).mean()
+
+        self.last_update_stats = {
+            "reward_scale": float(reward_scale),
+            "alpha_scaled": float(alpha_scaled),
+            "td_sigma": float(td_sigma),
+            "q_loss": float(qloss.detach().cpu().item()),
+            "policy_loss": float(ploss.detach().cpu().item()),
+            "log_prob": float(lprob.detach().cpu().mean().item()),
+            "r_ent_for_scaler": float(r_ent_for_scaler),
+        }
 
         
         self.popt.zero_grad()
@@ -538,7 +570,9 @@ def main(args):
         "actor_lr": args.actor_lr,
         "critic_lr": args.critic_lr,
         "beta1": args.beta1,
-        "beta2": 0.999, # need to be changed if we want to tune hyperparamters
+        "beta2": args.beta2,
+        "betas": [args.beta1, args.beta2],
+        "uses_adam_default_betas": getattr(args, "use_adam_default_betas", False),
         "gamma": args.gamma,
         "alpha_lr": args.alpha_lr,
         "nhid_actor": args.nhid_actor,
@@ -552,6 +586,10 @@ def main(args):
         "action_distribution": getattr(args, "action_distribution", "tanh_normal"),
         "uses_penult_norm": True,
         "uses_td_scaling": True,
+        "td_scaler_impl": args.td_scaler_impl,
+        "td_scaler_reward_units": args.td_scaler_reward_units,
+        "bootstrap_on_truncation": args.bootstrap_on_truncation,
+        "log_update_stats": args.log_update_stats,
         "uses_layer_norm": args.use_layer_norm,
         "uses_internal_reward_rescaling": args.scaling_mode != "td_only",
         "uses_internal_entropy_rescaling": args.scaling_mode == "td_reward_entropy",
@@ -586,9 +624,23 @@ def main(args):
 
     agent = AVGBaseline(args)
 
+    train_fields = ["step", "episode_return"]
+    if args.log_update_stats:
+        train_fields.extend(
+            [
+                "reward_scale",
+                "alpha_scaled",
+                "td_sigma",
+                "q_loss",
+                "policy_loss",
+                "log_prob",
+                "r_ent_for_scaler",
+            ]
+        )
+
     train_logger = CSVLogger(
         train_csv_path(args.results_root, args.backend, args.algo, args.env_name, args.seed),
-        ["step", "episode_return"],
+        train_fields,
     )
     eval_logger = CSVLogger(
         eval_csv_path(args.results_root, args.backend, args.algo, args.env_name, args.seed),
@@ -607,13 +659,14 @@ def main(args):
 
         next_obs, reward, terminated, truncated, info = env.step(sim_action)
         done = terminated or truncated
+        update_done = terminated if args.bootstrap_on_truncation else done
 
         agent.update(
             obs,
             action,
             next_obs,
             reward,
-            done,
+            update_done,
             **action_info,
         )
 
@@ -645,12 +698,13 @@ def main(args):
             returns.append(episode_return)
             term_steps.append(t)
 
-            train_logger.log(
-                {
-                    "step": t,
-                    "episode_return": episode_return,
-                }
-            )
+            train_row = {
+                "step": t,
+                "episode_return": episode_return,
+            }
+            if args.log_update_stats:
+                train_row.update(agent.last_update_stats)
+            train_logger.log(train_row)
 
             obs, _ = env.reset()
             ret = 0.0
@@ -678,6 +732,12 @@ if __name__ == "__main__":
     parser.add_argument("--actor_lr", type=float, default=0.0063)
     parser.add_argument("--critic_lr", type=float, default=0.0087)
     parser.add_argument("--beta1", type=float, default=0.0) # change
+    parser.add_argument("--beta2", type=float, default=0.999)
+    parser.add_argument(
+        "--use_adam_default_betas",
+        action="store_true",
+        help="Use PyTorch Adam default betas (0.9, 0.999) instead of passing beta1/beta2.",
+    )
     parser.add_argument("--gamma", type=float, default=0.99) # change
     parser.add_argument("--alpha_lr", type=float, default=0.07) # at first stick to it 
     parser.add_argument("--nhid_actor", type=int, default=256)
@@ -690,6 +750,30 @@ if __name__ == "__main__":
         default="td_only",
         choices=["td_only", "td_reward", "td_reward_entropy"],
         help="(A) TD-error only | (B) +reward scaling | (C) +entropy scaling"
+    )
+    parser.add_argument(
+        "--td_scaler_impl",
+        type=str,
+        default="original",
+        choices=["custom", "original"],
+        help="TD-error scaler implementation. Use original to match upstream AVG.",
+    )
+    parser.add_argument(
+        "--td_scaler_reward_units",
+        type=str,
+        default="loss",
+        choices=["unscaled", "loss"],
+        help="Reward/eta units used to update the TD-error scaler.",
+    )
+    parser.add_argument(
+        "--bootstrap_on_truncation",
+        action="store_true",
+        help="Match original AVG: do not zero the bootstrap target on time-limit truncation.",
+    )
+    parser.add_argument(
+        "--log_update_stats",
+        action="store_true",
+        help="Add reward/TD scale and loss diagnostics to train.csv.",
     )
     parser.add_argument(
         "--use_layer_norm",
@@ -709,13 +793,24 @@ if __name__ == "__main__":
     parser.add_argument("--eval_episodes", type=int, default=10)
     parser.add_argument("--eval_action_mode", type=str, default="sample", choices=["sample", "mean"])
     parser.add_argument("--results_root", type=str, default="results")
+    parser.add_argument(
+        "--algo",
+        type=str,
+        default=None,
+        help="Override the result-folder name. Use avg_default for Phase 2 Adam-default runs.",
+    )
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--device", type=str, default="cpu")
 
     args = parser.parse_args()
 
     # AVG Adam setup
-    args.betas = [args.beta1, 0.999]
+    if args.use_adam_default_betas:
+        args.beta1 = 0.9
+        args.beta2 = 0.999
+        args.betas = None
+    else:
+        args.betas = [args.beta1, args.beta2]
 
     if torch.cuda.is_available() and "cuda" in args.device:
         args.device = torch.device(args.device)
@@ -723,10 +818,11 @@ if __name__ == "__main__":
         args.device = torch.device("cpu")
 
     # Naming convention for results: avg_A, avg_B, avg_C (+ _ln if LayerNorm)
-    mode_names = {"td_only": "A", "td_reward": "B", "td_reward_entropy": "C"}
-    base_algo = f"avg_{mode_names[args.scaling_mode]}"
-    args.algo = f"{base_algo}_ln" if args.use_layer_norm else base_algo
-    if args.action_distribution == "clipped_normal":
-        args.algo = f"{args.algo}_clip"
+    if args.algo is None:
+        mode_names = {"td_only": "A", "td_reward": "B", "td_reward_entropy": "C"}
+        base_algo = f"avg_{mode_names[args.scaling_mode]}"
+        args.algo = f"{base_algo}_ln" if args.use_layer_norm else base_algo
+        if args.action_distribution == "clipped_normal":
+            args.algo = f"{args.algo}_clip"
 
     main(args)

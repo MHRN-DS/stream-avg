@@ -248,8 +248,8 @@ def main() -> None:
                         help="Variant folders to compare. Use algo or algo=Pretty Label.")
     parser.add_argument("--results_root", type=str, default="results")
     parser.add_argument("--train_bin_size", type=int, default=10000)
-    parser.add_argument("--eval_smooth", type=int, default=1)
-    parser.add_argument("--train_smooth", type=int, default=3)
+    parser.add_argument("--eval_smooth", type=int, default=5)
+    parser.add_argument("--train_smooth", type=int, default=5)
     parser.add_argument("--skip_train", action="store_true")
     parser.add_argument("--output_tag", type=str, default="comparison")
     parser.add_argument("--seeds", type=int, nargs="+", default=None,

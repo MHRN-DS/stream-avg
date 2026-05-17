@@ -1,0 +1,2164 @@
+=== AVG fixed full rerun started Tue May 12 18:11:16 CEST 2026 ===
+Log: logs/avg_fix_finger_default_clip_rerun_20260512_181116.log
+Results path: results/<backend>/avg_fix*/<env>/seed_<seed>
+Implementation flags: original AVG TD scaler, loss-unit scaler rewards, bootstrap through truncation, diagnostics enabled
+Naming: avg_fix_specific_* uses tuned/paper hyperparameters.
+Seeds: 1 2 3
+Total steps: 1000000
+Eval interval: 10000
+Eval episodes: 10
+Force rerun: 0
+
+HalfCheetah variants:
+avg_fix_specific_vanilla|td_only|0|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams vanilla
+avg_fix_specific_reward|td_reward|0|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams + reward scaling
+avg_fix_specific_reward_eta|td_reward_entropy|0|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams + reward + eta scaling
+avg_fix_specific_ln|td_only|1|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams + LayerNorm
+avg_fix_specific_reward_ln|td_reward|1|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams + reward scaling + LayerNorm
+avg_fix_specific_reward_eta_ln|td_reward_entropy|1|0.0063|0.0087|0.0|0.999|0|0.07|0.99|tanh_normal|AVG fixed specific hparams + reward + eta scaling + LayerNorm
+
+Finger-spin variants:
+avg_fix_default_clip_vanilla|td_only|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action vanilla
+avg_fix_default_clip_reward|td_reward|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action + reward scaling
+avg_fix_default_clip_reward_eta|td_reward_entropy|0|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action + reward + eta scaling
+avg_fix_default_clip_ln|td_only|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action + LayerNorm
+avg_fix_default_clip_reward_ln|td_reward|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action + reward scaling + LayerNorm
+avg_fix_default_clip_reward_eta_ln|td_reward_entropy|1|0.0003|0.0003|0.9|0.999|1|0.07|0.99|clipped_normal|AVG fixed default clipped-action + reward + eta scaling + LayerNorm
+
+=== HalfCheetah variants disabled for this invocation Tue May 12 18:11:16 CEST 2026 ===
+
+=== task dmcontrol/finger-spin-v0 started Tue May 12 18:11:16 CEST 2026 ===
+
+=== variant avg_fix_default_clip_vanilla started Tue May 12 18:11:16 CEST 2026 ===
+Label: AVG fixed default clipped-action vanilla
+Settings: scaling_mode=td_only use_layer_norm=0 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_vanilla seed 1 started Tue May 12 18:11:16 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_vanilla seed 1 finished Tue May 12 18:34:10 CEST 2026 ===
+=== avg_fix_default_clip_vanilla seed 2 started Tue May 12 18:34:20 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.10 std = 0.30
+[EVAL] step = 20000 mean = 0.20 std = 0.60
+[EVAL] step = 30000 mean = 0.30 std = 0.90
+[EVAL] step = 40000 mean = 0.30 std = 0.90
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.20 std = 0.60
+[EVAL] step = 90000 mean = 1.00 std = 3.00
+[EVAL] step = 100000 mean = 0.80 std = 2.40
+[EVAL] step = 110000 mean = 0.90 std = 2.70
+[EVAL] step = 120000 mean = 0.80 std = 2.40
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.60 std = 1.80
+[EVAL] step = 150000 mean = 1.00 std = 3.00
+[EVAL] step = 160000 mean = 0.30 std = 0.90
+[EVAL] step = 170000 mean = 0.80 std = 2.40
+[EVAL] step = 180000 mean = 0.80 std = 2.40
+[EVAL] step = 190000 mean = 0.80 std = 2.40
+[EVAL] step = 200000 mean = 0.80 std = 2.40
+[EVAL] step = 210000 mean = 0.90 std = 2.70
+[EVAL] step = 220000 mean = 0.20 std = 0.60
+[EVAL] step = 230000 mean = 0.80 std = 2.40
+[EVAL] step = 240000 mean = 0.80 std = 2.40
+[EVAL] step = 250000 mean = 0.80 std = 2.40
+[EVAL] step = 260000 mean = 0.80 std = 2.40
+[EVAL] step = 270000 mean = 0.80 std = 2.40
+[EVAL] step = 280000 mean = 0.80 std = 2.40
+[EVAL] step = 290000 mean = 0.80 std = 2.40
+[EVAL] step = 300000 mean = 0.80 std = 2.40
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.80 std = 2.40
+[EVAL] step = 330000 mean = 0.80 std = 2.40
+[EVAL] step = 340000 mean = 1.00 std = 3.00
+[EVAL] step = 350000 mean = 0.70 std = 2.10
+[EVAL] step = 360000 mean = 0.80 std = 2.40
+[EVAL] step = 370000 mean = 0.80 std = 2.40
+[EVAL] step = 380000 mean = 0.40 std = 1.20
+[EVAL] step = 390000 mean = 0.80 std = 2.40
+[EVAL] step = 400000 mean = 0.80 std = 2.40
+[EVAL] step = 410000 mean = 0.80 std = 2.40
+[EVAL] step = 420000 mean = 0.80 std = 2.40
+[EVAL] step = 430000 mean = 0.80 std = 2.40
+[EVAL] step = 440000 mean = 0.80 std = 2.40
+[EVAL] step = 450000 mean = 0.80 std = 2.40
+[EVAL] step = 460000 mean = 0.80 std = 2.40
+[EVAL] step = 470000 mean = 0.20 std = 0.60
+[EVAL] step = 480000 mean = 0.80 std = 2.40
+[EVAL] step = 490000 mean = 0.80 std = 2.40
+[EVAL] step = 500000 mean = 0.80 std = 2.40
+[EVAL] step = 510000 mean = 0.80 std = 2.40
+[EVAL] step = 520000 mean = 0.20 std = 0.60
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.80 std = 2.40
+[EVAL] step = 550000 mean = 0.80 std = 2.40
+[EVAL] step = 560000 mean = 0.80 std = 2.40
+[EVAL] step = 570000 mean = 0.80 std = 2.40
+[EVAL] step = 580000 mean = 0.80 std = 2.40
+[EVAL] step = 590000 mean = 0.80 std = 2.40
+[EVAL] step = 600000 mean = 0.80 std = 2.40
+[EVAL] step = 610000 mean = 0.80 std = 2.40
+[EVAL] step = 620000 mean = 0.80 std = 2.40
+[EVAL] step = 630000 mean = 0.80 std = 2.40
+[EVAL] step = 640000 mean = 0.80 std = 2.40
+[EVAL] step = 650000 mean = 0.80 std = 2.40
+[EVAL] step = 660000 mean = 0.80 std = 2.40
+[EVAL] step = 670000 mean = 0.80 std = 2.40
+[EVAL] step = 680000 mean = 0.80 std = 2.40
+[EVAL] step = 690000 mean = 0.80 std = 2.40
+[EVAL] step = 700000 mean = 0.80 std = 2.40
+[EVAL] step = 710000 mean = 0.80 std = 2.40
+[EVAL] step = 720000 mean = 0.80 std = 2.40
+[EVAL] step = 730000 mean = 0.80 std = 2.40
+[EVAL] step = 740000 mean = 0.80 std = 2.40
+[EVAL] step = 750000 mean = 0.80 std = 2.40
+[EVAL] step = 760000 mean = 0.80 std = 2.40
+[EVAL] step = 770000 mean = 0.80 std = 2.40
+[EVAL] step = 780000 mean = 0.80 std = 2.40
+[EVAL] step = 790000 mean = 0.80 std = 2.40
+[EVAL] step = 800000 mean = 0.80 std = 2.40
+[EVAL] step = 810000 mean = 0.80 std = 2.40
+[EVAL] step = 820000 mean = 0.80 std = 2.40
+[EVAL] step = 830000 mean = 0.80 std = 2.40
+[EVAL] step = 840000 mean = 0.80 std = 2.40
+[EVAL] step = 850000 mean = 0.80 std = 2.40
+[EVAL] step = 860000 mean = 0.80 std = 2.40
+[EVAL] step = 870000 mean = 0.80 std = 2.40
+[EVAL] step = 880000 mean = 0.80 std = 2.40
+[EVAL] step = 890000 mean = 0.80 std = 2.40
+[EVAL] step = 900000 mean = 0.80 std = 2.40
+[EVAL] step = 910000 mean = 0.80 std = 2.40
+[EVAL] step = 920000 mean = 0.80 std = 2.40
+[EVAL] step = 930000 mean = 0.80 std = 2.40
+[EVAL] step = 940000 mean = 0.80 std = 2.40
+[EVAL] step = 950000 mean = 0.80 std = 2.40
+[EVAL] step = 960000 mean = 0.80 std = 2.40
+[EVAL] step = 970000 mean = 0.80 std = 2.40
+[EVAL] step = 980000 mean = 0.80 std = 2.40
+[EVAL] step = 990000 mean = 0.80 std = 2.40
+[EVAL] step = 1000000 mean = 0.80 std = 2.40
+=== avg_fix_default_clip_vanilla seed 2 finished Tue May 12 18:57:37 CEST 2026 ===
+=== avg_fix_default_clip_vanilla seed 3 started Tue May 12 18:57:47 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_vanilla
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 0.50 std = 1.50
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.60 std = 1.80
+[EVAL] step = 40000 mean = 0.30 std = 0.90
+[EVAL] step = 50000 mean = 0.10 std = 0.30
+[EVAL] step = 60000 mean = 0.30 std = 0.90
+[EVAL] step = 70000 mean = 0.10 std = 0.30
+[EVAL] step = 80000 mean = 0.20 std = 0.60
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.30 std = 0.90
+[EVAL] step = 120000 mean = 0.30 std = 0.90
+[EVAL] step = 130000 mean = 0.30 std = 0.90
+[EVAL] step = 140000 mean = 0.30 std = 0.90
+[EVAL] step = 150000 mean = 0.30 std = 0.90
+[EVAL] step = 160000 mean = 0.30 std = 0.90
+[EVAL] step = 170000 mean = 0.30 std = 0.90
+[EVAL] step = 180000 mean = 0.30 std = 0.90
+[EVAL] step = 190000 mean = 0.30 std = 0.90
+[EVAL] step = 200000 mean = 0.30 std = 0.90
+[EVAL] step = 210000 mean = 0.30 std = 0.90
+[EVAL] step = 220000 mean = 0.30 std = 0.90
+[EVAL] step = 230000 mean = 0.30 std = 0.90
+[EVAL] step = 240000 mean = 0.30 std = 0.90
+[EVAL] step = 250000 mean = 0.30 std = 0.90
+[EVAL] step = 260000 mean = 0.30 std = 0.90
+[EVAL] step = 270000 mean = 0.30 std = 0.90
+[EVAL] step = 280000 mean = 0.30 std = 0.90
+[EVAL] step = 290000 mean = 0.10 std = 0.30
+[EVAL] step = 300000 mean = 0.30 std = 0.90
+[EVAL] step = 310000 mean = 0.30 std = 0.90
+[EVAL] step = 320000 mean = 0.30 std = 0.90
+[EVAL] step = 330000 mean = 0.30 std = 0.90
+[EVAL] step = 340000 mean = 0.30 std = 0.90
+[EVAL] step = 350000 mean = 0.30 std = 0.90
+[EVAL] step = 360000 mean = 0.30 std = 0.90
+[EVAL] step = 370000 mean = 0.30 std = 0.90
+[EVAL] step = 380000 mean = 0.30 std = 0.90
+[EVAL] step = 390000 mean = 0.30 std = 0.90
+[EVAL] step = 400000 mean = 0.30 std = 0.90
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.30 std = 0.90
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.30 std = 0.90
+[EVAL] step = 450000 mean = 0.30 std = 0.90
+[EVAL] step = 460000 mean = 0.30 std = 0.90
+[EVAL] step = 470000 mean = 0.30 std = 0.90
+[EVAL] step = 480000 mean = 0.30 std = 0.90
+[EVAL] step = 490000 mean = 0.30 std = 0.90
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.10 std = 0.30
+[EVAL] step = 520000 mean = 0.30 std = 0.90
+[EVAL] step = 530000 mean = 0.30 std = 0.90
+[EVAL] step = 540000 mean = 0.30 std = 0.90
+[EVAL] step = 550000 mean = 0.30 std = 0.90
+[EVAL] step = 560000 mean = 0.30 std = 0.90
+[EVAL] step = 570000 mean = 0.30 std = 0.90
+[EVAL] step = 580000 mean = 0.30 std = 0.90
+[EVAL] step = 590000 mean = 0.30 std = 0.90
+[EVAL] step = 600000 mean = 0.30 std = 0.90
+[EVAL] step = 610000 mean = 0.30 std = 0.90
+[EVAL] step = 620000 mean = 0.30 std = 0.90
+[EVAL] step = 630000 mean = 0.30 std = 0.90
+[EVAL] step = 640000 mean = 0.30 std = 0.90
+[EVAL] step = 650000 mean = 0.30 std = 0.90
+[EVAL] step = 660000 mean = 0.30 std = 0.90
+[EVAL] step = 670000 mean = 0.30 std = 0.90
+[EVAL] step = 680000 mean = 0.30 std = 0.90
+[EVAL] step = 690000 mean = 0.30 std = 0.90
+[EVAL] step = 700000 mean = 0.30 std = 0.90
+[EVAL] step = 710000 mean = 0.30 std = 0.90
+[EVAL] step = 720000 mean = 0.30 std = 0.90
+[EVAL] step = 730000 mean = 0.30 std = 0.90
+[EVAL] step = 740000 mean = 0.30 std = 0.90
+[EVAL] step = 750000 mean = 0.30 std = 0.90
+[EVAL] step = 760000 mean = 0.30 std = 0.90
+[EVAL] step = 770000 mean = 0.30 std = 0.90
+[EVAL] step = 780000 mean = 0.30 std = 0.90
+[EVAL] step = 790000 mean = 0.30 std = 0.90
+[EVAL] step = 800000 mean = 0.30 std = 0.90
+[EVAL] step = 810000 mean = 0.30 std = 0.90
+[EVAL] step = 820000 mean = 0.30 std = 0.90
+[EVAL] step = 830000 mean = 0.30 std = 0.90
+[EVAL] step = 840000 mean = 0.30 std = 0.90
+[EVAL] step = 850000 mean = 0.30 std = 0.90
+[EVAL] step = 860000 mean = 0.30 std = 0.90
+[EVAL] step = 870000 mean = 0.30 std = 0.90
+[EVAL] step = 880000 mean = 0.30 std = 0.90
+[EVAL] step = 890000 mean = 0.30 std = 0.90
+[EVAL] step = 900000 mean = 0.30 std = 0.90
+[EVAL] step = 910000 mean = 0.30 std = 0.90
+[EVAL] step = 920000 mean = 0.30 std = 0.90
+[EVAL] step = 930000 mean = 0.30 std = 0.90
+[EVAL] step = 940000 mean = 0.30 std = 0.90
+[EVAL] step = 950000 mean = 0.30 std = 0.90
+[EVAL] step = 960000 mean = 0.30 std = 0.90
+[EVAL] step = 970000 mean = 0.30 std = 0.90
+[EVAL] step = 980000 mean = 0.30 std = 0.90
+[EVAL] step = 990000 mean = 0.30 std = 0.90
+[EVAL] step = 1000000 mean = 0.30 std = 0.90
+=== avg_fix_default_clip_vanilla seed 3 finished Tue May 12 19:20:31 CEST 2026 ===
+=== plotting avg_fix_default_clip_vanilla on dmcontrol/finger-spin-v0 Tue May 12 19:20:41 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_vanilla/figures
+=== variant avg_fix_default_clip_vanilla finished Tue May 12 19:20:42 CEST 2026 ===
+
+=== variant avg_fix_default_clip_reward started Tue May 12 19:20:42 CEST 2026 ===
+Label: AVG fixed default clipped-action + reward scaling
+Settings: scaling_mode=td_reward use_layer_norm=0 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_reward seed 1 started Tue May 12 19:20:42 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward seed 1 finished Tue May 12 19:43:06 CEST 2026 ===
+=== avg_fix_default_clip_reward seed 2 started Tue May 12 19:43:16 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward seed 2 finished Tue May 12 20:06:39 CEST 2026 ===
+=== avg_fix_default_clip_reward seed 3 started Tue May 12 20:06:49 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 0.10 std = 0.30
+[EVAL] step = 20000 mean = 1.20 std = 2.56
+[EVAL] step = 30000 mean = 1.30 std = 3.90
+[EVAL] step = 40000 mean = 0.30 std = 0.90
+[EVAL] step = 50000 mean = 0.10 std = 0.30
+[EVAL] step = 60000 mean = 0.30 std = 0.90
+[EVAL] step = 70000 mean = 0.30 std = 0.90
+[EVAL] step = 80000 mean = 0.30 std = 0.90
+[EVAL] step = 90000 mean = 0.30 std = 0.90
+[EVAL] step = 100000 mean = 0.30 std = 0.90
+[EVAL] step = 110000 mean = 0.30 std = 0.90
+[EVAL] step = 120000 mean = 0.30 std = 0.90
+[EVAL] step = 130000 mean = 0.30 std = 0.90
+[EVAL] step = 140000 mean = 0.30 std = 0.90
+[EVAL] step = 150000 mean = 0.30 std = 0.90
+[EVAL] step = 160000 mean = 0.30 std = 0.90
+[EVAL] step = 170000 mean = 0.30 std = 0.90
+[EVAL] step = 180000 mean = 0.30 std = 0.90
+[EVAL] step = 190000 mean = 0.30 std = 0.90
+[EVAL] step = 200000 mean = 0.30 std = 0.90
+[EVAL] step = 210000 mean = 0.50 std = 1.50
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.10 std = 0.30
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.80 std = 2.40
+[EVAL] step = 310000 mean = 1.70 std = 3.47
+[EVAL] step = 320000 mean = 2.00 std = 3.19
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 5.40 std = 6.47
+[EVAL] step = 350000 mean = 2.10 std = 2.02
+[EVAL] step = 360000 mean = 3.50 std = 4.25
+[EVAL] step = 370000 mean = 1.60 std = 3.26
+[EVAL] step = 380000 mean = 8.90 std = 7.16
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 2.20 std = 3.71
+[EVAL] step = 410000 mean = 11.60 std = 8.19
+[EVAL] step = 420000 mean = 0.70 std = 1.55
+[EVAL] step = 430000 mean = 20.30 std = 9.06
+[EVAL] step = 440000 mean = 19.80 std = 8.93
+[EVAL] step = 450000 mean = 16.10 std = 7.65
+[EVAL] step = 460000 mean = 10.70 std = 8.32
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 2.10 std = 3.48
+[EVAL] step = 490000 mean = 4.00 std = 5.76
+[EVAL] step = 500000 mean = 3.30 std = 3.07
+[EVAL] step = 510000 mean = 1.90 std = 1.97
+[EVAL] step = 520000 mean = 2.90 std = 3.08
+[EVAL] step = 530000 mean = 5.30 std = 6.97
+[EVAL] step = 540000 mean = 5.50 std = 8.51
+[EVAL] step = 550000 mean = 2.70 std = 3.26
+[EVAL] step = 560000 mean = 4.30 std = 6.71
+[EVAL] step = 570000 mean = 1.30 std = 2.69
+[EVAL] step = 580000 mean = 2.50 std = 4.84
+[EVAL] step = 590000 mean = 0.80 std = 1.66
+[EVAL] step = 600000 mean = 4.10 std = 7.45
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.20 std = 0.60
+[EVAL] step = 630000 mean = 0.10 std = 0.30
+[EVAL] step = 640000 mean = 7.10 std = 7.56
+[EVAL] step = 650000 mean = 3.20 std = 6.78
+[EVAL] step = 660000 mean = 4.10 std = 9.75
+[EVAL] step = 670000 mean = 2.10 std = 3.27
+[EVAL] step = 680000 mean = 1.80 std = 4.02
+[EVAL] step = 690000 mean = 3.60 std = 5.95
+[EVAL] step = 700000 mean = 11.30 std = 13.84
+[EVAL] step = 710000 mean = 12.20 std = 12.02
+[EVAL] step = 720000 mean = 3.60 std = 4.90
+[EVAL] step = 730000 mean = 7.40 std = 10.89
+[EVAL] step = 740000 mean = 3.90 std = 5.75
+[EVAL] step = 750000 mean = 2.20 std = 3.79
+[EVAL] step = 760000 mean = 2.30 std = 3.35
+[EVAL] step = 770000 mean = 5.00 std = 4.60
+[EVAL] step = 780000 mean = 6.80 std = 7.37
+[EVAL] step = 790000 mean = 5.20 std = 9.63
+[EVAL] step = 800000 mean = 3.50 std = 4.36
+[EVAL] step = 810000 mean = 2.90 std = 5.03
+[EVAL] step = 820000 mean = 5.50 std = 5.28
+[EVAL] step = 830000 mean = 15.20 std = 10.93
+[EVAL] step = 840000 mean = 11.10 std = 8.07
+[EVAL] step = 850000 mean = 2.40 std = 3.69
+[EVAL] step = 860000 mean = 15.10 std = 9.20
+[EVAL] step = 870000 mean = 9.60 std = 10.10
+[EVAL] step = 880000 mean = 10.00 std = 8.41
+[EVAL] step = 890000 mean = 13.30 std = 11.89
+[EVAL] step = 900000 mean = 9.10 std = 6.99
+[EVAL] step = 910000 mean = 19.20 std = 17.03
+[EVAL] step = 920000 mean = 25.40 std = 15.44
+[EVAL] step = 930000 mean = 16.40 std = 15.65
+[EVAL] step = 940000 mean = 13.60 std = 14.21
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 3.30 std = 5.98
+[EVAL] step = 980000 mean = 0.90 std = 2.70
+[EVAL] step = 990000 mean = 7.90 std = 11.73
+[EVAL] step = 1000000 mean = 1.50 std = 2.29
+=== avg_fix_default_clip_reward seed 3 finished Tue May 12 20:30:22 CEST 2026 ===
+=== plotting avg_fix_default_clip_reward on dmcontrol/finger-spin-v0 Tue May 12 20:30:32 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_reward/figures
+=== variant avg_fix_default_clip_reward finished Tue May 12 20:30:33 CEST 2026 ===
+
+=== variant avg_fix_default_clip_reward_eta started Tue May 12 20:30:33 CEST 2026 ===
+Label: AVG fixed default clipped-action + reward + eta scaling
+Settings: scaling_mode=td_reward_entropy use_layer_norm=0 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_reward_eta seed 1 started Tue May 12 20:30:33 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_eta seed 1 finished Tue May 12 20:53:32 CEST 2026 ===
+=== avg_fix_default_clip_reward_eta seed 2 started Tue May 12 20:53:42 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_eta seed 2 finished Tue May 12 21:16:28 CEST 2026 ===
+=== avg_fix_default_clip_reward_eta seed 3 started Tue May 12 21:16:38 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: NO (vanilla AVG)
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 0.10 std = 0.30
+[EVAL] step = 20000 mean = 0.70 std = 2.10
+[EVAL] step = 30000 mean = 1.60 std = 2.62
+[EVAL] step = 40000 mean = 1.70 std = 3.41
+[EVAL] step = 50000 mean = 0.80 std = 2.40
+[EVAL] step = 60000 mean = 1.50 std = 3.01
+[EVAL] step = 70000 mean = 1.50 std = 3.01
+[EVAL] step = 80000 mean = 1.50 std = 3.01
+[EVAL] step = 90000 mean = 1.50 std = 3.01
+[EVAL] step = 100000 mean = 1.30 std = 2.69
+[EVAL] step = 110000 mean = 1.50 std = 3.01
+[EVAL] step = 120000 mean = 1.50 std = 3.01
+[EVAL] step = 130000 mean = 1.50 std = 3.01
+[EVAL] step = 140000 mean = 1.50 std = 3.01
+[EVAL] step = 150000 mean = 1.50 std = 3.01
+[EVAL] step = 160000 mean = 1.50 std = 3.01
+[EVAL] step = 170000 mean = 1.50 std = 3.01
+[EVAL] step = 180000 mean = 1.50 std = 3.01
+[EVAL] step = 190000 mean = 1.50 std = 3.01
+[EVAL] step = 200000 mean = 1.50 std = 3.01
+[EVAL] step = 210000 mean = 1.50 std = 3.01
+[EVAL] step = 220000 mean = 1.50 std = 3.01
+[EVAL] step = 230000 mean = 1.50 std = 3.01
+[EVAL] step = 240000 mean = 1.50 std = 3.01
+[EVAL] step = 250000 mean = 1.50 std = 3.01
+[EVAL] step = 260000 mean = 1.50 std = 3.01
+[EVAL] step = 270000 mean = 1.50 std = 3.01
+[EVAL] step = 280000 mean = 1.50 std = 3.01
+[EVAL] step = 290000 mean = 1.50 std = 3.01
+[EVAL] step = 300000 mean = 1.50 std = 3.01
+[EVAL] step = 310000 mean = 1.50 std = 3.01
+[EVAL] step = 320000 mean = 1.50 std = 3.01
+[EVAL] step = 330000 mean = 1.50 std = 3.01
+[EVAL] step = 340000 mean = 1.50 std = 3.01
+[EVAL] step = 350000 mean = 1.50 std = 3.01
+[EVAL] step = 360000 mean = 1.50 std = 3.01
+[EVAL] step = 370000 mean = 1.50 std = 3.01
+[EVAL] step = 380000 mean = 1.50 std = 3.01
+[EVAL] step = 390000 mean = 1.50 std = 3.01
+[EVAL] step = 400000 mean = 1.50 std = 3.01
+[EVAL] step = 410000 mean = 1.50 std = 3.01
+[EVAL] step = 420000 mean = 1.50 std = 3.01
+[EVAL] step = 430000 mean = 1.50 std = 3.01
+[EVAL] step = 440000 mean = 1.50 std = 3.01
+[EVAL] step = 450000 mean = 1.50 std = 3.01
+[EVAL] step = 460000 mean = 1.50 std = 3.01
+[EVAL] step = 470000 mean = 1.50 std = 3.01
+[EVAL] step = 480000 mean = 1.50 std = 3.01
+[EVAL] step = 490000 mean = 1.50 std = 3.01
+[EVAL] step = 500000 mean = 1.50 std = 3.01
+[EVAL] step = 510000 mean = 1.50 std = 3.01
+[EVAL] step = 520000 mean = 1.50 std = 3.01
+[EVAL] step = 530000 mean = 1.50 std = 3.01
+[EVAL] step = 540000 mean = 1.50 std = 3.01
+[EVAL] step = 550000 mean = 1.50 std = 3.01
+[EVAL] step = 560000 mean = 1.50 std = 3.01
+[EVAL] step = 570000 mean = 1.50 std = 3.01
+[EVAL] step = 580000 mean = 1.50 std = 3.01
+[EVAL] step = 590000 mean = 1.50 std = 3.01
+[EVAL] step = 600000 mean = 1.50 std = 3.01
+[EVAL] step = 610000 mean = 1.50 std = 3.01
+[EVAL] step = 620000 mean = 1.50 std = 3.01
+[EVAL] step = 630000 mean = 1.50 std = 3.01
+[EVAL] step = 640000 mean = 1.50 std = 3.01
+[EVAL] step = 650000 mean = 1.50 std = 3.01
+[EVAL] step = 660000 mean = 1.50 std = 3.01
+[EVAL] step = 670000 mean = 1.50 std = 3.01
+[EVAL] step = 680000 mean = 1.50 std = 3.01
+[EVAL] step = 690000 mean = 1.50 std = 3.01
+[EVAL] step = 700000 mean = 1.50 std = 3.01
+[EVAL] step = 710000 mean = 1.50 std = 3.01
+[EVAL] step = 720000 mean = 1.50 std = 3.01
+[EVAL] step = 730000 mean = 1.50 std = 3.01
+[EVAL] step = 740000 mean = 1.50 std = 3.01
+[EVAL] step = 750000 mean = 1.50 std = 3.01
+[EVAL] step = 760000 mean = 1.50 std = 3.01
+[EVAL] step = 770000 mean = 1.50 std = 3.01
+[EVAL] step = 780000 mean = 1.50 std = 3.01
+[EVAL] step = 790000 mean = 1.50 std = 3.01
+[EVAL] step = 800000 mean = 1.50 std = 3.01
+[EVAL] step = 810000 mean = 1.50 std = 3.01
+[EVAL] step = 820000 mean = 1.50 std = 3.01
+[EVAL] step = 830000 mean = 1.50 std = 3.01
+[EVAL] step = 840000 mean = 1.50 std = 3.01
+[EVAL] step = 850000 mean = 1.50 std = 3.01
+[EVAL] step = 860000 mean = 1.50 std = 3.01
+[EVAL] step = 870000 mean = 1.50 std = 3.01
+[EVAL] step = 880000 mean = 1.50 std = 3.01
+[EVAL] step = 890000 mean = 1.50 std = 3.01
+[EVAL] step = 900000 mean = 1.50 std = 3.01
+[EVAL] step = 910000 mean = 1.50 std = 3.01
+[EVAL] step = 920000 mean = 1.50 std = 3.01
+[EVAL] step = 930000 mean = 1.50 std = 3.01
+[EVAL] step = 940000 mean = 1.50 std = 3.01
+[EVAL] step = 950000 mean = 1.50 std = 3.01
+[EVAL] step = 960000 mean = 1.50 std = 3.01
+[EVAL] step = 970000 mean = 1.50 std = 3.01
+[EVAL] step = 980000 mean = 1.50 std = 3.01
+[EVAL] step = 990000 mean = 1.50 std = 3.01
+[EVAL] step = 1000000 mean = 1.50 std = 3.01
+=== avg_fix_default_clip_reward_eta seed 3 finished Tue May 12 21:39:14 CEST 2026 ===
+=== plotting avg_fix_default_clip_reward_eta on dmcontrol/finger-spin-v0 Tue May 12 21:39:24 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_reward_eta/figures
+=== variant avg_fix_default_clip_reward_eta finished Tue May 12 21:39:25 CEST 2026 ===
+
+=== variant avg_fix_default_clip_ln started Tue May 12 21:39:25 CEST 2026 ===
+Label: AVG fixed default clipped-action + LayerNorm
+Settings: scaling_mode=td_only use_layer_norm=1 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_ln seed 1 started Tue May 12 21:39:25 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_ln
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.80 std = 1.40
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_ln seed 1 finished Tue May 12 22:05:26 CEST 2026 ===
+=== avg_fix_default_clip_ln seed 2 started Tue May 12 22:05:36 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_ln
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.90 std = 2.70
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.20 std = 0.60
+[EVAL] step = 50000 mean = 0.80 std = 2.40
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.30 std = 0.90
+[EVAL] step = 80000 mean = 0.80 std = 2.40
+[EVAL] step = 90000 mean = 1.10 std = 3.30
+[EVAL] step = 100000 mean = 0.70 std = 2.10
+[EVAL] step = 110000 mean = 0.80 std = 2.40
+[EVAL] step = 120000 mean = 0.80 std = 2.40
+[EVAL] step = 130000 mean = 0.80 std = 2.40
+[EVAL] step = 140000 mean = 0.80 std = 2.40
+[EVAL] step = 150000 mean = 0.80 std = 2.40
+[EVAL] step = 160000 mean = 0.80 std = 2.40
+[EVAL] step = 170000 mean = 0.80 std = 2.40
+[EVAL] step = 180000 mean = 0.80 std = 2.40
+[EVAL] step = 190000 mean = 0.80 std = 2.40
+[EVAL] step = 200000 mean = 0.80 std = 2.40
+[EVAL] step = 210000 mean = 0.80 std = 2.40
+[EVAL] step = 220000 mean = 0.80 std = 2.40
+[EVAL] step = 230000 mean = 0.80 std = 2.40
+[EVAL] step = 240000 mean = 0.80 std = 2.40
+[EVAL] step = 250000 mean = 0.80 std = 2.40
+[EVAL] step = 260000 mean = 0.80 std = 2.40
+[EVAL] step = 270000 mean = 0.80 std = 2.40
+[EVAL] step = 280000 mean = 0.80 std = 2.40
+[EVAL] step = 290000 mean = 0.80 std = 2.40
+[EVAL] step = 300000 mean = 0.80 std = 2.40
+[EVAL] step = 310000 mean = 0.80 std = 2.40
+[EVAL] step = 320000 mean = 0.80 std = 2.40
+[EVAL] step = 330000 mean = 0.80 std = 2.40
+[EVAL] step = 340000 mean = 1.00 std = 3.00
+[EVAL] step = 350000 mean = 0.80 std = 2.40
+[EVAL] step = 360000 mean = 0.80 std = 2.40
+[EVAL] step = 370000 mean = 0.80 std = 2.40
+[EVAL] step = 380000 mean = 0.80 std = 2.40
+[EVAL] step = 390000 mean = 0.80 std = 2.40
+[EVAL] step = 400000 mean = 0.80 std = 2.40
+[EVAL] step = 410000 mean = 0.80 std = 2.40
+[EVAL] step = 420000 mean = 0.80 std = 2.40
+[EVAL] step = 430000 mean = 0.80 std = 2.40
+[EVAL] step = 440000 mean = 0.80 std = 2.40
+[EVAL] step = 450000 mean = 0.80 std = 2.40
+[EVAL] step = 460000 mean = 0.80 std = 2.40
+[EVAL] step = 470000 mean = 0.80 std = 2.40
+[EVAL] step = 480000 mean = 0.80 std = 2.40
+[EVAL] step = 490000 mean = 0.80 std = 2.40
+[EVAL] step = 500000 mean = 0.80 std = 2.40
+[EVAL] step = 510000 mean = 0.80 std = 2.40
+[EVAL] step = 520000 mean = 0.80 std = 2.40
+[EVAL] step = 530000 mean = 0.60 std = 1.80
+[EVAL] step = 540000 mean = 0.80 std = 2.40
+[EVAL] step = 550000 mean = 0.80 std = 2.40
+[EVAL] step = 560000 mean = 0.80 std = 2.40
+[EVAL] step = 570000 mean = 0.80 std = 2.40
+[EVAL] step = 580000 mean = 0.80 std = 2.40
+[EVAL] step = 590000 mean = 0.80 std = 2.40
+[EVAL] step = 600000 mean = 0.80 std = 2.40
+[EVAL] step = 610000 mean = 0.80 std = 2.40
+[EVAL] step = 620000 mean = 0.80 std = 2.40
+[EVAL] step = 630000 mean = 0.80 std = 2.40
+[EVAL] step = 640000 mean = 0.80 std = 2.40
+[EVAL] step = 650000 mean = 0.80 std = 2.40
+[EVAL] step = 660000 mean = 0.80 std = 2.40
+[EVAL] step = 670000 mean = 0.80 std = 2.40
+[EVAL] step = 680000 mean = 0.80 std = 2.40
+[EVAL] step = 690000 mean = 0.80 std = 2.40
+[EVAL] step = 700000 mean = 0.80 std = 2.40
+[EVAL] step = 710000 mean = 0.80 std = 2.40
+[EVAL] step = 720000 mean = 0.80 std = 2.40
+[EVAL] step = 730000 mean = 0.80 std = 2.40
+[EVAL] step = 740000 mean = 0.80 std = 2.40
+[EVAL] step = 750000 mean = 0.80 std = 2.40
+[EVAL] step = 760000 mean = 0.80 std = 2.40
+[EVAL] step = 770000 mean = 0.80 std = 2.40
+[EVAL] step = 780000 mean = 0.80 std = 2.40
+[EVAL] step = 790000 mean = 0.80 std = 2.40
+[EVAL] step = 800000 mean = 0.80 std = 2.40
+[EVAL] step = 810000 mean = 0.80 std = 2.40
+[EVAL] step = 820000 mean = 0.80 std = 2.40
+[EVAL] step = 830000 mean = 0.80 std = 2.40
+[EVAL] step = 840000 mean = 0.80 std = 2.40
+[EVAL] step = 850000 mean = 0.80 std = 2.40
+[EVAL] step = 860000 mean = 0.80 std = 2.40
+[EVAL] step = 870000 mean = 0.80 std = 2.40
+[EVAL] step = 880000 mean = 0.80 std = 2.40
+[EVAL] step = 890000 mean = 0.80 std = 2.40
+[EVAL] step = 900000 mean = 0.80 std = 2.40
+[EVAL] step = 910000 mean = 0.80 std = 2.40
+[EVAL] step = 920000 mean = 0.80 std = 2.40
+[EVAL] step = 930000 mean = 0.80 std = 2.40
+[EVAL] step = 940000 mean = 0.80 std = 2.40
+[EVAL] step = 950000 mean = 0.80 std = 2.40
+[EVAL] step = 960000 mean = 0.80 std = 2.40
+[EVAL] step = 970000 mean = 0.80 std = 2.40
+[EVAL] step = 980000 mean = 0.80 std = 2.40
+[EVAL] step = 990000 mean = 0.80 std = 2.40
+[EVAL] step = 1000000 mean = 0.80 std = 2.40
+=== avg_fix_default_clip_ln seed 2 finished Tue May 12 22:31:25 CEST 2026 ===
+=== avg_fix_default_clip_ln seed 3 started Tue May 12 22:31:35 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_ln
+Scaling Mode: td_only
+TD-error scaling only (baseline from paper)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 1.90 std = 3.81
+[EVAL] step = 20000 mean = 0.90 std = 2.70
+[EVAL] step = 30000 mean = 1.90 std = 3.21
+[EVAL] step = 40000 mean = 1.70 std = 3.41
+[EVAL] step = 50000 mean = 0.80 std = 2.40
+[EVAL] step = 60000 mean = 1.50 std = 3.01
+[EVAL] step = 70000 mean = 1.50 std = 3.01
+[EVAL] step = 80000 mean = 1.50 std = 3.01
+[EVAL] step = 90000 mean = 1.50 std = 3.01
+[EVAL] step = 100000 mean = 1.50 std = 3.01
+[EVAL] step = 110000 mean = 1.50 std = 3.01
+[EVAL] step = 120000 mean = 1.50 std = 3.01
+[EVAL] step = 130000 mean = 1.50 std = 3.01
+[EVAL] step = 140000 mean = 1.50 std = 3.01
+[EVAL] step = 150000 mean = 1.50 std = 3.01
+[EVAL] step = 160000 mean = 1.50 std = 3.01
+[EVAL] step = 170000 mean = 1.50 std = 3.01
+[EVAL] step = 180000 mean = 1.50 std = 3.01
+[EVAL] step = 190000 mean = 1.50 std = 3.01
+[EVAL] step = 200000 mean = 1.50 std = 3.01
+[EVAL] step = 210000 mean = 1.50 std = 3.01
+[EVAL] step = 220000 mean = 1.50 std = 3.01
+[EVAL] step = 230000 mean = 1.50 std = 3.01
+[EVAL] step = 240000 mean = 1.50 std = 3.01
+[EVAL] step = 250000 mean = 1.50 std = 3.01
+[EVAL] step = 260000 mean = 1.50 std = 3.01
+[EVAL] step = 270000 mean = 1.50 std = 3.01
+[EVAL] step = 280000 mean = 1.50 std = 3.01
+[EVAL] step = 290000 mean = 1.50 std = 3.01
+[EVAL] step = 300000 mean = 1.50 std = 3.01
+[EVAL] step = 310000 mean = 1.50 std = 3.01
+[EVAL] step = 320000 mean = 1.50 std = 3.01
+[EVAL] step = 330000 mean = 1.50 std = 3.01
+[EVAL] step = 340000 mean = 1.50 std = 3.01
+[EVAL] step = 350000 mean = 1.50 std = 3.01
+[EVAL] step = 360000 mean = 1.50 std = 3.01
+[EVAL] step = 370000 mean = 1.50 std = 3.01
+[EVAL] step = 380000 mean = 1.50 std = 3.01
+[EVAL] step = 390000 mean = 1.50 std = 3.01
+[EVAL] step = 400000 mean = 1.50 std = 3.01
+[EVAL] step = 410000 mean = 1.50 std = 3.01
+[EVAL] step = 420000 mean = 1.50 std = 3.01
+[EVAL] step = 430000 mean = 1.50 std = 3.01
+[EVAL] step = 440000 mean = 1.50 std = 3.01
+[EVAL] step = 450000 mean = 1.50 std = 3.01
+[EVAL] step = 460000 mean = 1.50 std = 3.01
+[EVAL] step = 470000 mean = 1.50 std = 3.01
+[EVAL] step = 480000 mean = 1.50 std = 3.01
+[EVAL] step = 490000 mean = 1.50 std = 3.01
+[EVAL] step = 500000 mean = 1.50 std = 3.01
+[EVAL] step = 510000 mean = 1.50 std = 3.01
+[EVAL] step = 520000 mean = 1.50 std = 3.01
+[EVAL] step = 530000 mean = 1.50 std = 3.01
+[EVAL] step = 540000 mean = 1.50 std = 3.01
+[EVAL] step = 550000 mean = 1.50 std = 3.01
+[EVAL] step = 560000 mean = 1.50 std = 3.01
+[EVAL] step = 570000 mean = 1.50 std = 3.01
+[EVAL] step = 580000 mean = 1.50 std = 3.01
+[EVAL] step = 590000 mean = 1.50 std = 3.01
+[EVAL] step = 600000 mean = 1.50 std = 3.01
+[EVAL] step = 610000 mean = 1.50 std = 3.01
+[EVAL] step = 620000 mean = 1.50 std = 3.01
+[EVAL] step = 630000 mean = 1.50 std = 3.01
+[EVAL] step = 640000 mean = 1.50 std = 3.01
+[EVAL] step = 650000 mean = 1.50 std = 3.01
+[EVAL] step = 660000 mean = 1.50 std = 3.01
+[EVAL] step = 670000 mean = 1.50 std = 3.01
+[EVAL] step = 680000 mean = 1.50 std = 3.01
+[EVAL] step = 690000 mean = 1.50 std = 3.01
+[EVAL] step = 700000 mean = 1.50 std = 3.01
+[EVAL] step = 710000 mean = 1.50 std = 3.01
+[EVAL] step = 720000 mean = 1.50 std = 3.01
+[EVAL] step = 730000 mean = 1.50 std = 3.01
+[EVAL] step = 740000 mean = 1.50 std = 3.01
+[EVAL] step = 750000 mean = 1.50 std = 3.01
+[EVAL] step = 760000 mean = 1.50 std = 3.01
+[EVAL] step = 770000 mean = 1.50 std = 3.01
+[EVAL] step = 780000 mean = 1.50 std = 3.01
+[EVAL] step = 790000 mean = 1.50 std = 3.01
+[EVAL] step = 800000 mean = 1.50 std = 3.01
+[EVAL] step = 810000 mean = 1.50 std = 3.01
+[EVAL] step = 820000 mean = 1.50 std = 3.01
+[EVAL] step = 830000 mean = 1.50 std = 3.01
+[EVAL] step = 840000 mean = 1.50 std = 3.01
+[EVAL] step = 850000 mean = 1.50 std = 3.01
+[EVAL] step = 860000 mean = 1.50 std = 3.01
+[EVAL] step = 870000 mean = 1.50 std = 3.01
+[EVAL] step = 880000 mean = 1.50 std = 3.01
+[EVAL] step = 890000 mean = 1.50 std = 3.01
+[EVAL] step = 900000 mean = 1.50 std = 3.01
+[EVAL] step = 910000 mean = 1.50 std = 3.01
+[EVAL] step = 920000 mean = 1.50 std = 3.01
+[EVAL] step = 930000 mean = 1.50 std = 3.01
+[EVAL] step = 940000 mean = 1.50 std = 3.01
+[EVAL] step = 950000 mean = 1.50 std = 3.01
+[EVAL] step = 960000 mean = 1.50 std = 3.01
+[EVAL] step = 970000 mean = 1.50 std = 3.01
+[EVAL] step = 980000 mean = 1.50 std = 3.01
+[EVAL] step = 990000 mean = 1.50 std = 3.01
+[EVAL] step = 1000000 mean = 1.50 std = 3.01
+=== avg_fix_default_clip_ln seed 3 finished Tue May 12 22:56:58 CEST 2026 ===
+=== plotting avg_fix_default_clip_ln on dmcontrol/finger-spin-v0 Tue May 12 22:57:08 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_ln/figures
+=== variant avg_fix_default_clip_ln finished Tue May 12 22:57:08 CEST 2026 ===
+
+=== variant avg_fix_default_clip_reward_ln started Tue May 12 22:57:08 CEST 2026 ===
+Label: AVG fixed default clipped-action + reward scaling + LayerNorm
+Settings: scaling_mode=td_reward use_layer_norm=1 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_reward_ln seed 1 started Tue May 12 22:57:08 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_ln
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_ln seed 1 finished Tue May 12 23:22:25 CEST 2026 ===
+=== avg_fix_default_clip_reward_ln seed 2 started Tue May 12 23:22:35 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_ln
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.40 std = 1.20
+[EVAL] step = 20000 mean = 0.60 std = 1.80
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.80 std = 2.40
+[EVAL] step = 50000 mean = 0.80 std = 2.40
+[EVAL] step = 60000 mean = 0.80 std = 2.40
+[EVAL] step = 70000 mean = 0.80 std = 2.40
+[EVAL] step = 80000 mean = 0.80 std = 2.40
+[EVAL] step = 90000 mean = 0.80 std = 2.40
+[EVAL] step = 100000 mean = 0.80 std = 2.40
+[EVAL] step = 110000 mean = 0.80 std = 2.40
+[EVAL] step = 120000 mean = 0.80 std = 2.40
+[EVAL] step = 130000 mean = 0.80 std = 2.40
+[EVAL] step = 140000 mean = 0.80 std = 2.40
+[EVAL] step = 150000 mean = 0.80 std = 2.40
+[EVAL] step = 160000 mean = 0.80 std = 2.40
+[EVAL] step = 170000 mean = 0.80 std = 2.40
+[EVAL] step = 180000 mean = 0.80 std = 2.40
+[EVAL] step = 190000 mean = 0.80 std = 2.40
+[EVAL] step = 200000 mean = 0.80 std = 2.40
+[EVAL] step = 210000 mean = 0.80 std = 2.40
+[EVAL] step = 220000 mean = 0.80 std = 2.40
+[EVAL] step = 230000 mean = 0.80 std = 2.40
+[EVAL] step = 240000 mean = 0.80 std = 2.40
+[EVAL] step = 250000 mean = 0.80 std = 2.40
+[EVAL] step = 260000 mean = 0.80 std = 2.40
+[EVAL] step = 270000 mean = 0.80 std = 2.40
+[EVAL] step = 280000 mean = 0.80 std = 2.40
+[EVAL] step = 290000 mean = 0.80 std = 2.40
+[EVAL] step = 300000 mean = 0.80 std = 2.40
+[EVAL] step = 310000 mean = 0.80 std = 2.40
+[EVAL] step = 320000 mean = 0.80 std = 2.40
+[EVAL] step = 330000 mean = 0.80 std = 2.40
+[EVAL] step = 340000 mean = 1.00 std = 3.00
+[EVAL] step = 350000 mean = 0.80 std = 2.40
+[EVAL] step = 360000 mean = 0.80 std = 2.40
+[EVAL] step = 370000 mean = 0.80 std = 2.40
+[EVAL] step = 380000 mean = 0.80 std = 2.40
+[EVAL] step = 390000 mean = 0.80 std = 2.40
+[EVAL] step = 400000 mean = 0.80 std = 2.40
+[EVAL] step = 410000 mean = 0.80 std = 2.40
+[EVAL] step = 420000 mean = 0.80 std = 2.40
+[EVAL] step = 430000 mean = 0.80 std = 2.40
+[EVAL] step = 440000 mean = 0.80 std = 2.40
+[EVAL] step = 450000 mean = 0.80 std = 2.40
+[EVAL] step = 460000 mean = 0.80 std = 2.40
+[EVAL] step = 470000 mean = 0.60 std = 1.80
+[EVAL] step = 480000 mean = 0.80 std = 2.40
+[EVAL] step = 490000 mean = 0.80 std = 2.40
+[EVAL] step = 500000 mean = 0.80 std = 2.40
+[EVAL] step = 510000 mean = 0.80 std = 2.40
+[EVAL] step = 520000 mean = 0.20 std = 0.60
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.80 std = 2.40
+[EVAL] step = 550000 mean = 0.80 std = 2.40
+[EVAL] step = 560000 mean = 0.80 std = 2.40
+[EVAL] step = 570000 mean = 0.50 std = 1.50
+[EVAL] step = 580000 mean = 0.30 std = 0.90
+[EVAL] step = 590000 mean = 0.80 std = 2.40
+[EVAL] step = 600000 mean = 0.80 std = 2.40
+[EVAL] step = 610000 mean = 0.80 std = 2.40
+[EVAL] step = 620000 mean = 0.80 std = 2.40
+[EVAL] step = 630000 mean = 0.80 std = 2.40
+[EVAL] step = 640000 mean = 1.10 std = 3.30
+[EVAL] step = 650000 mean = 0.40 std = 1.20
+[EVAL] step = 660000 mean = 0.40 std = 1.20
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_ln seed 2 finished Tue May 12 23:49:12 CEST 2026 ===
+=== avg_fix_default_clip_reward_ln seed 3 started Tue May 12 23:49:22 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_ln
+Scaling Mode: td_reward
+TD-error + internal reward rescaling (scale by Var[r]^0.5)
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_ln seed 3 finished Wed May 13 00:15:08 CEST 2026 ===
+=== plotting avg_fix_default_clip_reward_ln on dmcontrol/finger-spin-v0 Wed May 13 00:15:18 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_reward_ln/figures
+=== variant avg_fix_default_clip_reward_ln finished Wed May 13 00:15:19 CEST 2026 ===
+
+=== variant avg_fix_default_clip_reward_eta_ln started Wed May 13 00:15:19 CEST 2026 ===
+Label: AVG fixed default clipped-action + reward + eta scaling + LayerNorm
+Settings: scaling_mode=td_reward_entropy use_layer_norm=1 action_distribution=clipped_normal
+Hyperparameters: actor_lr=0.0003 critic_lr=0.0003 betas=Adam defaults alpha_lr=0.07 gamma=0.99
+=== avg_fix_default_clip_reward_eta_ln seed 1 started Wed May 13 00:15:19 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta_ln
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 1
+======================================================================
+
+[EVAL] step = 10000 mean = 0.40 std = 1.20
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.30 std = 0.90
+[EVAL] step = 40000 mean = 0.80 std = 2.40
+[EVAL] step = 50000 mean = 0.80 std = 2.40
+[EVAL] step = 60000 mean = 0.80 std = 2.40
+[EVAL] step = 70000 mean = 0.80 std = 2.40
+[EVAL] step = 80000 mean = 0.80 std = 2.40
+[EVAL] step = 90000 mean = 0.80 std = 2.40
+[EVAL] step = 100000 mean = 0.80 std = 2.40
+[EVAL] step = 110000 mean = 0.80 std = 2.40
+[EVAL] step = 120000 mean = 0.80 std = 2.40
+[EVAL] step = 130000 mean = 0.80 std = 2.40
+[EVAL] step = 140000 mean = 0.80 std = 2.40
+[EVAL] step = 150000 mean = 0.80 std = 2.40
+[EVAL] step = 160000 mean = 0.80 std = 2.40
+[EVAL] step = 170000 mean = 0.80 std = 2.40
+[EVAL] step = 180000 mean = 0.80 std = 2.40
+[EVAL] step = 190000 mean = 0.80 std = 2.40
+[EVAL] step = 200000 mean = 0.80 std = 2.40
+[EVAL] step = 210000 mean = 0.80 std = 2.40
+[EVAL] step = 220000 mean = 0.80 std = 2.40
+[EVAL] step = 230000 mean = 0.80 std = 2.40
+[EVAL] step = 240000 mean = 0.80 std = 2.40
+[EVAL] step = 250000 mean = 0.80 std = 2.40
+[EVAL] step = 260000 mean = 0.80 std = 2.40
+[EVAL] step = 270000 mean = 0.80 std = 2.40
+[EVAL] step = 280000 mean = 0.80 std = 2.40
+[EVAL] step = 290000 mean = 0.80 std = 2.40
+[EVAL] step = 300000 mean = 0.80 std = 2.40
+[EVAL] step = 310000 mean = 0.80 std = 2.40
+[EVAL] step = 320000 mean = 0.80 std = 2.40
+[EVAL] step = 330000 mean = 0.80 std = 2.40
+[EVAL] step = 340000 mean = 0.80 std = 2.40
+[EVAL] step = 350000 mean = 0.80 std = 2.40
+[EVAL] step = 360000 mean = 0.80 std = 2.40
+[EVAL] step = 370000 mean = 0.80 std = 2.40
+[EVAL] step = 380000 mean = 0.80 std = 2.40
+[EVAL] step = 390000 mean = 0.80 std = 2.40
+[EVAL] step = 400000 mean = 0.80 std = 2.40
+[EVAL] step = 410000 mean = 0.80 std = 2.40
+[EVAL] step = 420000 mean = 0.80 std = 2.40
+[EVAL] step = 430000 mean = 0.80 std = 2.40
+[EVAL] step = 440000 mean = 0.80 std = 2.40
+[EVAL] step = 450000 mean = 0.80 std = 2.40
+[EVAL] step = 460000 mean = 0.80 std = 2.40
+[EVAL] step = 470000 mean = 0.80 std = 2.40
+[EVAL] step = 480000 mean = 0.80 std = 2.40
+[EVAL] step = 490000 mean = 0.80 std = 2.40
+[EVAL] step = 500000 mean = 0.80 std = 2.40
+[EVAL] step = 510000 mean = 0.80 std = 2.40
+[EVAL] step = 520000 mean = 0.80 std = 2.40
+[EVAL] step = 530000 mean = 0.80 std = 2.40
+[EVAL] step = 540000 mean = 0.80 std = 2.40
+[EVAL] step = 550000 mean = 0.80 std = 2.40
+[EVAL] step = 560000 mean = 0.80 std = 2.40
+[EVAL] step = 570000 mean = 0.80 std = 2.40
+[EVAL] step = 580000 mean = 0.80 std = 2.40
+[EVAL] step = 590000 mean = 0.80 std = 2.40
+[EVAL] step = 600000 mean = 0.80 std = 2.40
+[EVAL] step = 610000 mean = 0.80 std = 2.40
+[EVAL] step = 620000 mean = 0.80 std = 2.40
+[EVAL] step = 630000 mean = 0.80 std = 2.40
+[EVAL] step = 640000 mean = 0.80 std = 2.40
+[EVAL] step = 650000 mean = 0.80 std = 2.40
+[EVAL] step = 660000 mean = 0.80 std = 2.40
+[EVAL] step = 670000 mean = 0.80 std = 2.40
+[EVAL] step = 680000 mean = 0.80 std = 2.40
+[EVAL] step = 690000 mean = 0.80 std = 2.40
+[EVAL] step = 700000 mean = 0.80 std = 2.40
+[EVAL] step = 710000 mean = 0.80 std = 2.40
+[EVAL] step = 720000 mean = 0.80 std = 2.40
+[EVAL] step = 730000 mean = 0.80 std = 2.40
+[EVAL] step = 740000 mean = 0.80 std = 2.40
+[EVAL] step = 750000 mean = 0.80 std = 2.40
+[EVAL] step = 760000 mean = 0.80 std = 2.40
+[EVAL] step = 770000 mean = 0.80 std = 2.40
+[EVAL] step = 780000 mean = 0.80 std = 2.40
+[EVAL] step = 790000 mean = 0.80 std = 2.40
+[EVAL] step = 800000 mean = 0.80 std = 2.40
+[EVAL] step = 810000 mean = 0.80 std = 2.40
+[EVAL] step = 820000 mean = 0.80 std = 2.40
+[EVAL] step = 830000 mean = 0.80 std = 2.40
+[EVAL] step = 840000 mean = 0.80 std = 2.40
+[EVAL] step = 850000 mean = 0.80 std = 2.40
+[EVAL] step = 860000 mean = 0.80 std = 2.40
+[EVAL] step = 870000 mean = 0.80 std = 2.40
+[EVAL] step = 880000 mean = 0.80 std = 2.40
+[EVAL] step = 890000 mean = 0.80 std = 2.40
+[EVAL] step = 900000 mean = 0.80 std = 2.40
+[EVAL] step = 910000 mean = 0.80 std = 2.40
+[EVAL] step = 920000 mean = 0.80 std = 2.40
+[EVAL] step = 930000 mean = 0.80 std = 2.40
+[EVAL] step = 940000 mean = 0.80 std = 2.40
+[EVAL] step = 950000 mean = 0.80 std = 2.40
+[EVAL] step = 960000 mean = 0.80 std = 2.40
+[EVAL] step = 970000 mean = 0.80 std = 2.40
+[EVAL] step = 980000 mean = 0.80 std = 2.40
+[EVAL] step = 990000 mean = 0.80 std = 2.40
+[EVAL] step = 1000000 mean = 0.80 std = 2.40
+=== avg_fix_default_clip_reward_eta_ln seed 1 finished Wed May 13 00:40:08 CEST 2026 ===
+=== avg_fix_default_clip_reward_eta_ln seed 2 started Wed May 13 00:40:18 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta_ln
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 2
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_eta_ln seed 2 finished Wed May 13 01:05:14 CEST 2026 ===
+=== avg_fix_default_clip_reward_eta_ln seed 3 started Wed May 13 01:05:24 CEST 2026 ===
+
+======================================================================
+AVG Algorithm - Faithful Implementation with Scaling Ablations
+======================================================================
+Variant: avg_fix_default_clip_reward_eta_ln
+Scaling Mode: td_reward_entropy
+TD-error + internal reward rescaling + entropy scaling
+LayerNorm in hidden layers: YES
+Environment: finger-spin-v0 (dmcontrol)
+Total Steps: 1000000
+Seed: 3
+======================================================================
+
+[EVAL] step = 10000 mean = 0.00 std = 0.00
+[EVAL] step = 20000 mean = 0.00 std = 0.00
+[EVAL] step = 30000 mean = 0.00 std = 0.00
+[EVAL] step = 40000 mean = 0.00 std = 0.00
+[EVAL] step = 50000 mean = 0.00 std = 0.00
+[EVAL] step = 60000 mean = 0.00 std = 0.00
+[EVAL] step = 70000 mean = 0.00 std = 0.00
+[EVAL] step = 80000 mean = 0.00 std = 0.00
+[EVAL] step = 90000 mean = 0.00 std = 0.00
+[EVAL] step = 100000 mean = 0.00 std = 0.00
+[EVAL] step = 110000 mean = 0.00 std = 0.00
+[EVAL] step = 120000 mean = 0.00 std = 0.00
+[EVAL] step = 130000 mean = 0.00 std = 0.00
+[EVAL] step = 140000 mean = 0.00 std = 0.00
+[EVAL] step = 150000 mean = 0.00 std = 0.00
+[EVAL] step = 160000 mean = 0.00 std = 0.00
+[EVAL] step = 170000 mean = 0.00 std = 0.00
+[EVAL] step = 180000 mean = 0.00 std = 0.00
+[EVAL] step = 190000 mean = 0.00 std = 0.00
+[EVAL] step = 200000 mean = 0.00 std = 0.00
+[EVAL] step = 210000 mean = 0.00 std = 0.00
+[EVAL] step = 220000 mean = 0.00 std = 0.00
+[EVAL] step = 230000 mean = 0.00 std = 0.00
+[EVAL] step = 240000 mean = 0.00 std = 0.00
+[EVAL] step = 250000 mean = 0.00 std = 0.00
+[EVAL] step = 260000 mean = 0.00 std = 0.00
+[EVAL] step = 270000 mean = 0.00 std = 0.00
+[EVAL] step = 280000 mean = 0.00 std = 0.00
+[EVAL] step = 290000 mean = 0.00 std = 0.00
+[EVAL] step = 300000 mean = 0.00 std = 0.00
+[EVAL] step = 310000 mean = 0.00 std = 0.00
+[EVAL] step = 320000 mean = 0.00 std = 0.00
+[EVAL] step = 330000 mean = 0.00 std = 0.00
+[EVAL] step = 340000 mean = 0.00 std = 0.00
+[EVAL] step = 350000 mean = 0.00 std = 0.00
+[EVAL] step = 360000 mean = 0.00 std = 0.00
+[EVAL] step = 370000 mean = 0.00 std = 0.00
+[EVAL] step = 380000 mean = 0.00 std = 0.00
+[EVAL] step = 390000 mean = 0.00 std = 0.00
+[EVAL] step = 400000 mean = 0.00 std = 0.00
+[EVAL] step = 410000 mean = 0.00 std = 0.00
+[EVAL] step = 420000 mean = 0.00 std = 0.00
+[EVAL] step = 430000 mean = 0.00 std = 0.00
+[EVAL] step = 440000 mean = 0.00 std = 0.00
+[EVAL] step = 450000 mean = 0.00 std = 0.00
+[EVAL] step = 460000 mean = 0.00 std = 0.00
+[EVAL] step = 470000 mean = 0.00 std = 0.00
+[EVAL] step = 480000 mean = 0.00 std = 0.00
+[EVAL] step = 490000 mean = 0.00 std = 0.00
+[EVAL] step = 500000 mean = 0.00 std = 0.00
+[EVAL] step = 510000 mean = 0.00 std = 0.00
+[EVAL] step = 520000 mean = 0.00 std = 0.00
+[EVAL] step = 530000 mean = 0.00 std = 0.00
+[EVAL] step = 540000 mean = 0.00 std = 0.00
+[EVAL] step = 550000 mean = 0.00 std = 0.00
+[EVAL] step = 560000 mean = 0.00 std = 0.00
+[EVAL] step = 570000 mean = 0.00 std = 0.00
+[EVAL] step = 580000 mean = 0.00 std = 0.00
+[EVAL] step = 590000 mean = 0.00 std = 0.00
+[EVAL] step = 600000 mean = 0.00 std = 0.00
+[EVAL] step = 610000 mean = 0.00 std = 0.00
+[EVAL] step = 620000 mean = 0.00 std = 0.00
+[EVAL] step = 630000 mean = 0.00 std = 0.00
+[EVAL] step = 640000 mean = 0.00 std = 0.00
+[EVAL] step = 650000 mean = 0.00 std = 0.00
+[EVAL] step = 660000 mean = 0.00 std = 0.00
+[EVAL] step = 670000 mean = 0.00 std = 0.00
+[EVAL] step = 680000 mean = 0.00 std = 0.00
+[EVAL] step = 690000 mean = 0.00 std = 0.00
+[EVAL] step = 700000 mean = 0.00 std = 0.00
+[EVAL] step = 710000 mean = 0.00 std = 0.00
+[EVAL] step = 720000 mean = 0.00 std = 0.00
+[EVAL] step = 730000 mean = 0.00 std = 0.00
+[EVAL] step = 740000 mean = 0.00 std = 0.00
+[EVAL] step = 750000 mean = 0.00 std = 0.00
+[EVAL] step = 760000 mean = 0.00 std = 0.00
+[EVAL] step = 770000 mean = 0.00 std = 0.00
+[EVAL] step = 780000 mean = 0.00 std = 0.00
+[EVAL] step = 790000 mean = 0.00 std = 0.00
+[EVAL] step = 800000 mean = 0.00 std = 0.00
+[EVAL] step = 810000 mean = 0.00 std = 0.00
+[EVAL] step = 820000 mean = 0.00 std = 0.00
+[EVAL] step = 830000 mean = 0.00 std = 0.00
+[EVAL] step = 840000 mean = 0.00 std = 0.00
+[EVAL] step = 850000 mean = 0.00 std = 0.00
+[EVAL] step = 860000 mean = 0.00 std = 0.00
+[EVAL] step = 870000 mean = 0.00 std = 0.00
+[EVAL] step = 880000 mean = 0.00 std = 0.00
+[EVAL] step = 890000 mean = 0.00 std = 0.00
+[EVAL] step = 900000 mean = 0.00 std = 0.00
+[EVAL] step = 910000 mean = 0.00 std = 0.00
+[EVAL] step = 920000 mean = 0.00 std = 0.00
+[EVAL] step = 930000 mean = 0.00 std = 0.00
+[EVAL] step = 940000 mean = 0.00 std = 0.00
+[EVAL] step = 950000 mean = 0.00 std = 0.00
+[EVAL] step = 960000 mean = 0.00 std = 0.00
+[EVAL] step = 970000 mean = 0.00 std = 0.00
+[EVAL] step = 980000 mean = 0.00 std = 0.00
+[EVAL] step = 990000 mean = 0.00 std = 0.00
+[EVAL] step = 1000000 mean = 0.00 std = 0.00
+=== avg_fix_default_clip_reward_eta_ln seed 3 finished Wed May 13 01:30:28 CEST 2026 ===
+=== plotting avg_fix_default_clip_reward_eta_ln on dmcontrol/finger-spin-v0 Wed May 13 01:30:38 CEST 2026 ===
+Plots saved in results/dmcontrol/avg_fix_default_clip_reward_eta_ln/figures
+=== variant avg_fix_default_clip_reward_eta_ln finished Wed May 13 01:30:39 CEST 2026 ===
+=== comparing variants on dmcontrol/finger-spin-v0 Wed May 13 01:30:39 CEST 2026 ===
+Saved evaluation comparison to: results/dmcontrol/comparisons/finger-spin-v0_avg_fix_default_clip_finger_spin_eval.png
+Saved training comparison to: results/dmcontrol/comparisons/finger-spin-v0_avg_fix_default_clip_finger_spin_train.png
+Saved summary table to: results/dmcontrol/comparisons/finger-spin-v0_avg_fix_default_clip_finger_spin_summary.csv
+
+Ranking by final evaluation mean:
+                                                            variant  final_eval_mean  best_eval_mean
+                       AVG fixed default clipped-action + LayerNorm         0.766667        1.200000
+                  AVG fixed default clipped-action + reward scaling         0.500000        8.466667
+            AVG fixed default clipped-action + reward + eta scaling         0.500000        0.566667
+                           AVG fixed default clipped-action vanilla         0.366667        0.433333
+AVG fixed default clipped-action + reward + eta scaling + LayerNorm         0.266667        0.266667
+      AVG fixed default clipped-action + reward scaling + LayerNorm         0.000000        0.366667
+=== task dmcontrol/finger-spin-v0 finished Wed May 13 01:30:40 CEST 2026 ===
+
+=== AVG fixed full rerun finished Wed May 13 01:30:40 CEST 2026 ===

@@ -1,0 +1,2 @@
+environment,final_step,final_mean_eval_return,final_std_eval_return,final_ci95_low,final_ci95_high
+finger-spin-v0,1000000,0.7666666666666666,0.7505553499465135,-0.08266666666666678,1.616
